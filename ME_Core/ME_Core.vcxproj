@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Angle.h" />
     <ClInclude Include="Source\Colour.h" />
     <ClInclude Include="Source\Log.h" />
     <ClInclude Include="Source\Manager.h" />
@@ -24,8 +25,10 @@
     <ClInclude Include="Source\Texture.h" />
     <ClInclude Include="Source\Window.h" />
     <ClInclude Include="Source\Transform.h" />
+    <ClInclude Include="Source\Vector2.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Angle.cpp" />
     <ClCompile Include="Source\Colour.cpp" />
     <ClCompile Include="Source\Log.cpp" />
     <ClCompile Include="Source\Manager.cpp" />
@@ -36,6 +39,7 @@
     <ClCompile Include="Source\Texture.cpp" />
     <ClCompile Include="Source\Window.cpp" />
     <ClCompile Include="Source\Transform.cpp" />
+    <ClCompile Include="Source\Vector2.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
