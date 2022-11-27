@@ -14,7 +14,13 @@
 
 namespace ME
 {
-	template <int MAX_ENTITIES, int MAX_EACH_COMPONENT, int MAX_TEXTURES>
+	//
+	// Owns window and render.
+	// Starts the game loop when 'Run' is called.
+	//
+	// Template to change size of the contiguous memory allocation.
+	//
+	template <int MAX_ENTITIES, int MAX_EACH_COMPONENT, int MAX_TEXTURES>	
 	class Engine
 	{
 	public:
@@ -23,7 +29,7 @@ namespace ME
 		/* Create Window and Renderer */
 		Engine(const char* title, const int width, const int height) :
 			m_Window(Window(title, width, height)),
-			m_Renderer(Renderer(m_Window.GetWindow())),
+			m_Renderer(Renderer(m_Window)),
 			m_Event(SDL_Event()),
 			m_Running(false)
 		{}
@@ -73,7 +79,9 @@ namespace ME
 		/* Updates the renderer */
 		void UpdateRenderer()
 		{
-			/* */
+			m_Renderer.Clear();
+
+			m_Renderer.Present();
 		}
 
 		/* PRIVATE STACK ALLOCATED CONTAINERS */

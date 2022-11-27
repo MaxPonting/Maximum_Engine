@@ -6,7 +6,7 @@ int main(int argc, char* args[])
 	ME::Manager::Init();
 
 	/* Create Instance of Engine */
-	ME::Engine<10, 10, 10> engine = ME::Engine<10, 10, 10>("Sandbox", 1280, 720);
+	ME::Engine<1000, 1000, 1000> engine = ME::Engine<1000, 1000, 1000>("Sandbox", 1280, 720);
 
 	
 	/* Create an entity with a square rendering sprite */

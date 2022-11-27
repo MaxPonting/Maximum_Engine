@@ -10,6 +10,10 @@
 
 namespace ME
 {
+	/* 
+	* Owns SDL2 renderer.
+	* Renders sprites to the SDL2 Window at a given transform.
+	*/
 	class Renderer
 	{
 	public:
@@ -29,6 +33,7 @@ namespace ME
 
 		/* CONST PRIVATE MEMBERS */
 		const Window& c_Window;
+
 	};
 }
 

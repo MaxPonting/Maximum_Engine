@@ -1,5 +1,11 @@
 #pragma once
-class Sprite
+
+namespace ME
 {
-};
+	class Sprite
+	{
+
+	};
+}
+
 

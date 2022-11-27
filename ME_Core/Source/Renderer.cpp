@@ -27,6 +27,13 @@ namespace ME
 	/* Presents renderer sprites to the SDL2 window */
 	void Renderer::Present()
 	{
+		SDLCall(SDL_SetRenderDrawColor(
+			m_Renderer,
+			c_Window.m_Colour.GetR(),
+			c_Window.m_Colour.GetG(),
+			c_Window.m_Colour.GetB(),
+			c_Window.m_Colour.GetA()
+		));
 		SDLCall(SDL_RenderPresent(m_Renderer));
 	}
 }
