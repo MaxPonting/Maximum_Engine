@@ -12,12 +12,12 @@ namespace ME
 		m_Y(y)
 	{}
 
-	float Vector2::GetX()
+	float Vector2::GetX() const
 	{
 		return m_X;
 	}
 
-	float Vector2::GetY()
+	float Vector2::GetY() const
 	{
 		return m_Y;
 	}

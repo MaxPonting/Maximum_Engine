@@ -11,8 +11,8 @@ namespace ME
 		Vector2(float x, float y);
 
 		/* GETTERS */
-		float GetX();
-		float GetY();
+		float GetX() const;
+		float GetY() const;
 
 	private:
 

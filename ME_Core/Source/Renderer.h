@@ -7,6 +7,7 @@
 #include "Sprite.h"
 #include "Transform.h"
 #include "Window.h"
+#include "SDLWrapper.h"
 
 namespace ME
 {
@@ -14,7 +15,7 @@ namespace ME
 	* Owns SDL2 renderer.
 	* Renders sprites to the SDL2 Window at a given transform.
 	*/
-	class Renderer
+	class Renderer : public SDLWrapper
 	{
 	public:
 
@@ -23,8 +24,10 @@ namespace ME
 
 		/* PUBLIC METHODS */
 		void Clear();
-		void RenderSprite(const Sprite sprite, const Transform transform);
+		void RenderSprite(const Sprite sprite, const Transform transform) const;
 		void Present();
+		void SDLCleanUp();
+		SDL_Texture* CreateTextureFromSurface(SDL_Surface* surface) const;
 
 	private:
 

@@ -4,7 +4,7 @@
 #include "SDL.h"
 
 /* ME */
-#include "Colour.h"
+#include "RGBA.h"
 #include "Texture.h"
 #include "Vector2.h"
 
@@ -19,18 +19,21 @@ namespace ME
 	public:
 
 		/* CONSTRUCTORS */
-		Sprite(const Texture& texture, const Colour colour, const Vector2 size);
+		Sprite();
+		Sprite(Texture texture, const RGBA colour, const Vector2 size);
 
 		/* GETTERS */
-		SDL_Texture* GetTexture();
+		SDL_Texture* GetTexture() const ;
+		
+		/* PUBLIC MEMBERS */
+		RGBA Colour;
+		Vector2 Size;
 
 	private:
 
 		/* PRIVATE MEMBERS */
-		const Texture& m_Texture;
-		const Colour m_Colour;
-		const Vector2 m_Size;
-
+		Texture m_Texture;
+		
 	};
 }
 

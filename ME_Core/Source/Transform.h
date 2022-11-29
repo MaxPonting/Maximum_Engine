@@ -14,6 +14,8 @@ namespace ME
 
 		/* CONSTRUCTORS */
 		Transform();
+		Transform(Vector2 pos);
+		Transform(Vector2 pos, Vector2 scale);
 		Transform(Vector2 pos, Angle ang, Vector2 scale);
 
 		/* PUBLIC MEMBERS */

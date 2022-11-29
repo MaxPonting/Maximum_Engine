@@ -11,6 +11,9 @@
 #include "Component.h"
 #include "Texture.h"
 #include "Sprite.h"
+#include "Debug.h"
+#include "SDLWrapper.h"
+
 
 namespace ME
 {
@@ -31,6 +34,8 @@ namespace ME
 			m_Window(Window(title, width, height)),
 			m_Renderer(Renderer(m_Window)),
 			m_Event(SDL_Event()),
+			m_Debug(Debug(m_Renderer)),
+			m_Time(EngineTime()),
 			m_Running(false)
 		{}
 
@@ -42,6 +47,7 @@ namespace ME
 
 			while (m_Running)
 			{
+				m_Time.Update();
 				UpdateEvents();
 				UpdateScripts();
 				UpdatePhysics();
@@ -62,18 +68,22 @@ namespace ME
 					m_Running = false;
 				}
 			}
+
+			m_Time.UpdateSubFrame(EngineTime::SubFrameType::Misc);
 		}
 
 		/* Updates user-made Scripts */
 		void UpdateScripts()
 		{
-
+			m_Time.UpdateSubFrame(EngineTime::SubFrameType::Script);
 		}
 
 		/* Updates Rigidbodies and Colliders */
 		void UpdatePhysics()
 		{
+			m_Debug.Update(m_Time);
 
+			m_Time.UpdateSubFrame(EngineTime::SubFrameType::Physics);
 		}
 
 		/* Updates the renderer */
@@ -81,7 +91,12 @@ namespace ME
 		{
 			m_Renderer.Clear();
 
+
+			m_Debug.Render();
+
 			m_Renderer.Present();
+
+			m_Time.UpdateSubFrame(EngineTime::SubFrameType::Renderer);
 		}
 
 		/* PRIVATE STACK ALLOCATED CONTAINERS */
@@ -92,8 +107,9 @@ namespace ME
 		Window m_Window;
 		Renderer m_Renderer;
 		SDL_Event m_Event;
+		Debug m_Debug;
+		EngineTime m_Time;
 		bool m_Running;
-
 	};
 }
 

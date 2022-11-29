@@ -3,13 +3,13 @@
 namespace ME
 {
 	/* Owns RGBA colour values. */
-	class Colour
+	class RGBA
 	{
 	public:
 
 		/* CONSTRUCTORS */
-		Colour();
-		Colour(int r, int g, int b, int a);
+		RGBA();
+		RGBA(int r, int g, int b, int a);
 
 		/* GETTERS */
 		int GetR() const;

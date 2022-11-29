@@ -7,16 +7,16 @@ int main(int argc, char* args[])
 
 	/* Create Instance of Engine */
 	ME::Engine<1000, 1000, 1000> engine = ME::Engine<1000, 1000, 1000>("Sandbox", 1280, 720);
-
 	
 	/* Create an entity with a square rendering sprite */
-//	const ME::Entity& square = engine.AddEntity();
-//	square.Transform.Position = Vector2(400, 400);
+//	const ME::Entity& entity = engine.AddEntity();
+//	entity.Transform.Position = Vector2(400, 400);
 //	const ME::SpriteRenderer renderer = square.AddComponent<ME::SpriteRenderer>();
-//	renderer.SetSprite(ME::Rectangle(100, 80)));
+//  const ME::Texture& rect = engine.AddRectangle(100, 100);
+//	renderer.SetTexture(rect);
 //
-//	/* Create Sprite with filePath */
-//	const ME::Sprite& sprite = engine.AddSprite("filePath");
+//	/* Create Texture with filePath */
+//	const ME::Sprite& sprite = engine.AddTexture("filePath");
 //
 //	/* Create an entity with a texture rendering sprite */
 //	const ME::Entity& texturedEntity = engine.AddEntity();

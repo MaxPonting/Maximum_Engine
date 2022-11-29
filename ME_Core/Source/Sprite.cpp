@@ -2,15 +2,22 @@
 
 namespace ME
 {
+	/* Default */
+	Sprite::Sprite() :
+		m_Texture(nullptr),
+		Colour(RGBA()),
+		Size(Vector2())
+	{}
+
 	/* Set Members */
-	Sprite::Sprite(const Texture& texture, const Colour colour, const Vector2 size) :
+	Sprite::Sprite(Texture texture, const RGBA colour, const Vector2 size) :
 		m_Texture(texture),
-		m_Colour(colour),
-		m_Size(size)
+		Colour(colour),
+		Size(size)
 	{}
 
 	/* Return SDL2 Texture */
-	SDL_Texture* Sprite::GetTexture()
+	SDL_Texture* Sprite::GetTexture() const 
 	{
 		return m_Texture.GetTexture();
 	}

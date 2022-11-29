@@ -1,15 +1,15 @@
-#include "Colour.h"
+#include "RGBA.h"
 
 namespace ME
 {
 	/* Sets to white by default */
-	Colour::Colour() :m_Red(255), m_Green(255), m_Blue(255), m_Alpha(255) {}
+	RGBA::RGBA() :m_Red(255), m_Green(255), m_Blue(255), m_Alpha(255) {}
 
 	/* 
 	* Sets RGBA colour parameters.
 	* Makes sure RGBA values are between 0 and 255.
 	*/
-	Colour::Colour(int r, int g, int b, int a) : m_Red(r), m_Green(g), m_Blue(b), m_Alpha(a)
+	RGBA::RGBA(int r, int g, int b, int a) : m_Red(r), m_Green(g), m_Blue(b), m_Alpha(a)
 	{
 		if (m_Red > 255) m_Red = 255;
 		if (m_Green > 255) m_Green = 255;
@@ -23,19 +23,19 @@ namespace ME
 	}
 
 	/* Return RGBA colour parameters */
-	int Colour::GetR() const
+	int RGBA::GetR() const
 	{
 		return m_Red;
 	}
-	int Colour::GetG() const
+	int RGBA::GetG() const
 	{
 		return m_Green;
 	}
-	int Colour::GetB() const
+	int RGBA::GetB() const
 	{
 		return m_Blue;
 	}
-	int Colour::GetA() const
+	int RGBA::GetA() const
 	{
 		return m_Alpha;
 	}

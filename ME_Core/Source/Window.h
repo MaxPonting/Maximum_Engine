@@ -7,7 +7,8 @@
 #include <SDL.h>
 
 /* ME */
-#include "Colour.h"
+#include "RGBA.h"
+#include "SDLWrapper.h"
 
 namespace ME
 {
@@ -15,18 +16,21 @@ namespace ME
 	* Creates a SDL2 window.
 	* Colour of window can be set.
 	*/
-	class Window
+	class Window : public SDLWrapper
 	{
 	public:
 
 		/* CONSTRUCTOR */
 		Window(const char* title, int width, int height);
 
+		/* PUBLIC METHODS */
+		void SDLCleanUp();
+
 		/* GETTERS */
 		SDL_Window* GetWindow() const;
 
 		/* PUBLIC MEMBERS */
-		Colour m_Colour;
+		RGBA m_Colour;
 
 	private:
 
