@@ -7,6 +7,7 @@ namespace ME
 		m_Texture(nullptr)
 	{}
 
+
 	Texture::Texture(SDL_Texture* texture) :
 		m_Texture(texture)
 	{}

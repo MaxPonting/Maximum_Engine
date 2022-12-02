@@ -5,6 +5,10 @@
 
 namespace ME
 {
+	Window::Window() :
+		m_Window(nullptr),
+		m_Colour(RGBA())
+	{}
 
 	/* 
 	* Creates an SDL2 window.

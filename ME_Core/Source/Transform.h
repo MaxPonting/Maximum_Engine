@@ -6,7 +6,7 @@
 namespace ME
 {
 	//
-	// Owns a position, rotation and scale of a given entity
+	// Owns a position, rotation and scale.
 	//
 	class Transform
 	{

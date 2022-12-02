@@ -21,6 +21,7 @@ namespace ME
 	public:
 
 		/* CONSTRUCTOR */
+		Window();
 		Window(const char* title, int width, int height);
 
 		/* PUBLIC METHODS */

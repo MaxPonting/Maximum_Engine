@@ -20,22 +20,21 @@ namespace ME
 	public:
 
 		/* CONSTRUCTOR */
-		Renderer(const Window& window);
+		Renderer();
+		Renderer(const Window window);
 
 		/* PUBLIC METHODS */
 		void Clear();
 		void RenderSprite(const Sprite sprite, const Transform transform) const;
-		void Present();
+		void Present(const Window window);
 		void SDLCleanUp();
+		SDL_Texture* CreateDefaultTexture() const;
 		SDL_Texture* CreateTextureFromSurface(SDL_Surface* surface) const;
 
 	private:
 
 		/* PRIVATE MEMBERS */
 		SDL_Renderer* m_Renderer;
-
-		/* CONST PRIVATE MEMBERS */
-		const Window& c_Window;
 
 	};
 }

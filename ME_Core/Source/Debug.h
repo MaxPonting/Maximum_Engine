@@ -22,7 +22,8 @@ namespace ME
 	public:
 
 		/* CONSTRUCTOR */
-		Debug(const Renderer& renderer);		
+		Debug();
+		Debug(Renderer* renderer);		
 
 		/* PUBLIC METHODS */
 		void Update(const EngineTime& time);
@@ -56,7 +57,7 @@ namespace ME
 		};
 
 		/* PRIVATE MEMBERS */
-		const Renderer& c_Renderer;
+		Renderer* p_Renderer;
 		DebugText m_Texts[NUM_DEBUG_TEXTS];
 		Font m_Font;
 		float m_Timer;

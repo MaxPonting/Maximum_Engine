@@ -20,7 +20,7 @@ namespace ME
 
 		/* CONSTRUCTORS */
 		Sprite();
-		Sprite(Texture texture, const RGBA colour, const Vector2 size);
+		Sprite(SDL_Texture* texture, const RGBA colour, const Vector2 size);
 
 		/* GETTERS */
 		SDL_Texture* GetTexture() const ;
@@ -32,7 +32,7 @@ namespace ME
 	private:
 
 		/* PRIVATE MEMBERS */
-		Texture m_Texture;
+		SDL_Texture* m_Texture;
 		
 	};
 }

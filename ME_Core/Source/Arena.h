@@ -12,7 +12,8 @@ class Arena
 {
 public:
     /* Reserves space on for the object pointer vector. */
-    Arena()
+    Arena() : 
+        pointer(0)
     {
         m_Pointers.reserve(size);
     }
@@ -31,21 +32,21 @@ public:
     }
 
     /* Adds an object to the stack or heap if the allocated memory is full. */
-    void Add(C object)
+    C& Add(C object)
     {
         if (m_FreeSpaces.empty())
         {
             if (pointer >= size)
             {
                 m_HeapObjects.emplace_back(object);
-                return;
+                return m_HeapObjects[m_HeapObjects.size() - 1];
             }
             else
             {
                 m_StackObjects[pointer] = object;
                 m_Pointers.push_back(&m_StackObjects[pointer]);
                 pointer++;
-                return;
+                return *m_Pointers[m_Pointers.size() - 1];
             }
         }
 
@@ -53,7 +54,7 @@ public:
         m_FreeSpaces.pop_back();
         m_StackObjects[space] = object;
         m_Pointers.push_back(&m_StackObjects[space]);
-        return;
+        return *m_Pointers[m_Pointers.size() - 1];
     }
 
     /* Deletes an object either from the stack or the heap given an index. */

@@ -37,9 +37,12 @@ namespace ME
 */
 #define TTFCall(x) x; if(ME::Manager::CheckTTFError()) __debugbreak;  
 
+/* Defines prefix for a SDL Error */
+#define SDL_Error "[SDL][Error][" + __LINE__ + "]"
+
 /* Defines prefix for a ME Error */
-#define ME_Error "[ME][Error]"
+#define ME_Error "[ME][Error][" + __LINE__ + "]"
 
 /* Define prefix for ME Debug */
-#define ME_Debug "[ME][Debug]"
+#define ME_Debug "[ME][Debug][" + __LINE__ + "]"
 

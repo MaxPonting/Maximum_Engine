@@ -11,18 +11,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Component.h" />
+    <ClInclude Include="Source\Entity.h" />
     <ClInclude Include="Source\EngineTime.h" />
     <ClInclude Include="Source\SDLWrapper.h" />
     <ClInclude Include="Source\Font.h" />
     <ClInclude Include="Source\Debug.h" />
-    <ClInclude Include="Source\Rectangle.h" />
     <ClInclude Include="Source\Angle.h" />
     <ClInclude Include="Source\RGBA.h" />
     <ClInclude Include="Source\Log.h" />
     <ClInclude Include="Source\Manager.h" />
     <ClInclude Include="Source\Renderer.h" />
-    <ClInclude Include="Source\Component.h" />
-    <ClInclude Include="Source\Entity.h" />
     <ClInclude Include="Source\Arena.h" />
     <ClInclude Include="Source\Engine.h" />
     <ClInclude Include="Source\ME.h" />
@@ -31,24 +30,27 @@
     <ClInclude Include="Source\Window.h" />
     <ClInclude Include="Source\Transform.h" />
     <ClInclude Include="Source\Vector2.h" />
+    <ClInclude Include="Source\SpriteRenderer.h" />
+    <ClInclude Include="Source\TextRenderer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Component.cpp" />
+    <ClCompile Include="Source\Entity.cpp" />
     <ClCompile Include="Source\EngineTime.cpp" />
     <ClCompile Include="Source\Font.cpp" />
     <ClCompile Include="Source\Debug.cpp" />
-    <ClCompile Include="Source\Rectangle.cpp" />
     <ClCompile Include="Source\Angle.cpp" />
     <ClCompile Include="Source\RGBA.cpp" />
     <ClCompile Include="Source\Log.cpp" />
     <ClCompile Include="Source\Manager.cpp" />
     <ClCompile Include="Source\Renderer.cpp" />
-    <ClCompile Include="Source\Component.cpp" />
-    <ClCompile Include="Source\Entity.cpp" />
     <ClCompile Include="Source\Sprite.cpp" />
     <ClCompile Include="Source\Texture.cpp" />
     <ClCompile Include="Source\Window.cpp" />
     <ClCompile Include="Source\Transform.cpp" />
     <ClCompile Include="Source\Vector2.cpp" />
+    <ClCompile Include="Source\SpriteRenderer.cpp" />
+    <ClCompile Include="Source\TextRenderer.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -85,13 +87,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)</OutDir>
-    <IntDir>$(SolutionDir)bin_ints\$(Platform)\$(Configuration)</IntDir>
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin_ints\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)</OutDir>
-    <IntDir>$(SolutionDir)bin_ints\$(Platform)\$(Configuration)</IntDir>
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin_ints\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>

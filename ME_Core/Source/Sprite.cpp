@@ -10,7 +10,7 @@ namespace ME
 	{}
 
 	/* Set Members */
-	Sprite::Sprite(Texture texture, const RGBA colour, const Vector2 size) :
+	Sprite::Sprite(SDL_Texture* texture, const RGBA colour, const Vector2 size) :
 		m_Texture(texture),
 		Colour(colour),
 		Size(size)
@@ -19,6 +19,6 @@ namespace ME
 	/* Return SDL2 Texture */
 	SDL_Texture* Sprite::GetTexture() const 
 	{
-		return m_Texture.GetTexture();
+		return m_Texture;
 	}
 }

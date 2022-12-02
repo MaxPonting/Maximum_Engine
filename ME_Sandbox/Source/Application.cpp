@@ -1,13 +1,21 @@
 #include <ME.h>
 
+
+
 int main(int argc, char* args[])
 {
 	/* Init */
 	ME::Manager::Init();
 
 	/* Create Instance of Engine */
-	ME::Engine<1000, 1000, 1000> engine = ME::Engine<1000, 1000, 1000>("Sandbox", 1280, 720);
+	ME::Engine<20, 100> engine = ME::Engine<20, 100>("Sandbox", 1280, 720);
+
 	
+	const ME::Entity* entity = engine.AddEntity();
+	engine.AddComponent<ME::SpriteRenderer>(*entity);
+	const ME::SpriteRenderer* renderer = engine.GetComponent<ME::SpriteRenderer>(*entity);
+
+
 	/* Create an entity with a square rendering sprite */
 //	const ME::Entity& entity = engine.AddEntity();
 //	entity.Transform.Position = Vector2(400, 400);

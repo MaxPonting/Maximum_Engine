@@ -1,10 +1,7 @@
 #pragma once
 
-#include <vector>
-
 #include "Transform.h"
-#include "Component.h"
-
+#include <string>
 
 namespace ME
 {
@@ -14,19 +11,21 @@ namespace ME
 
 		/* CONSTRUCTOR */
 		Entity();
+		Entity(unsigned int id);
 
-		/* PUBLIC METHODS */
-		void Update();
-		void Render();
+		/* GETTER */
+		unsigned int GetID() const;
 
 		/* PUBLIC MEMBERS */
-		Transform Transform;
-		
+		Transform transform;
+		std::string name;
+		unsigned int layer;
+
 	private:
 
 		/* PRIVATE MEMBERS */
-		std::vector<Component*> p_Components;
-
+		unsigned int m_ID;
+		
 	};
 }
 

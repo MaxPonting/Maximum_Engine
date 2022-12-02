@@ -1,5 +1,7 @@
 #pragma once
 
+
+#include "Renderer.h"
 #include "Entity.h"
 
 namespace ME
@@ -8,12 +10,23 @@ namespace ME
 	{
 	public:
 
+		/* CONSTRUCTORS */
 		Component();
-		Component(const Entity* entity);
+		Component(Entity* entity);
 
-	protected:
+		/* PUBLIC METHODS */
+		void virtual Update() {};
+		void virtual Render(const Renderer& renderer) {};
 
-		Entity* c_Entity;
+		/* GETTERS */
+		unsigned int GetEntityID() const;
+		Entity GetEntity() const;
+
+	private:
+
+		/* PRIVATE MEMBERS */
+		Entity* p_Entity;
+
 	};
 }
 
