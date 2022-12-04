@@ -5,7 +5,7 @@
 
 /* ME */
 #include "Sprite.h"
-#include "Transform.h"
+#include "../ECS/TransformComponent.h"
 #include "Window.h"
 #include "SDLWrapper.h"
 
@@ -15,7 +15,7 @@ namespace ME
 	* Owns SDL2 renderer.
 	* Renders sprites to the SDL2 Window at a given transform.
 	*/
-	class Renderer : public SDLWrapper
+	class Renderer final : public SDLWrapper 
 	{
 	public:
 
@@ -25,7 +25,8 @@ namespace ME
 
 		/* PUBLIC METHODS */
 		void Clear();
-		void RenderSprite(const Sprite sprite, const Transform transform) const;
+		void virtual RenderSprite(const Sprite sprite, const TransformComponent transform) const;
+		void virtual RenderSprite(const Sprite sprite, const Vector2 position) const;
 		void Present(const Window window);
 		void SDLCleanUp();
 		SDL_Texture* CreateDefaultTexture() const;

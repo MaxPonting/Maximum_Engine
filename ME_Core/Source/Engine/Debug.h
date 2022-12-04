@@ -2,7 +2,6 @@
 
 #include <string>
 #include "Sprite.h"
-#include "Transform.h"
 #include "Font.h"
 #include "Renderer.h"
 #include "EngineTime.h"
@@ -39,7 +38,7 @@ namespace ME
 
 			/* CONSTRUCTOR */
 			DebugText();
-			DebugText(std::string text, Transform transform, Font* font, const Renderer& renderer);
+			DebugText(std::string text, Vector2 position, Font* font, const Renderer& renderer);
 
 			/* PUBLIC METHODS */
 			void SetText(const Renderer& renderer, std::string text);
@@ -51,7 +50,7 @@ namespace ME
 			std::string m_Text;
 			Texture m_Texture;
 			Sprite m_Sprite;
-			Transform m_Transform;
+			Vector2 m_Position;
 			Font* p_Font;
 
 		};

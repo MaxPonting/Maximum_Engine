@@ -16,12 +16,12 @@ namespace ME
 		m_Font(Font("C:/Dev/Maximum_Engine/Assets/clear-sans.regular.ttf"))
 	{
 		m_Font.SetSize(FONT_SIZE);
-		m_Texts[0] = DebugText("FPS:", Transform(), &m_Font, *renderer);			
-		m_Texts[1] = DebugText("Frame:", Transform(Vector2(0, FONT_SIZE)), &m_Font, *renderer);
-		m_Texts[2] = DebugText("Render:", Transform(Vector2(0, FONT_SIZE * 2)), &m_Font, *renderer);
-		m_Texts[3] = DebugText("Physics:", Transform(Vector2(0, FONT_SIZE * 3)), &m_Font, *renderer);
-		m_Texts[4] = DebugText("Scripts:", Transform(Vector2(0, FONT_SIZE * 4)), &m_Font, *renderer);
-		m_Texts[5] = DebugText("Misc:", Transform(Vector2(0, FONT_SIZE * 5)), &m_Font, *renderer);
+		m_Texts[0] = DebugText("FPS:", Vector2(), &m_Font, *renderer);			
+		m_Texts[1] = DebugText("Frame:", Vector2(0, FONT_SIZE), &m_Font, *renderer);
+		m_Texts[2] = DebugText("Render:", Vector2(0, FONT_SIZE * 2), &m_Font, *renderer);
+		m_Texts[3] = DebugText("Physics:", Vector2(0, FONT_SIZE * 3), &m_Font, *renderer);
+		m_Texts[4] = DebugText("Scripts:", Vector2(0, FONT_SIZE * 4), &m_Font, *renderer);
+		m_Texts[5] = DebugText("Misc:", Vector2(0, FONT_SIZE * 5), &m_Font, *renderer);
 	}
 	
 	Debug::DebugText::DebugText() :
@@ -57,9 +57,9 @@ namespace ME
 		}
 	}
 
-	Debug::DebugText::DebugText(std::string text, Transform transform, Font* font, const Renderer& renderer) :
+	Debug::DebugText::DebugText(std::string text, Vector2 position, Font* font, const Renderer& renderer) :
 		m_Text(text),
-		m_Transform(transform),
+		m_Position(position),
 		p_Font(font)
 	{
 		SetText(renderer, m_Text);
@@ -92,7 +92,7 @@ namespace ME
 
 	void Debug::DebugText::Render(const Renderer& renderer)
 	{
-		renderer.RenderSprite(m_Sprite, m_Transform);
+		renderer.RenderSprite(m_Sprite, m_Position);
 	}
 
 	

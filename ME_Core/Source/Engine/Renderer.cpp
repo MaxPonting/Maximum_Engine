@@ -21,9 +21,10 @@ namespace ME
 		SDLCall(SDL_RenderClear(m_Renderer));
 	}
 
-	/* Renders a sprite to the SDL2 window */
-	void Renderer::RenderSprite(const Sprite sprite, const Transform transform) const
+	/* Renders a sprite to the SDL2 window using a transform */
+	void Renderer::RenderSprite(const Sprite sprite, const TransformComponent transform) const
 	{
+		/*
 		if (sprite.GetTexture() == nullptr) return;
 
 		SDLCall(SDL_SetTextureColorMod
@@ -55,6 +56,40 @@ namespace ME
 			transform.Rotation.getDeg(), 
 			NULL, 
 			SDL_FLIP_NONE
+		));
+		*/
+	}
+
+	/* Renders a sprite to the SDL2 window using a position */
+	void Renderer::RenderSprite(const Sprite sprite, const Vector2 position) const
+	{
+		if (sprite.GetTexture() == nullptr) return;
+
+		SDLCall(SDL_SetTextureColorMod
+		(
+			sprite.GetTexture(),
+			sprite.Colour.GetR(),
+			sprite.Colour.GetG(),
+			sprite.Colour.GetB()
+		));
+
+		SDLCall(SDL_SetTextureAlphaMod
+		(
+			sprite.GetTexture(),
+			sprite.Colour.GetA()
+		));
+
+		SDL_FRect rect;
+		rect.x = position.GetX();
+		rect.y = position.GetY();
+		rect.w = sprite.Size.GetX();
+		rect.h = sprite.Size.GetY();
+		SDLCall(SDL_RenderCopyF
+		(
+			m_Renderer,
+			sprite.GetTexture(),
+			NULL,
+			&rect
 		));
 	}
 
