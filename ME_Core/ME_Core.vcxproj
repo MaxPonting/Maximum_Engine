@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Engine\ObjectToRender.h" />
     <ClInclude Include="Source\ECS_User\ComponentRef.h" />
     <ClInclude Include="Source\ECS_User\Entity.h" />
     <ClInclude Include="Source\ECS\Component.h" />
@@ -36,6 +37,7 @@
     <ClInclude Include="Source\ECS\TransformComponent.h" />
     <ClInclude Include="Source\ECS_User\Transform.h" />
     <ClInclude Include="Source\ECS_User\SpriteRenderer.h" />
+    <ClInclude Include="Source\Engine\TextureContainer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ECS_User\ComponentRef.cpp" />
@@ -57,6 +59,7 @@
     <ClCompile Include="Source\ECS\TransformComponent.cpp" />
     <ClCompile Include="Source\ECS_User\Transform.cpp" />
     <ClCompile Include="Source\ECS_User\SpriteRenderer.cpp" />
+    <ClCompile Include="Source\Engine\TextureContainer.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

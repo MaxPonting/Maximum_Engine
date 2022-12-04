@@ -48,7 +48,7 @@ namespace ME
 
 			/* PRIVATE MEMBERS */
 			std::string m_Text;
-			Texture m_Texture;
+			SDL_Texture* p_Texture;
 			Sprite m_Sprite;
 			Vector2 m_Position;
 			Font* p_Font;

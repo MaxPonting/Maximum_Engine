@@ -50,22 +50,22 @@ namespace ME
 		if (type == SubFrameType::Misc)
 		{
 			m_MiscTime = currentDeltaMilliSeconds - m_CurrentDeltaTime;
-			//Log::PrintToLog(ME_Debug, "Misc(" + std::to_string(m_MiscTime) + ")");
+			if (m_MiscTime < 0) m_MiscTime = 0;
 		}
 		else if (type == SubFrameType::Script)
 		{
 			m_ScriptTime = currentDeltaMilliSeconds - m_CurrentDeltaTime;
-			//Log::PrintToLog(ME_Debug, "Script(" + std::to_string(m_ScriptTime) + ")");
+			if (m_ScriptTime < 0) m_ScriptTime = 0;
 		}
 		else if (type == SubFrameType::Physics)
 		{
 			m_PhysicsTime = currentDeltaMilliSeconds - m_CurrentDeltaTime;
-			//Log::PrintToLog(ME_Debug, "Physics(" + std::to_string(m_PhysicsTime) + ")");
+			if (m_PhysicsTime < 0) m_PhysicsTime = 0;
 		}
 		else if (type == SubFrameType::Renderer)
 		{
 			m_RenderTime = currentDeltaMilliSeconds - m_CurrentDeltaTime;
-			//Log::PrintToLog(ME_Debug, "Renderer(" + std::to_string(m_RendererTime) + ")");
+			if (m_RenderTime < 0) m_RenderTime = 0;
 		}
 		
 		m_CurrentDeltaTime = currentDeltaMilliSeconds;

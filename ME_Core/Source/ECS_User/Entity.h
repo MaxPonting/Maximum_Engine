@@ -42,7 +42,7 @@ namespace ME
 				p_ECS->AddComponent<SpriteRendererComponent>(m_ID);
 			}
 			
-			return C(m_ID);
+			return C(m_ID, p_ECS);
 		}
 
 		//
@@ -53,7 +53,26 @@ namespace ME
 		{
 			static_assert(std::is_base_of<ComponentRef, C>::value, "C must be a component!");
 
-			return C(m_ID);
+			bool has;
+
+			if (std::is_same<Transform, C>::value)
+			{
+				has = p_ECS->HasComponent<TransformComponent>(m_ID);
+			}
+			else if (std::is_same<SpriteRenderer, C>::value)
+			{
+				has = p_ECS->HasComponent<SpriteRendererComponent>(m_ID);
+			}
+
+			if (has)
+			{
+				return C(m_ID, p_ECS);
+			}
+			else
+			{
+				return C();
+			}
+		
 		}
 
 		//

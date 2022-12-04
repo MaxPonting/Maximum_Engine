@@ -14,6 +14,8 @@
 #include "Texture.h"
 #include "Sprite.h"
 #include "Debug.h"
+#include "Texture.h"
+#include "TextureContainer.h"
 #include "../ECS/ECS.h"
 #include "../ECS_User/Entity.h"
 #include "../ECS_User/ComponentRef.h"
@@ -23,8 +25,6 @@ namespace ME
 	//
 	// Owns window and render.
 	// Starts the game loop when 'Run' is called.
-	//
-	// Template to change size of the contiguous memory allocation.
 	//	
 	class Engine final
 	{
@@ -38,20 +38,18 @@ namespace ME
 		void Run();
 
 		/* ECS API */
-		Entity AddEntity()
-		{			
-			return Entity(&m_ECS, m_ECS.AddEntity());			
-		}
+		Entity AddEntity();
 		template <class C>
 		Entity GetEntityOf(C component)
 		{
 			unsigned int id = *static_cast<ComponentRef>(&component).GetID();
 			return Entity(&m_ECS, m_ECS.GetEntityOf<C>(id));
 		}
-		void DestroyEntity(Entity entity)
-		{
-			m_ECS.DestroyEntity(entity.GetID());
-		}
+		void DestroyEntity(Entity entity);
+		
+		/* TEXTURE API */
+		Texture AddTextureWithFilePath(const char* filePath);
+		
 				
 	private:
 
@@ -65,11 +63,11 @@ namespace ME
 		Window m_Window;
 		Renderer m_Renderer;
 		ECS m_ECS;
+		TextureContainer m_Textures;
 		SDL_Event m_Event;
 		Debug m_Debug;
 		EngineTime m_Time;
 		bool m_Running;
-		unsigned int m_EntityID;
 	};
 }
 

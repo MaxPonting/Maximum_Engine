@@ -1,6 +1,8 @@
 #pragma once
 
 #include "ComponentRef.h"
+#include "../Engine/Texture.h"
+#include "../Engine/RGBA.h"
 
 namespace ME
 {
@@ -9,7 +11,15 @@ namespace ME
 	public:
 
 		SpriteRenderer();
-		SpriteRenderer(unsigned int id);
+		SpriteRenderer(unsigned int id, ECS* ecs);
+
+		void SetTexture(Texture texture);
+		void SetColour(RGBA colour);
+		void SetLayer(unsigned int layer);
+
+		Texture GetTexture();
+		RGBA GetColour();
+		unsigned int GetLayer();
 
 	};
 }

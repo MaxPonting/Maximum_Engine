@@ -24,13 +24,6 @@ namespace ME
 		m_Texts[5] = DebugText("Misc:", Vector2(0, FONT_SIZE * 5), &m_Font, *renderer);
 	}
 	
-	Debug::DebugText::DebugText() :
-		m_Text(""),
-		p_Font(nullptr)
-	{
-
-	}
-
 	void Debug::Update(const EngineTime& time)
 	{
 		m_Timer += time.GetDeltaTime();
@@ -57,10 +50,19 @@ namespace ME
 		}
 	}
 
+	Debug::DebugText::DebugText() :
+		m_Text(""),
+		p_Font(nullptr),
+		p_Texture(nullptr)
+	{
+
+	}
+
 	Debug::DebugText::DebugText(std::string text, Vector2 position, Font* font, const Renderer& renderer) :
 		m_Text(text),
 		m_Position(position),
-		p_Font(font)
+		p_Font(font),
+		p_Texture(nullptr)
 	{
 		SetText(renderer, m_Text);
 	}
@@ -71,27 +73,29 @@ namespace ME
 
 		if (m_Text.size() == 0) { return; }
 
-		if (m_Texture.GetTexture() != nullptr)
+		if (p_Texture != nullptr)
 		{
-			m_Texture.SDLCleanUp();
+			SDLCall(SDL_DestroyTexture(p_Texture));
 		}
 
 		const char* outputText = m_Text.c_str();
 		SDL_Surface* surface;
 		TTFCall(surface = TTF_RenderText_Blended(p_Font->GetFont(), outputText, SDL_Color{ 0, 255, 0, 255 }));
 		
-		m_Texture = Texture(renderer.CreateTextureFromSurface(surface));
+		p_Texture = renderer.CreateTextureFromSurface(surface);
 
-		SDL_FreeSurface(surface);
+		SDLCall(SDL_FreeSurface(surface));
 		
 		int w, h;
-		SDL_QueryTexture(m_Texture.GetTexture(), NULL, NULL, &w, &h);
+		SDLCall(SDL_QueryTexture(p_Texture, NULL, NULL, &w, &h));
 
-		m_Sprite = Sprite(m_Texture.GetTexture(), TEXT_COLOUR, Vector2(w, h));
+		m_Sprite = Sprite(p_Texture, TEXT_COLOUR, Vector2(w, h));
 	}
 
 	void Debug::DebugText::Render(const Renderer& renderer)
 	{
+		if (p_Texture == nullptr) return;
+
 		renderer.RenderSprite(m_Sprite, m_Position);
 	}
 

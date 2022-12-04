@@ -4,21 +4,17 @@
 namespace ME
 {
 	Texture::Texture() :
-		m_Texture(nullptr)
+		m_TextureID(0)
 	{}
 
 
-	Texture::Texture(SDL_Texture* texture) :
-		m_Texture(texture)
+	Texture::Texture(unsigned int id) :
+		m_TextureID(id)
 	{}
 
-	void Texture::SDLCleanUp()
+	
+	unsigned int Texture::GetTextureID() const
 	{
-		SDLCall(SDL_DestroyTexture(m_Texture));
-	}
-
-	SDL_Texture* Texture::GetTexture() const
-	{
-		return m_Texture;
+		return m_TextureID;
 	}
 }

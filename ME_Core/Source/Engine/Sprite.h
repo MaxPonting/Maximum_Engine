@@ -26,8 +26,9 @@ namespace ME
 		SDL_Texture* GetTexture() const ;
 		
 		/* PUBLIC MEMBERS */
-		RGBA Colour;
-		Vector2 Size;
+		RGBA colour;
+		Vector2 size;
+		unsigned int layer;
 
 	private:
 

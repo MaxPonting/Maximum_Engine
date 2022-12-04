@@ -33,8 +33,10 @@ int main(int argc, char* args[])
 	SDL_Window* window = SDL_CreateWindow("Testing", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 720, SDL_WINDOW_SHOWN);
 	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
-	SDL_Surface* square = SDL_CreateRGBSurfaceWithFormat(0, 80, 80, 32, SDL_PIXELFORMAT_RGBA32);
+	SDL_Surface* square = SDL_CreateRGBSurfaceWithFormat(0, 1, 1, 32, SDL_PIXELFORMAT_RGBA32);	
 	Uint32* buffer = (Uint32*)square->pixels;
+
+	/*
 	int row = 0;
 	int column = 0;
 	int offset;
@@ -54,14 +56,17 @@ int main(int argc, char* args[])
 		row++;
 	}
 	SDL_UnlockSurface(square);
-	
+	*/
 
+
+	SDL_LockSurface(square);
+	buffer[0] = SDL_MapRGBA(square->format, 255, 255, 255, 255);
+	SDL_UnlockSurface(square);
+	
 	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, square);
 	SDL_FreeSurface(square);
 
 	
-	
-
 	/*
 	SDL_Texture* texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_TARGET, 80, 80);
 	SDL_SetRenderTarget(renderer, texture);
@@ -84,7 +89,7 @@ int main(int argc, char* args[])
 
 	int x, y;
 
-	SDL_SetTextureColorMod(texture, 255, 0, 0);
+	SDL_SetTextureColorMod(texture, 255, 255, 255);
 	SDL_SetTextureAlphaMod(texture, 120);
 
 	while (true)

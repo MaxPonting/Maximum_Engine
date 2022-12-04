@@ -3,27 +3,25 @@
 #include "SDL.h"
 
 #include "SDLWrapper.h"
+#include "Vector2.h"
+#include "Texture.h"
 
 namespace ME
 {
-	class Texture : public SDLWrapper
+	class Texture
 	{
 	public:
 
 		/* CONSTRUCTORS */
 		Texture();
-		Texture(SDL_Texture* texture);
-
-		/* METHODS */
-		void SDLCleanUp();
+		Texture(unsigned int id);
 
 		/* GETTERS */
-		SDL_Texture* GetTexture() const;
+		unsigned int GetTextureID() const;
 
-	protected:
+	private:
 
-		/* PROTECTED MEMBERS */
-		SDL_Texture* m_Texture;
+		unsigned int m_TextureID;
 
 	};
 }

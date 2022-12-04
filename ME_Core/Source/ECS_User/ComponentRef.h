@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../ECS/ECS.h"
+
 namespace ME
 {
 	class ComponentRef
@@ -7,14 +9,15 @@ namespace ME
 	public:
 
 		ComponentRef();
-		ComponentRef(unsigned int entityID);
+		ComponentRef(unsigned int entityID, ECS* ecs);
 		
 		unsigned int GetEntityID();
 
-	private:
+	protected:
 
 		unsigned int m_EntityID;
-		
+		ECS* p_ECS;
+	
 	};
 }
 

@@ -10,7 +10,7 @@ namespace ME
 {
 	//
 	// Contains all components in unique containers.
-	// Links component objects to a unique entity ID.
+	// Links all component objects to a unique entity IDs.
 	// Stores all components in contiguous memory.
 	//
 	class ECS final
@@ -28,11 +28,13 @@ namespace ME
 
 
 		//
+		// Add a transform to this new entity.
 		// Returns a unique ID for an entity.
 		//
 		unsigned int AddEntity()
 		{
-			return m_NextEntityID++;
+			AddComponent<TransformComponent>(++m_NextEntityID);
+			return m_NextEntityID;
 		}
 
 
@@ -95,7 +97,7 @@ namespace ME
 				components.reserve(m_Transforms.GetCount());
 				for (int i = 0; i < m_Transforms.GetCount(); i++)
 				{
-					components.push_back(&m_Transforms[i]);
+					components.push_back((C*)m_Transforms[i]);
 				}
 			}
 			else if (std::is_same<SpriteRendererComponent, C>::value)
@@ -103,7 +105,7 @@ namespace ME
 				components.reserve(m_SpriteRenderers.GetCount());
 				for (int i = 0; i < m_SpriteRenderers.GetCount(); i++)
 				{
-					components.push_back(&m_SpriteRenderers[i]);
+					components.push_back((C*)m_SpriteRenderers[i]);
 				}
 			}
 
@@ -123,7 +125,7 @@ namespace ME
 				{
 					if (m_Transforms[i]->GetEntityID() == entityID)
 					{
-						return m_Transforms[i];
+						return (C*)m_Transforms[i];
 					}
 				}
 				return nullptr;
@@ -134,7 +136,7 @@ namespace ME
 				{
 					if (m_SpriteRenderers[i]->GetEntityID() == entityID)
 					{
-						return m_SpriteRenderers[i];
+						return (C*)m_SpriteRenderers[i];
 					}
 				}
 				return nullptr;

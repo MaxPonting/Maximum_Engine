@@ -5,15 +5,15 @@ namespace ME
 	/* Default */
 	Sprite::Sprite() :
 		m_Texture(nullptr),
-		Colour(RGBA()),
-		Size(Vector2())
+		colour(RGBA()),
+		size(Vector2())
 	{}
 
 	/* Set Members */
 	Sprite::Sprite(SDL_Texture* texture, const RGBA colour, const Vector2 size) :
 		m_Texture(texture),
-		Colour(colour),
-		Size(size)
+		colour(colour),
+		size(size)
 	{}
 
 	/* Return SDL2 Texture */

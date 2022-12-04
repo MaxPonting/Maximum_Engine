@@ -1,3 +1,5 @@
+/* C++ */
+#include <algorithm>
 
 /* ME */
 #include "Renderer.h"
@@ -12,7 +14,7 @@ namespace ME
 	/* Creates SDL2 Renderer */
 	Renderer::Renderer(const Window window)
 	{
-		SDLCall(m_Renderer = SDL_CreateRenderer(window.GetWindow(), -1, SDL_RENDERER_ACCELERATED));
+		SDLCall(m_Renderer = SDL_CreateRenderer(window.GetWindow(), -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC));
 	}
 
 	/* Clears SDL2 renderer */
@@ -21,43 +23,22 @@ namespace ME
 		SDLCall(SDL_RenderClear(m_Renderer));
 	}
 
-	/* Renders a sprite to the SDL2 window using a transform */
-	void Renderer::RenderSprite(const Sprite sprite, const TransformComponent transform) const
+	void Renderer::Enqueue(ObjectToRender object)
 	{
-		/*
-		if (sprite.GetTexture() == nullptr) return;
+		m_ObjectsToRender.emplace_back(object);
+	}
 
-		SDLCall(SDL_SetTextureColorMod
-		(
-			sprite.GetTexture(), 
-			sprite.Colour.GetR(), 
-			sprite.Colour.GetG(), 
-			sprite.Colour.GetB()
-		));
+	void Renderer::RenderQueue()
+	{
+		std::sort(m_ObjectsToRender.begin(), m_ObjectsToRender.end(),
+			[](const ObjectToRender& o1, const ObjectToRender& o2) { return o1.layer < o2.layer; });
 
-		SDLCall(SDL_SetTextureAlphaMod
-		(
-			sprite.GetTexture(),
-			sprite.Colour.GetA()
-		));
+		for (int i = 0; i < m_ObjectsToRender.size(); i++)
+		{
+			RenderObject(m_ObjectsToRender[i]);
+		}
 
-		SDL_FRect rect;
-		rect.x = transform.Position.GetX(); 
-		rect.y = transform.Position.GetY();
-		rect.w = sprite.Size.GetX() * transform.Scale.GetX();
-		rect.h = sprite.Size.GetY() * transform.Scale.GetY();
-
-		SDLCall(SDL_RenderCopyExF
-		(
-			m_Renderer, 
-			sprite.GetTexture(), 
-			NULL, 
-			&rect, 
-			transform.Rotation.getDeg(), 
-			NULL, 
-			SDL_FLIP_NONE
-		));
-		*/
+		m_ObjectsToRender.clear();
 	}
 
 	/* Renders a sprite to the SDL2 window using a position */
@@ -68,22 +49,22 @@ namespace ME
 		SDLCall(SDL_SetTextureColorMod
 		(
 			sprite.GetTexture(),
-			sprite.Colour.GetR(),
-			sprite.Colour.GetG(),
-			sprite.Colour.GetB()
+			sprite.colour.GetR(),
+			sprite.colour.GetG(),
+			sprite.colour.GetB()
 		));
 
 		SDLCall(SDL_SetTextureAlphaMod
 		(
 			sprite.GetTexture(),
-			sprite.Colour.GetA()
+			sprite.colour.GetA()
 		));
 
 		SDL_FRect rect;
 		rect.x = position.GetX();
 		rect.y = position.GetY();
-		rect.w = sprite.Size.GetX();
-		rect.h = sprite.Size.GetY();
+		rect.w = sprite.size.GetX();
+		rect.h = sprite.size.GetY();
 		SDLCall(SDL_RenderCopyF
 		(
 			m_Renderer,
@@ -111,29 +92,47 @@ namespace ME
 		SDLCall(SDL_DestroyRenderer(m_Renderer));
 	}
 
-	/* Creates a 1x1 texture with colour white */
-	SDL_Texture* Renderer::CreateDefaultTexture() const
-	{
-		SDLCall(SDL_Surface* surface = SDL_CreateRGBSurfaceWithFormat(0, 80, 80, 32, SDL_PIXELFORMAT_RGBA32));
-		Uint32* buffer = (Uint32*)surface->pixels;
-	
-		SDLCall(SDL_LockSurface(surface));
-
-		Uint32 colour = SDL_MapRGBA(surface->format, 255, 255, 255, 255);
-		buffer[0] = colour;
-
-		SDLCall(SDL_UnlockSurface(surface));
-
-		SDLCall(SDL_Texture* texture = SDL_CreateTextureFromSurface(m_Renderer, surface));
-		SDLCall(SDL_FreeSurface(surface));
-
-		return texture;
-	}
-
 	/* Creates a SDL_Texture from a SDL_Surface */
 	SDL_Texture* Renderer::CreateTextureFromSurface(SDL_Surface* surface) const
 	{
 		SDLCall(SDL_Texture* texture = SDL_CreateTextureFromSurface(m_Renderer, surface));
 		return texture;
+	}
+
+	/*Renders a sprite to the SDL2 window using a transform */
+	void Renderer::RenderObject(const ObjectToRender object)
+	{
+		if (object.sprite.GetTexture() == nullptr) return;
+
+		SDLCall(SDL_SetTextureColorMod
+		(
+			object.sprite.GetTexture(),
+			object.sprite.colour.GetR(),
+			object.sprite.colour.GetG(),
+			object.sprite.colour.GetB()
+		));
+
+		SDLCall(SDL_SetTextureAlphaMod
+		(
+			object.sprite.GetTexture(),
+			object.sprite.colour.GetA()
+		));
+
+		SDL_FRect rect;
+		rect.x = object.transform.position.GetX();
+		rect.y = object.transform.position.GetY();
+		rect.w = object.sprite.size.GetX() * object.transform.scale.GetX();
+		rect.h = object.sprite.size.GetY() * object.transform.scale.GetY();
+
+		SDLCall(SDL_RenderCopyExF
+		(
+			m_Renderer,
+			object.sprite.GetTexture(),
+			NULL,
+			&rect,
+			object.transform.rotation.getDeg(),
+			NULL,
+			SDL_FLIP_NONE
+		));
 	}
 }
