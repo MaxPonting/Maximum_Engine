@@ -11,6 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\ECS_User\CircleRenderer.h" />
+    <ClInclude Include="Source\ECS\CircleRendererComponent.h" />
     <ClInclude Include="Source\Engine\ObjectToRender.h" />
     <ClInclude Include="Source\ECS_User\ComponentRef.h" />
     <ClInclude Include="Source\ECS_User\Entity.h" />
@@ -40,6 +42,8 @@
     <ClInclude Include="Source\Engine\TextureContainer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\ECS_User\CircleRenderer.cpp" />
+    <ClCompile Include="Source\ECS\CircleRendererComponent.cpp" />
     <ClCompile Include="Source\ECS_User\ComponentRef.cpp" />
     <ClCompile Include="Source\ECS\Component.cpp" />
     <ClCompile Include="Source\Engine\Engine.cpp" />

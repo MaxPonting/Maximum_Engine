@@ -3,8 +3,9 @@
 #include <type_traits>
 
 #include "ComponentContainer.h"
-#include "SpriteRendererComponent.h"
 #include "TransformComponent.h"
+#include "SpriteRendererComponent.h"
+#include "CircleRendererComponent.h"
 
 namespace ME
 {
@@ -23,7 +24,8 @@ namespace ME
 		ECS() :
 			m_NextEntityID(0),
 			m_Transforms(100),
-			m_SpriteRenderers(100)
+			m_SpriteRenderers(100),
+			m_CircleRenderers(100)
 		{}
 
 
@@ -58,6 +60,14 @@ namespace ME
 					m_SpriteRenderers.Delete(i);
 				}
 			}
+
+			for (int i = 0; i < m_CircleRenderers.GetCount(); i++)
+			{
+				if (m_CircleRenderers[i]->GetEntityID() == entityID)
+				{
+					m_CircleRenderers.Delete(i);
+				}
+			}
 		}
 
 		
@@ -79,6 +89,13 @@ namespace ME
 				for (int i = 0; i < m_SpriteRenderers.GetCount(); i++)
 				{
 					if (m_SpriteRenderers[i]->GetComponentID() == componentID) return m_SpriteRenderers[i]->GetEntityID();
+				}
+			}
+			else if (std::is_same<CircleRendererComponent, C>::value)
+			{
+				for (int i = 0; i < m_CircleRenderers.GetCount(); i++)
+				{
+					if (m_CircleRenderers[i]->GetComponentID() == componentID) return m_CircleRenderers[i]->GetEntityID();
 				}
 			}
 		}
@@ -108,6 +125,14 @@ namespace ME
 					components.push_back((C*)m_SpriteRenderers[i]);
 				}
 			}
+			else if (std::is_same<CircleRendererComponent, C>::value)
+			{
+				components.reserve(m_CircleRenderers.GetCount());
+				for (int i = 0; i < m_CircleRenderers.GetCount(); i++)
+				{
+					components.push_back((C*)m_CircleRenderers[i]);
+				}
+			}
 
 			return components;
 		}
@@ -128,7 +153,6 @@ namespace ME
 						return (C*)m_Transforms[i];
 					}
 				}
-				return nullptr;
 			}
 			else if (std::is_same<SpriteRendererComponent, C>::value)
 			{
@@ -139,7 +163,16 @@ namespace ME
 						return (C*)m_SpriteRenderers[i];
 					}
 				}
-				return nullptr;
+			}
+			else if (std::is_same<CircleRendererComponent, C>::value)
+			{
+				for (int i = 0; i < m_CircleRenderers.GetCount(); i++)
+				{
+					if (m_CircleRenderers[i]->GetEntityID() == entityID)
+					{
+						return (C*)m_CircleRenderers[i];
+					}
+				}
 			}
 
 			return nullptr;
@@ -179,6 +212,19 @@ namespace ME
 
 				return (C*)m_SpriteRenderers.Add(entityID);
 			}
+			else if (std::is_same<CircleRendererComponent, C>::value)
+			{
+				for (int i = 0; i < m_CircleRenderers.GetCount(); i++)
+				{
+					if (m_CircleRenderers[i]->GetEntityID() == entityID)
+					{
+						m_CircleRenderers.Delete(i);
+						break;
+					}
+				}
+
+				return (C*)m_CircleRenderers.Add(entityID);
+			}
 
 			return nullptr;
 		}
@@ -210,6 +256,16 @@ namespace ME
 					}
 				}
 			}
+			else if (std::is_same<CircleRendererComponent, C>::value)
+			{
+				for (int i = 0; i < m_CircleRenderers.GetCount(); i++)
+				{
+					if (m_CircleRenderers[i]->GetEntityID() == entityID)
+					{
+						return true;
+					}
+				}
+			}
 		}
 
 
@@ -234,12 +290,23 @@ namespace ME
 			{
 				for (int i = 0; i < m_SpriteRenderers.GetCount(); i++)
 				{
-					if (m_SpriteRenderers[i]->GetEntityID() == entityID) 
+					if (m_SpriteRenderers[i]->GetEntityID() == entityID)
 					{
 						m_SpriteRenderers.Delete(i);
 						break;
 					}
-				}				
+				}
+			}
+			else if (std::is_same<CircleRendererComponent, C>::value)
+			{
+				for (int i = 0; i < m_CircleRenderers.GetCount(); i++)
+				{
+					if (m_CircleRenderers[i]->GetEntityID() == entityID)
+					{
+						m_CircleRenderers.Delete(i);
+						break;
+					}
+				}
 			}
 		}
 
@@ -254,6 +321,7 @@ namespace ME
 		//
 		ComponentContainer<TransformComponent> m_Transforms;
 		ComponentContainer<SpriteRendererComponent> m_SpriteRenderers;
+		ComponentContainer<CircleRendererComponent> m_CircleRenderers;
 
 	};
 }

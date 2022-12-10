@@ -1,6 +1,7 @@
 #include "SDL.h"
 #include <iostream>
 #include <chrono>
+#include <math.h>
 
 void Log(std::string text)
 {
@@ -23,7 +24,7 @@ void SetDelta()
 	if (deltaMilliSeconds != 0) { fps = 1000 / deltaMilliSeconds; }
 	else { fps = 10000; }
 
-	std::cout << fps << std::endl;
+	//std::cout << fps << std::endl;
 }
 
 int main(int argc, char* args[])
@@ -31,12 +32,13 @@ int main(int argc, char* args[])
 	if (SDL_Init(SDL_INIT_VIDEO) != 0) Log(SDL_GetError());
 
 	SDL_Window* window = SDL_CreateWindow("Testing", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 720, SDL_WINDOW_SHOWN);
-	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
-	SDL_Surface* square = SDL_CreateRGBSurfaceWithFormat(0, 1, 1, 32, SDL_PIXELFORMAT_RGBA32);	
+	int radius = 350;
+	SDL_Surface* square = SDL_CreateRGBSurfaceWithFormat(0, radius * 2, radius * 2, 32, SDL_PIXELFORMAT_RGBA32);	
 	Uint32* buffer = (Uint32*)square->pixels;
 
-	/*
+	int radius2 = radius * radius;
 	int row = 0;
 	int column = 0;
 	int offset;
@@ -48,20 +50,22 @@ int main(int argc, char* args[])
 		column = 0;
 		while (column < square->h)
 		{
-			offset = row * square->h + column;
-			colour = SDL_MapRGBA(square->format, 255, 255, 255, 255);
-			buffer[offset] = colour;
+			int dx = radius - row;
+			int dy = radius - column;
+			if (dx*dx + dy*dy < radius2)
+			{
+				offset = row * square->h + column;
+				colour = SDL_MapRGBA(square->format, 255, 255, 255, 255);
+				buffer[offset] = colour;
+				
+			}
 			column++;
 		}
 		row++;
 	}
 	SDL_UnlockSurface(square);
-	*/
+	
 
-
-	SDL_LockSurface(square);
-	buffer[0] = SDL_MapRGBA(square->format, 255, 255, 255, 255);
-	SDL_UnlockSurface(square);
 	
 	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, square);
 	SDL_FreeSurface(square);
@@ -81,16 +85,16 @@ int main(int argc, char* args[])
 	SDL_SetRenderTarget(renderer, 0);
 	*/
 
-	SDL_FRect rect;
-	rect.x = 100; rect.y = 100;
-	rect.w = 80, rect.h = 80;
+	SDL_Rect rect;
+	rect.x = 260; rect.y = 10;
+	rect.w = radius * 2, rect.h = radius * 2;
 
-	float rotation = 0;
-
+	float xPosition = 0;
+	bool left = true;
 	int x, y;
 
-	SDL_SetTextureColorMod(texture, 255, 255, 255);
-	SDL_SetTextureAlphaMod(texture, 120);
+	SDL_SetTextureColorMod(texture, 255, 120, 120);
+	SDL_SetTextureAlphaMod(texture, 255);
 
 	while (true)
 	{
@@ -98,23 +102,29 @@ int main(int argc, char* args[])
 
 		SDL_RenderClear(renderer);
 
-		x = 40;
-		while (x < 1200)
-		{
-			y = 40;
-			while (y < 800)
-			{
-				rect.x = x; rect.y = y;
-				SDL_RenderCopyExF(renderer, texture, NULL, &rect, rotation, NULL, SDL_FLIP_NONE);
-				y += 120;
-			}
-			x += 120;
-		}
+		rect.x = xPosition;
+		SDL_RenderCopy(renderer, texture, NULL, &rect);
 
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 		SDL_RenderPresent(renderer);
 
-		rotation += 100 * deltaTime * 0.001;
+		if (left)
+		{
+			xPosition += 600 * deltaTime * 0.001;
+			if (xPosition >= 1280 - radius * 2)
+			{
+				left = false;
+			}
+		}
+		else
+		{
+			xPosition -= 600 * deltaTime * 0.001;
+			if (xPosition < 0)
+			{
+				left = true;
+			}
+		}
+		
 	}
 	
 	return 0;

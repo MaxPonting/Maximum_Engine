@@ -49,8 +49,7 @@ namespace ME
 		
 		/* TEXTURE API */
 		Texture AddTextureWithFilePath(const char* filePath);
-		
-				
+					
 	private:
 
 		/* PRIVATE METHODS */

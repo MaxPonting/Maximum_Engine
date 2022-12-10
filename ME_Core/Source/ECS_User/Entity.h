@@ -5,13 +5,14 @@
 #include "../ECS//ECS.h"
 #include "Transform.h"
 #include "SpriteRenderer.h"
+#include "CircleRenderer.h"
 
 namespace ME
 {
 	//
 	// Related to a set of components.
 	//
-	class Entity
+	class Entity final
 	{
 	public:
 
@@ -41,6 +42,10 @@ namespace ME
 			{
 				p_ECS->AddComponent<SpriteRendererComponent>(m_ID);
 			}
+			else if (std::is_same<CircleRenderer, C>::value)
+			{
+				p_ECS->AddComponent<CircleRendererComponent>(m_ID);
+			}
 			
 			return C(m_ID, p_ECS);
 		}
@@ -63,16 +68,13 @@ namespace ME
 			{
 				has = p_ECS->HasComponent<SpriteRendererComponent>(m_ID);
 			}
+			else if (std::is_same<CircleRenderer, C>::value)
+			{
+				has = p_ECS->HasComponent<CircleRendererComponent>(m_ID);
+			}
 
-			if (has)
-			{
-				return C(m_ID, p_ECS);
-			}
-			else
-			{
-				return C();
-			}
-		
+			if (has) return C(m_ID, p_ECS);
+			else return C();		
 		}
 
 		//
@@ -90,6 +92,10 @@ namespace ME
 			else if (std::is_same<SpriteRenderer, C>::value)
 			{
 				return p_ECS->HasComponent<SpriteRendererComponent>(m_ID);
+			}
+			else if (std::is_same<CircleRenderer, C>::value)
+			{
+				return p_ECS->HasComponent<CircleRendererComponent>(m_ID);
 			}
 
 			return false;
@@ -110,6 +116,10 @@ namespace ME
 			else if (std::is_same<SpriteRenderer, C>::value)
 			{
 				p_ECS->DestroyComponent<SpriteRendererComponent>(m_ID);
+			}
+			else if (std::is_same<CircleRenderer, C>::value)
+			{
+				p_ECS->DestroyComponent<CircleRendererComponent>(m_ID);
 			}
 		}
 

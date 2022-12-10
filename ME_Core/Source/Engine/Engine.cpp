@@ -104,6 +104,23 @@ namespace ME
 			});
 		}
 
+		std::vector<CircleRendererComponent*> circleRenderers =
+			m_ECS.GetComponents<CircleRendererComponent>();
+
+		for (int i = 0; i < circleRenderers.size(); i++)
+		{
+			circleRenderers[i]->CreateSDLTexture(m_Renderer);
+
+			TransformComponent transform = *m_ECS.GetComponent<TransformComponent>(circleRenderers[i]->GetEntityID());
+			int radius = circleRenderers[i]->GetRadius();
+
+			m_Renderer.Enqueue({
+				transform,
+				Sprite(circleRenderers[i]->GetSDLTexture(), circleRenderers[i]->colour, Vector2(radius * 2, radius * 2)),
+				circleRenderers[i]->layer
+			});
+		}
+
 		m_Renderer.RenderQueue();
 
 		m_Debug.Render();
