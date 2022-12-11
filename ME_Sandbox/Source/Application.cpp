@@ -10,7 +10,7 @@ int main(int argc, char* args[])
 
 	ME::Transform transform = entity.GetComponent<ME::Transform>();
 	ME::SpriteRenderer renderer = entity.AddComponent<ME::SpriteRenderer>();
-	ME::Texture texture = engine.AddTextureWithFilePath("../Dependencies/PNGs/Sword.png");
+	ME::Texture texture = engine.AddTextureWithFilePath("../Assets/PNGs/Sword.png");
 	transform.SetPosition(ME::Vector2(100, 400));
 	transform.SetRotation(90);
 	transform.SetScale(ME::Vector2(1, 1));

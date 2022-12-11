@@ -13,7 +13,7 @@ namespace ME
 	/* Creates Debug Text */
 	Debug::Debug(Renderer* renderer) :
 		p_Renderer(renderer),
-		m_Font(Font("C:/Dev/Maximum_Engine/Assets/clear-sans.regular.ttf"))
+		m_Font(Font("../Assets/Fonts/clear-sans.regular.ttf"))
 	{
 		m_Font.SetSize(FONT_SIZE);
 		m_Texts[0] = DebugText("FPS:", Vector2(), &m_Font, *renderer);			
