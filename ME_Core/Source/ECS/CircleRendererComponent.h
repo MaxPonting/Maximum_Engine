@@ -14,9 +14,9 @@ namespace ME
 
 		void SetRadius(float radius);
 		void CreateSDLTexture(const Renderer& renderer);
-
-		SDL_Texture* GetSDLTexture();
+		
 		unsigned int GetRadius();
+		SDL_Texture* GetSDLTexture();
 
 		RGBA colour;
 		unsigned int layer;
@@ -25,7 +25,7 @@ namespace ME
 		
 		unsigned int m_Radius;
 		bool m_NewTextureNeeded;
-		SDL_Texture* m_SDLTexture;
+		SDL_Texture* p_SDLTexture;
 
 	};
 }

@@ -7,7 +7,7 @@ namespace ME
 		Component(),
 		layer(0),
 		m_Radius(0),
-		m_SDLTexture(nullptr),
+		p_SDLTexture(nullptr),
 		m_NewTextureNeeded(false)
 	{}
 
@@ -15,7 +15,7 @@ namespace ME
 		Component(entityID, componentID),
 		layer(0),
 		m_Radius(1),
-		m_SDLTexture(nullptr),
+		p_SDLTexture(nullptr),
 		m_NewTextureNeeded(true)
 	{}
 
@@ -31,9 +31,9 @@ namespace ME
 		{
 			m_NewTextureNeeded = false;
 
-			if (m_SDLTexture != nullptr)
+			if (p_SDLTexture != nullptr)
 			{
-				SDLCall(SDL_DestroyTexture(m_SDLTexture));
+				SDLCall(SDL_DestroyTexture(p_SDLTexture));
 			}
 
 			SDLCall(SDL_Surface* surface = SDL_CreateRGBSurfaceWithFormat(0, m_Radius * 2, m_Radius * 2, 32, SDL_PIXELFORMAT_RGBA32));
@@ -65,14 +65,14 @@ namespace ME
 			}		
 			SDLCall(SDL_UnlockSurface(surface));
 
-			m_SDLTexture = renderer.CreateTextureFromSurface(surface);
+			p_SDLTexture = renderer.CreateTextureFromSurface(surface);
 			SDLCall(SDL_FreeSurface(surface));
 		}
 	}
 
 	SDL_Texture* CircleRendererComponent::GetSDLTexture()
 	{
-		return m_SDLTexture;
+		return p_SDLTexture;
 	}
 
 	unsigned int CircleRendererComponent::GetRadius()

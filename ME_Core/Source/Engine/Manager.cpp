@@ -5,6 +5,7 @@
 /* SDL2 */
 #include <SDL.h>
 #include <SDL_ttf.h>
+#include <SDL_image.h>
 
 /* ME */
 #include "Manager.h"
@@ -18,7 +19,8 @@ namespace ME
 	void Manager::Init()
 	{
 		SDLCall(SDL_Init(SDL_INIT_VIDEO));
-		TTFCall(TTF_Init());
+		SDLCall(TTF_Init());
+		SDLCall(IMG_Init(IMG_INIT_PNG | IMG_INIT_JPG));
 		s_Initialized = true;
 	}
 

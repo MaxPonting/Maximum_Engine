@@ -11,6 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\ECS\PolygonRendererComponent.h" />
+    <ClInclude Include="Source\ECS_User\PolygonRenderer.h" />
     <ClInclude Include="Source\ECS_User\CircleRenderer.h" />
     <ClInclude Include="Source\ECS\CircleRendererComponent.h" />
     <ClInclude Include="Source\Engine\ObjectToRender.h" />
@@ -42,6 +44,8 @@
     <ClInclude Include="Source\Engine\TextureContainer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\ECS\PolygonRendererComponent.cpp" />
+    <ClCompile Include="Source\ECS_User\PolygonRenderer.cpp" />
     <ClCompile Include="Source\ECS_User\CircleRenderer.cpp" />
     <ClCompile Include="Source\ECS\CircleRendererComponent.cpp" />
     <ClCompile Include="Source\ECS_User\ComponentRef.cpp" />
@@ -121,7 +125,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_ttf.lib</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_ttf.lib;SDL2_image.lib;</AdditionalDependencies>
     </Lib>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\SDL2\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -144,7 +148,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_ttf.lib</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_ttf.lib;SDL2_image.lib;</AdditionalDependencies>
     </Lib>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\SDL2\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>

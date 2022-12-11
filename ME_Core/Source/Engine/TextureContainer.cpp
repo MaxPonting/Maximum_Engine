@@ -1,6 +1,8 @@
 #include "TextureContainer.h"
 #include "Manager.h"
 
+#include <SDL_image.h>
+
 namespace ME
 {
 	ContainedTexture::ContainedTexture() :
@@ -28,8 +30,19 @@ namespace ME
 
 	ContainedTexture::ContainedTexture(unsigned int m_ID, const char* filePath, const Renderer& renderer) :
 		p_SDLTexture(nullptr),
-		m_ID(0)
-	{}
+		m_ID(m_ID)
+	{
+		SDLCall(SDL_Surface * surface = IMG_Load(filePath));
+
+		p_SDLTexture = renderer.CreateTextureFromSurface(surface);
+
+		int w, h;
+		SDLCall(SDL_QueryTexture(p_SDLTexture, NULL, NULL, &w, &h));
+
+		m_Size = Vector2(w, h);
+
+		SDLCall(SDL_FreeSurface(surface));
+	}
 
 	void ContainedTexture::SDLCleanUp()
 	{

@@ -2,7 +2,9 @@
 
 namespace ME
 {
-	
+	//
+	// Default Constructor.
+	//
 	Engine::Engine() :
 		m_Window(Window()),
 		m_Renderer(Renderer()),
@@ -13,7 +15,9 @@ namespace ME
 		m_Running(false)		
 	{}
 
-	
+	//
+	// Creates SDL2 window and renderer.
+	//
 	Engine::Engine(const char* title, const int width, const int height) :
 		m_Window(Window(title, width, height)),
 		m_Renderer(Renderer(m_Window)),
@@ -24,7 +28,10 @@ namespace ME
 		m_Running(false)		
 	{}
 
-	
+	//
+	// Call to start the game loop.
+	// Updates components and renders textures every frame.
+	// 
 	void Engine::Run()
 	{
 		m_Running = true;
@@ -42,21 +49,34 @@ namespace ME
 		m_Window.SDLCleanUp();
 	}
 
+	//
+	// Returns a new entity that can contain components.
+	//
 	Entity Engine::AddEntity()
 	{
 		return Entity(&m_ECS, m_ECS.AddEntity());
 	}
 
+	//
+	// Destroys the entity and all its components.
+	//
 	void Engine::DestroyEntity(Entity entity)
 	{
 		m_ECS.DestroyEntity(entity.GetID());
 	}
 
+	//
+	// Adds a texture to the engine using a filePath.
+	//
 	Texture Engine::AddTextureWithFilePath(const char* filePath)
 	{
 		return Texture(m_Textures.AddWithFilePath(filePath, m_Renderer)->GetID());
 	}
 
+	//
+	// Polls for SDL2 events.
+	// Sets running to false if the window has closed.
+	//
 	void Engine::UpdateEvents()
 	{
 		while (SDL_PollEvent(&m_Event))
@@ -84,7 +104,10 @@ namespace ME
 		m_Time.UpdateSubFrame(EngineTime::SubFrameType::Physics);
 	}
 
-	
+	//
+	// Adds each renderer component to the rendering queue.
+	// Clears the renderer and then presents after rendering all objects on the queue.
+	//
 	void Engine::UpdateRenderer()
 	{
 		m_Renderer.Clear();
