@@ -15,11 +15,11 @@ namespace ME
 
 		void SetTexture(Texture texture);
 		void SetColour(RGBA colour);
-		void SetLayer(unsigned int layer);
+		void SetLayer(int layer);
 
 		Texture GetTexture();
 		RGBA GetColour();
-		unsigned int GetLayer();
+		int GetLayer();
 
 	};
 }

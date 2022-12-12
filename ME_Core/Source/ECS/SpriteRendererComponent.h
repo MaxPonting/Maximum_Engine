@@ -15,7 +15,7 @@ namespace ME
 
 		Texture texture;
 		RGBA colour;
-		unsigned int layer;
+		int layer;
 
 	};
 }

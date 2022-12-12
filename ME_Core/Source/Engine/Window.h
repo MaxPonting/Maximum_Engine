@@ -36,7 +36,7 @@ namespace ME
 	private:
 
 		/* PRIVATE MEMBERS */
-		SDL_Window* m_Window;
+		SDL_Window* p_Window;
 		
 	};
 }

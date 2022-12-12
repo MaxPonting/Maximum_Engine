@@ -11,7 +11,7 @@ namespace ME
 
 		TransformComponent transform;
 		Sprite sprite;
-		unsigned int layer;
+		int layer;
 
 	};
 }

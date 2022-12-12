@@ -21,7 +21,7 @@ namespace ME
 		
 
 		RGBA colour;
-		unsigned int layer;
+		int layer;
 
 	private:
 

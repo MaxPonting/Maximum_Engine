@@ -19,7 +19,7 @@ namespace ME
 		SDL_Texture* GetSDLTexture();
 
 		RGBA colour;
-		unsigned int layer;
+		int layer;
 
 	private:
 		

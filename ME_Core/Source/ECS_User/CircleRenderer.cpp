@@ -15,7 +15,7 @@ namespace ME
 		p_ECS->GetComponent<CircleRendererComponent>(m_EntityID)->colour = colour;
 	}
 
-	void CircleRenderer::SetLayer(unsigned int layer)
+	void CircleRenderer::SetLayer(int layer)
 	{
 		p_ECS->GetComponent<CircleRendererComponent>(m_EntityID)->layer = layer;
 	}
@@ -30,7 +30,7 @@ namespace ME
 		return p_ECS->GetComponent<CircleRendererComponent>(m_EntityID)->colour;
 	}
 
-	unsigned int CircleRenderer::GetLayer()
+	int CircleRenderer::GetLayer()
 	{
 		return p_ECS->GetComponent<CircleRendererComponent>(m_EntityID)->layer;
 	}

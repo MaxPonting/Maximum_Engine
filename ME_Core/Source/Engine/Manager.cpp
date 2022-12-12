@@ -20,7 +20,8 @@ namespace ME
 	{
 		SDLCall(SDL_Init(SDL_INIT_VIDEO));
 		SDLCall(TTF_Init());
-		SDLCall(IMG_Init(IMG_INIT_PNG | IMG_INIT_JPG));
+		//SDLCall(IMG_Init(IMG_INIT_PNG));
+		SDLCall(IMG_Init(IMG_INIT_JPG));
 		s_Initialized = true;
 	}
 
@@ -38,10 +39,8 @@ namespace ME
 	{
 		std::string error = SDL_GetError();
 		SDL_ClearError();
-		if (error.size() == 0)
-		{
-			return false;
-		}
+		if (error.size() == 0) return false;
+		else if (error == "Not a PNG") return false;
 		else
 		{
 			Log::PrintToLog("[SDL][Error]", error);
@@ -49,22 +48,5 @@ namespace ME
 		}
 	}
 
-	/*
-		Check if a TTF error occurs
-	//
-		Prints error to the console
-	*/
-	bool Manager::CheckTTFError()
-	{
-		std::string error = TTF_GetError();
-		if (error.size() == 0)
-		{
-			return false;
-		}
-		else
-		{
-			Log::PrintToLog("[TTF][Error]", error);
-			return true;
-		}
-	}
+	
 }

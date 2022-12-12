@@ -5,6 +5,7 @@
 
 /* SDL2 */
 #include <SDL.h>
+#include <SDL_image.h>
 
 /* ME */
 #include "Sprite.h"
@@ -34,7 +35,9 @@ namespace ME
 		void RenderSprite(const Sprite sprite, const Vector2 position) const;
 		void Present(const Window window);
 		void SDLCleanUp();
+
 		SDL_Texture* CreateTextureFromSurface(SDL_Surface* surface) const;
+		SDL_Texture* CreateTextureFromFilePath(const char* filePath) const;
 
 	private:
 
@@ -42,7 +45,7 @@ namespace ME
 		void RenderObject(const ObjectToRender object);
 
 		/* PRIVATE MEMBERS */
-		SDL_Renderer* m_Renderer;
+		SDL_Renderer* p_Renderer;
 		std::vector<ObjectToRender> m_ObjectsToRender;
 
 	};

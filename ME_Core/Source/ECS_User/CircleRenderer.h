@@ -15,11 +15,11 @@ namespace ME
 
 		void SetRadius(unsigned int radius);
 		void SetColour(RGBA colour);
-		void SetLayer(unsigned int layer);
+		void SetLayer(int layer);
 
 		unsigned int GetRadius();
 		RGBA GetColour();
-		unsigned int GetLayer();	
+		int GetLayer();	
 	};
 }
 

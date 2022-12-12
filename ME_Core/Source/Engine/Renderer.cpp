@@ -8,19 +8,19 @@
 namespace ME
 {
 	Renderer::Renderer() :
-		m_Renderer(nullptr)
+		p_Renderer(nullptr)
 	{}
 
 	/* Creates SDL2 Renderer */
 	Renderer::Renderer(const Window window)
 	{
-		SDLCall(m_Renderer = SDL_CreateRenderer(window.GetWindow(), -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC));
+		SDLCall(p_Renderer = SDL_CreateRenderer(window.GetWindow(), -1, SDL_RENDERER_ACCELERATED));
 	}
 
 	/* Clears SDL2 renderer */
 	void Renderer::Clear()
 	{
-		SDLCall(SDL_RenderClear(m_Renderer));
+		SDLCall(SDL_RenderClear(p_Renderer));
 	}
 
 	void Renderer::Enqueue(ObjectToRender object)
@@ -67,36 +67,11 @@ namespace ME
 		rect.h = sprite.size.GetY();
 		SDLCall(SDL_RenderCopyF
 		(
-			m_Renderer,
+			p_Renderer,
 			sprite.GetTexture(),
 			NULL,
 			&rect
 		));
-	}
-
-	/* Presents renderer sprites to the SDL2 window */
-	void Renderer::Present(const Window window)
-	{
-		SDLCall(SDL_SetRenderDrawColor(
-			m_Renderer,
-			window.m_Colour.GetR(),
-			window.m_Colour.GetG(),
-			window.m_Colour.GetB(),
-			window.m_Colour.GetA()
-		));
-		SDLCall(SDL_RenderPresent(m_Renderer));
-	}
-	
-	void Renderer::SDLCleanUp()
-	{
-		SDLCall(SDL_DestroyRenderer(m_Renderer));
-	}
-
-	/* Creates a SDL_Texture from a SDL_Surface */
-	SDL_Texture* Renderer::CreateTextureFromSurface(SDL_Surface* surface) const
-	{
-		SDLCall(SDL_Texture* texture = SDL_CreateTextureFromSurface(m_Renderer, surface));
-		return texture;
 	}
 
 	/*Renders a sprite to the SDL2 window using a transform */
@@ -126,7 +101,7 @@ namespace ME
 
 		SDLCall(SDL_RenderCopyExF
 		(
-			m_Renderer,
+			p_Renderer,
 			object.sprite.GetTexture(),
 			NULL,
 			&rect,
@@ -135,4 +110,36 @@ namespace ME
 			SDL_FLIP_NONE
 		));
 	}
+
+	/* Presents renderer sprites to the SDL2 window */
+	void Renderer::Present(const Window window)
+	{
+		SDLCall(SDL_SetRenderDrawColor(
+			p_Renderer,
+			window.m_Colour.GetR(),
+			window.m_Colour.GetG(),
+			window.m_Colour.GetB(),
+			window.m_Colour.GetA()
+		));
+		SDLCall(SDL_RenderPresent(p_Renderer));
+	}
+	
+	void Renderer::SDLCleanUp()
+	{
+		SDLCall(SDL_DestroyRenderer(p_Renderer));
+	}
+
+	/* Creates a SDL_Texture from a SDL_Surface */
+	SDL_Texture* Renderer::CreateTextureFromSurface(SDL_Surface* surface) const
+	{
+		SDLCall(SDL_Texture* texture = SDL_CreateTextureFromSurface(p_Renderer, surface));
+		return texture;
+	}
+
+	SDL_Texture* Renderer::CreateTextureFromFilePath(const char* filePath) const
+	{
+		return SDLCall(IMG_LoadTexture(p_Renderer, filePath));
+	}
+
+	
 }

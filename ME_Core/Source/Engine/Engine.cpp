@@ -67,6 +67,7 @@ namespace ME
 
 	//
 	// Adds a texture to the engine using a filePath.
+	// Supports PNG and JPG/JPEG files.
 	//
 	Texture Engine::AddTextureWithFilePath(const char* filePath)
 	{

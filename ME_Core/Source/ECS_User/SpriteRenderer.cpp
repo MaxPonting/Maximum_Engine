@@ -15,7 +15,7 @@ namespace ME
 		p_ECS->GetComponent<SpriteRendererComponent>(m_EntityID)->colour = colour;
 	}
 
-	void SpriteRenderer::SetLayer(unsigned int layer)
+	void SpriteRenderer::SetLayer(int layer)
 	{
 		p_ECS->GetComponent<SpriteRendererComponent>(m_EntityID)->layer = layer;
 	}
@@ -30,7 +30,7 @@ namespace ME
 		return p_ECS->GetComponent<SpriteRendererComponent>(m_EntityID)->colour;
 	}
 
-	unsigned int SpriteRenderer::GetLayer()
+	int SpriteRenderer::GetLayer()
 	{
 		return p_ECS->GetComponent<SpriteRendererComponent>(m_EntityID)->layer;
 	}

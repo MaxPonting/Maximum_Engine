@@ -10,7 +10,6 @@ namespace ME
 		static void Init();
 		static bool GetState();
 		static bool CheckSDLError();
-		static bool CheckTTFError();
 
 	private:
 
@@ -26,7 +25,7 @@ namespace ME
 //
 	Breaks if an error occurs
 */
-#define SDLCall(x) x; if(ME::Manager::CheckSDLError()) __debugbreak;  
+#define SDLCall(x) x; if(ME::Manager::CheckSDLError()) __debugbreak();  
 
 /*
 	Wrapper for every TTF Call
@@ -35,7 +34,7 @@ namespace ME
 //
 	Breaks if an error occurs
 */
-#define TTFCall(x) x; if(ME::Manager::CheckTTFError()) __debugbreak;  
+#define TTFCall(x) x; if(ME::Manager::CheckSDLError()) __debugbreak();  
 
 /* Defines prefix for a SDL Error */
 #define SDL_Error "[SDL][Error][" + __LINE__ + "]"

@@ -28,7 +28,6 @@ namespace ME
 		/* PUBLIC MEMBERS */
 		RGBA colour;
 		Vector2 size;
-		unsigned int layer;
 
 	private:
 
