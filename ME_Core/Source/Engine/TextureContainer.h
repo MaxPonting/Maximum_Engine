@@ -21,13 +21,13 @@ namespace ME
 		void SDLCleanUp();
 
 		SDL_Texture* GetSDLTexture();
-		Vector2 GetSize();
+		Vector2i GetSize();
 		unsigned int GetID();
 
 	private:
 
 		SDL_Texture* p_SDLTexture;
-		Vector2 m_Size;
+		Vector2i m_Size;
 		unsigned int m_ID;
 
 	};

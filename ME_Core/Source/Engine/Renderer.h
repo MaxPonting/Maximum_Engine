@@ -32,12 +32,20 @@ namespace ME
 		void Clear();
 		void Enqueue(ObjectToRender object);
 		void RenderQueue();
-		void RenderSprite(const Sprite sprite, const Vector2 position) const;
+		void RenderSprite(const Sprite sprite, const Vector2f position) const;
 		void Present(const Window window);
 		void SDLCleanUp();
 
+		void SetRenderTargetToTexture(SDL_Texture* texture) const;
+		void ResetRenderTarget() const;
+		void SetRenderDrawColor(RGBA color) const;
+		void RenderDrawPoint(int x, int y) const;
+
+		SDL_Texture* CreateTexture(SDL_TextureAccess access, int w, int h) const;
 		SDL_Texture* CreateTextureFromSurface(SDL_Surface* surface) const;
 		SDL_Texture* CreateTextureFromFilePath(const char* filePath) const;
+
+		SDL_RendererInfo GetInfo();
 
 	private:
 
@@ -46,6 +54,7 @@ namespace ME
 
 		/* PRIVATE MEMBERS */
 		SDL_Renderer* p_Renderer;
+		SDL_RendererInfo m_Info;
 		std::vector<ObjectToRender> m_ObjectsToRender;
 
 	};

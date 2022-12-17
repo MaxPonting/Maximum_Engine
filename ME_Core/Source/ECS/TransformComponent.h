@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Component.h"
-#include "../Engine/Vector2.h"
+#include "../Engine/Vector2f.h"
 #include "../Engine/Angle.h"
 
 namespace ME
@@ -13,9 +13,9 @@ namespace ME
 		TransformComponent();
 		TransformComponent(const unsigned int entityID, const unsigned int componentID);
 
-		Vector2 position;
+		Vector2f position;
 		Angle rotation;
-		Vector2 scale;
+		Vector2f scale;
 
 	};
 }

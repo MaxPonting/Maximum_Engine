@@ -3,8 +3,6 @@
 #include "SDL.h"
 
 #include "SDLWrapper.h"
-#include "Vector2.h"
-#include "Texture.h"
 
 namespace ME
 {

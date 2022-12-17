@@ -2,7 +2,7 @@
 
 #include "ComponentRef.h"
 #include "../Engine/Angle.h"
-#include "../Engine/Vector2.h"
+#include "../Engine/Vector2f.h"
 
 namespace ME
 {
@@ -13,13 +13,13 @@ namespace ME
 		Transform();
 		Transform(unsigned int entityID, ECS* ecs);
 
-		void SetPosition(Vector2 position);
+		void SetPosition(Vector2f position);
 		void SetRotation(float rotation);
-		void SetScale(Vector2 scale);
+		void SetScale(Vector2f scale);
 
-		Vector2 GetPosition();
+		Vector2f GetPosition();
 		float GetRotation();
-		Vector2 GetScale();
+		Vector2f GetScale();
 	};
 }
 

@@ -7,7 +7,6 @@
 #include <algorithm>
 
 /* ME */
-#include "Vector2.h"
 #include "Window.h"
 #include "Renderer.h"
 #include "Arena.h"

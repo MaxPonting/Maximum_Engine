@@ -8,13 +8,18 @@
 namespace ME
 {
 	Renderer::Renderer() :
-		p_Renderer(nullptr)
+		p_Renderer(nullptr),
+		m_Info(SDL_RendererInfo())
 	{}
 
 	/* Creates SDL2 Renderer */
 	Renderer::Renderer(const Window window)
-	{
+	{		
+		//SDL_SetHint(SDL_HINT_RENDER_DRIVER, "opengl");
+		SDLCall(SDL_SetHint(SDL_HINT_RENDER_BATCHING, "1"));
 		SDLCall(p_Renderer = SDL_CreateRenderer(window.GetWindow(), -1, SDL_RENDERER_ACCELERATED));
+		SDLCall(SDL_RenderSetLogicalSize(p_Renderer, 1280, 720));
+		SDLCall(SDL_GetRendererInfo(p_Renderer, &m_Info));
 	}
 
 	/* Clears SDL2 renderer */
@@ -42,7 +47,7 @@ namespace ME
 	}
 
 	/* Renders a sprite to the SDL2 window using a position */
-	void Renderer::RenderSprite(const Sprite sprite, const Vector2 position) const
+	void Renderer::RenderSprite(const Sprite sprite, const Vector2f position) const
 	{
 		if (sprite.GetTexture() == nullptr) return;
 
@@ -61,10 +66,10 @@ namespace ME
 		));
 
 		SDL_FRect rect;
-		rect.x = position.GetX();
-		rect.y = position.GetY();
-		rect.w = sprite.size.GetX();
-		rect.h = sprite.size.GetY();
+		rect.x = position.X;
+		rect.y = position.Y;
+		rect.w = sprite.size.X;
+		rect.h = sprite.size.Y;
 		SDLCall(SDL_RenderCopyF
 		(
 			p_Renderer,
@@ -94,10 +99,10 @@ namespace ME
 		));
 
 		SDL_FRect rect;
-		rect.x = object.transform.position.GetX();
-		rect.y = object.transform.position.GetY();
-		rect.w = object.sprite.size.GetX() * object.transform.scale.GetX();
-		rect.h = object.sprite.size.GetY() * object.transform.scale.GetY();
+		rect.x = object.transform.position.X;
+		rect.y = object.transform.position.Y;
+		rect.w = object.sprite.size.X * object.transform.scale.X;
+		rect.h = object.sprite.size.Y * object.transform.scale.Y;
 
 		SDLCall(SDL_RenderCopyExF
 		(
@@ -129,6 +134,32 @@ namespace ME
 		SDLCall(SDL_DestroyRenderer(p_Renderer));
 	}
 
+	void Renderer::SetRenderTargetToTexture(SDL_Texture* texture) const
+	{
+		SDL_SetRenderTarget(p_Renderer, texture);
+	}
+
+	void Renderer::ResetRenderTarget() const
+	{
+		SDL_SetRenderTarget(p_Renderer, 0);
+	}
+
+	void Renderer::SetRenderDrawColor(RGBA color) const
+	{
+		SDL_SetRenderDrawColor(p_Renderer, color.GetR(), color.GetG(), color.GetB(), color.GetA());
+	}
+
+	void Renderer::RenderDrawPoint(int x, int y) const
+	{
+		SDL_RenderDrawPoint(p_Renderer, x, y);
+	}
+
+	SDL_Texture* Renderer::CreateTexture(SDL_TextureAccess access, int w, int h) const
+	{
+		SDLCall(SDL_Texture * texture = SDL_CreateTexture(p_Renderer, SDL_PIXELFORMAT_RGBA32, access, w, h));
+		return texture;
+	}
+
 	/* Creates a SDL_Texture from a SDL_Surface */
 	SDL_Texture* Renderer::CreateTextureFromSurface(SDL_Surface* surface) const
 	{
@@ -139,6 +170,11 @@ namespace ME
 	SDL_Texture* Renderer::CreateTextureFromFilePath(const char* filePath) const
 	{
 		return SDLCall(IMG_LoadTexture(p_Renderer, filePath));
+	}
+
+	SDL_RendererInfo Renderer::GetInfo()
+	{
+		return m_Info;
 	}
 
 	

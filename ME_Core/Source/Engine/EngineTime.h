@@ -23,6 +23,7 @@ namespace ME
 		/* GETTERS */
 		int GetFps() const;
 		float GetDeltaTime() const;
+		float GetDeltaTimeInSeconds() const;
 		float GetMiscTime() const;
 		float GetScriptTime() const;
 		float GetPhysicsTime() const;

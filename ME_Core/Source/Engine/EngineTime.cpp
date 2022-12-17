@@ -81,6 +81,11 @@ namespace ME
 		return m_DeltaTime;
 	}
 
+	float EngineTime::GetDeltaTimeInSeconds() const
+	{
+		return m_DeltaTime * 0.001;
+	}
+
 	float EngineTime::GetMiscTime() const
 	{
 		return m_MiscTime;

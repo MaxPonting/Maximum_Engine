@@ -6,7 +6,7 @@
 /* ME */
 #include "RGBA.h"
 #include "Texture.h"
-#include "Vector2.h"
+#include "Vector2i.h"
 
 namespace ME
 {
@@ -20,14 +20,14 @@ namespace ME
 
 		/* CONSTRUCTORS */
 		Sprite();
-		Sprite(SDL_Texture* texture, const RGBA colour, const Vector2 size);
+		Sprite(SDL_Texture* texture, const RGBA colour, const Vector2i size);
 
 		/* GETTERS */
 		SDL_Texture* GetTexture() const ;
 		
 		/* PUBLIC MEMBERS */
 		RGBA colour;
-		Vector2 size;
+		Vector2i size;
 
 	private:
 

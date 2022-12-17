@@ -2,7 +2,7 @@
 
 #include "Component.h"
 #include "../Engine/TextureContainer.h"
-
+#include "../Polygon/Polygon.h"
 
 namespace ME
 {
@@ -13,21 +13,18 @@ namespace ME
 		PolygonRendererComponent();
 		PolygonRendererComponent(const unsigned int entityID, const unsigned int componentID);
 
-		void SetVertices(std::vector<Vector2> vertices);
+		void SetPolygon(Polygon polygon);
 		void CreateSDLTexture(const Renderer& renderer);
-
-		std::vector<Vector2> GetVertices();
+	
+		Polygon GetPolygon();
 		SDL_Texture* GetSDLTexture();
 		
-
 		RGBA colour;
 		int layer;
 
 	private:
 
-		std::vector<Vector2> GetFilledPolygon();
-
-		std::vector<Vector2> m_Vertices;
+		Polygon m_Polygon;
 		bool m_NewTextureNeeded;
 		SDL_Texture* p_SDLTexture;
 

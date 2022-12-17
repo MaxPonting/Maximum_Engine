@@ -7,7 +7,7 @@
 #include "EngineTime.h"
 #include "RGBA.h"
 
-#define NUM_DEBUG_TEXTS 6
+#define NUM_DEBUG_TEXTS 7
 #define UPDATE_TIME_MILLISECONDS 100
 #define TEXT_COLOUR ME::RGBA(0, 255, 0, 255)
 #define FONT_SIZE 18
@@ -38,7 +38,7 @@ namespace ME
 
 			/* CONSTRUCTOR */
 			DebugText();
-			DebugText(std::string text, Vector2 position, Font* font, const Renderer& renderer);
+			DebugText(std::string text, Vector2i position, Font* font, const Renderer& renderer);
 
 			/* PUBLIC METHODS */
 			void SetText(const Renderer& renderer, std::string text);
@@ -50,7 +50,7 @@ namespace ME
 			std::string m_Text;
 			SDL_Texture* p_Texture;
 			Sprite m_Sprite;
-			Vector2 m_Position;
+			Vector2i m_Position;
 			Font* p_Font;
 
 		};

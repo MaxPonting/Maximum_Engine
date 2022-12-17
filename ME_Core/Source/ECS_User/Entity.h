@@ -6,6 +6,7 @@
 #include "Transform.h"
 #include "SpriteRenderer.h"
 #include "CircleRenderer.h"
+#include "PolygonRenderer.h"
 
 namespace ME
 {
@@ -46,6 +47,10 @@ namespace ME
 			{
 				p_ECS->AddComponent<CircleRendererComponent>(m_ID);
 			}
+			else if (std::is_same<PolygonRenderer, C>::value)
+			{
+				p_ECS->AddComponent<PolygonRendererComponent>(m_ID);
+			}
 			
 			return C(m_ID, p_ECS);
 		}
@@ -72,6 +77,10 @@ namespace ME
 			{
 				has = p_ECS->HasComponent<CircleRendererComponent>(m_ID);
 			}
+			else if (std::is_same<PolygonRenderer, C>::value)
+			{
+				has = p_ECS->HasComponent<PolygonRendererComponent>(m_ID);
+			}
 
 			if (has) return C(m_ID, p_ECS);
 			else return C();		
@@ -97,6 +106,10 @@ namespace ME
 			{
 				return p_ECS->HasComponent<CircleRendererComponent>(m_ID);
 			}
+			else if (std::is_same<PolygonRenderer, C>::value)
+			{
+				return p_ECS->HasComponent<PolygonRendererComponent>(m_ID);
+			}
 
 			return false;
 		}
@@ -120,6 +133,10 @@ namespace ME
 			else if (std::is_same<CircleRenderer, C>::value)
 			{
 				p_ECS->DestroyComponent<CircleRendererComponent>(m_ID);
+			}
+			else if (std::is_same<PolygonRenderer, C>::value)
+			{
+				p_ECS->DestroyComponent<PolygonRendererComponent>(m_ID);
 			}
 		}
 

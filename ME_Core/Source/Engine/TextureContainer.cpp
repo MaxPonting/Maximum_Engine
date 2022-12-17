@@ -12,7 +12,7 @@ namespace ME
 
 	ContainedTexture::ContainedTexture(unsigned int m_ID, const Renderer& renderer) :
 		m_ID(0),
-		m_Size(Vector2(1, 1))
+		m_Size(Vector2i(1, 1))
 	{
 		SDLCall(SDL_Surface* surface = SDL_CreateRGBSurfaceWithFormat(0, 1, 1, 32, SDL_PIXELFORMAT_RGBA32));
 		Uint32* buffer = (Uint32*)surface->pixels;
@@ -36,7 +36,7 @@ namespace ME
 
 		int w, h;
 		SDLCall(SDL_QueryTexture(p_SDLTexture, NULL, NULL, &w, &h));
-		m_Size = Vector2(w, h);
+		m_Size = Vector2i(w, h);
 	}
 
 	void ContainedTexture::SDLCleanUp()
@@ -51,7 +51,7 @@ namespace ME
 		return p_SDLTexture;
 	}
 
-	Vector2 ContainedTexture::GetSize()
+	Vector2i ContainedTexture::GetSize()
 	{
 		return m_Size;
 	}

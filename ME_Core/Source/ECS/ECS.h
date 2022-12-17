@@ -6,6 +6,7 @@
 #include "TransformComponent.h"
 #include "SpriteRendererComponent.h"
 #include "CircleRendererComponent.h"
+#include "PolygonRendererComponent.h"
 
 namespace ME
 {
@@ -68,6 +69,14 @@ namespace ME
 					m_CircleRenderers.Delete(i);
 				}
 			}
+
+			for (int i = 0; i < m_PolygonRenderers.GetCount(); i++)
+			{
+				if (m_PolygonRenderers[i]->GetEntityID() == entityID)
+				{
+					m_PolygonRenderers.Delete(i);
+				}
+			}
 		}
 
 		
@@ -96,6 +105,13 @@ namespace ME
 				for (int i = 0; i < m_CircleRenderers.GetCount(); i++)
 				{
 					if (m_CircleRenderers[i]->GetComponentID() == componentID) return m_CircleRenderers[i]->GetEntityID();
+				}
+			}
+			else if (std::is_same<PolygonRendererComponent, C>::value)
+			{
+				for (int i = 0; i < m_PolygonRenderers.GetCount(); i++)
+				{
+					if (m_PolygonRenderers[i]->GetComponentID() == componentID) return m_PolygonRenderers[i]->GetEntityID();
 				}
 			}
 		}
@@ -131,6 +147,14 @@ namespace ME
 				for (int i = 0; i < m_CircleRenderers.GetCount(); i++)
 				{
 					components.push_back((C*)m_CircleRenderers[i]);
+				}
+			}
+			else if (std::is_same<PolygonRendererComponent, C>::value)
+			{
+				components.reserve(m_PolygonRenderers.GetCount());
+				for (int i = 0; i < m_PolygonRenderers.GetCount(); i++)
+				{
+					components.push_back((C*)m_PolygonRenderers[i]);
 				}
 			}
 
@@ -171,6 +195,16 @@ namespace ME
 					if (m_CircleRenderers[i]->GetEntityID() == entityID)
 					{
 						return (C*)m_CircleRenderers[i];
+					}
+				}
+			}
+			else if (std::is_same<PolygonRendererComponent, C>::value)
+			{
+				for (int i = 0; i < m_PolygonRenderers.GetCount(); i++)
+				{
+					if (m_PolygonRenderers[i]->GetEntityID() == entityID)
+					{
+						return (C*)m_PolygonRenderers[i];
 					}
 				}
 			}
@@ -225,6 +259,20 @@ namespace ME
 
 				return (C*)m_CircleRenderers.Add(entityID);
 			}
+			else if (std::is_same<PolygonRendererComponent, C>::value)
+			{
+				for (int i = 0; i < m_PolygonRenderers.GetCount(); i++)
+				{
+					if (m_PolygonRenderers[i]->GetEntityID() == entityID)
+					{
+						m_PolygonRenderers.Delete(i);
+						break;
+					}
+				}
+
+				return (C*)m_PolygonRenderers.Add(entityID);
+			}
+
 
 			return nullptr;
 		}
@@ -261,6 +309,16 @@ namespace ME
 				for (int i = 0; i < m_CircleRenderers.GetCount(); i++)
 				{
 					if (m_CircleRenderers[i]->GetEntityID() == entityID)
+					{
+						return true;
+					}
+				}
+			}
+			else if (std::is_same<PolygonRendererComponent, C>::value)
+			{
+				for (int i = 0; i < m_PolygonRenderers.GetCount(); i++)
+				{
+					if (m_PolygonRenderers[i]->GetEntityID() == entityID)
 					{
 						return true;
 					}
@@ -308,6 +366,17 @@ namespace ME
 					}
 				}
 			}
+			else if (std::is_same<PolygonRendererComponent, C>::value)
+			{
+				for (int i = 0; i < m_PolygonRenderers.GetCount(); i++)
+				{
+					if (m_PolygonRenderers[i]->GetEntityID() == entityID)
+					{
+						m_PolygonRenderers.Delete(i);
+						break;
+					}
+				}
+			}
 		}
 
 	private:
@@ -322,6 +391,7 @@ namespace ME
 		ComponentContainer<TransformComponent> m_Transforms;
 		ComponentContainer<SpriteRendererComponent> m_SpriteRenderers;
 		ComponentContainer<CircleRendererComponent> m_CircleRenderers;
+		ComponentContainer<PolygonRendererComponent> m_PolygonRenderers;
 
 	};
 }

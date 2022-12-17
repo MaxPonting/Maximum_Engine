@@ -6,11 +6,11 @@ namespace ME
 	Sprite::Sprite() :
 		m_Texture(nullptr),
 		colour(RGBA()),
-		size(Vector2())
+		size(Vector2i())
 	{}
 
 	/* Set Members */
-	Sprite::Sprite(SDL_Texture* texture, const RGBA colour, const Vector2 size) :
+	Sprite::Sprite(SDL_Texture* texture, const RGBA colour, const Vector2i size) :
 		m_Texture(texture),
 		colour(colour),
 		size(size)

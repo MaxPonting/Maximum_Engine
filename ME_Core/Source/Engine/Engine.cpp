@@ -140,8 +140,26 @@ namespace ME
 
 			m_Renderer.Enqueue({
 				transform,
-				Sprite(circleRenderers[i]->GetSDLTexture(), circleRenderers[i]->colour, Vector2(radius * 2, radius * 2)),
+				Sprite(circleRenderers[i]->GetSDLTexture(), circleRenderers[i]->colour, Vector2i(radius * 2, radius * 2)),
 				circleRenderers[i]->layer
+			});
+		}
+
+		std::vector<PolygonRendererComponent*> polygonRenderers =
+			m_ECS.GetComponents<PolygonRendererComponent>();
+
+		
+		for (int i = 0; i < polygonRenderers.size(); i++)
+		{
+			polygonRenderers[i]->CreateSDLTexture(m_Renderer);
+
+			TransformComponent transform = *m_ECS.GetComponent<TransformComponent>(polygonRenderers[i]->GetEntityID());
+			
+			Vector2i size = Vector2i(polygonRenderers[i]->GetPolygon().GetWidth(), polygonRenderers[i]->GetPolygon().GetHeight());
+			m_Renderer.Enqueue({
+				transform,
+				Sprite(polygonRenderers[i]->GetSDLTexture(), polygonRenderers[i]->colour, size),
+				polygonRenderers[i]->layer
 			});
 		}
 
