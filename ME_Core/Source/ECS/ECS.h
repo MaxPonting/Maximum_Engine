@@ -24,9 +24,10 @@ namespace ME
 		//
 		ECS() :
 			m_NextEntityID(0),
-			m_Transforms(100),
-			m_SpriteRenderers(100),
-			m_CircleRenderers(100)
+			m_Transforms(10000),
+			m_SpriteRenderers(10000),
+			m_CircleRenderers(100),
+			m_PolygonRenderers(100)
 		{}
 
 
@@ -46,74 +47,10 @@ namespace ME
 		//
 		void DestroyEntity(unsigned int entityID)
 		{
-			for (int i = 0; i < m_Transforms.GetCount(); i++)
-			{
-				if (m_Transforms[i]->GetEntityID() == entityID)
-				{
-					m_Transforms.Delete(i);
-				}
-			}
-
-			for (int i = 0; i < m_SpriteRenderers.GetCount(); i++)
-			{
-				if (m_SpriteRenderers[i]->GetEntityID() == entityID)
-				{
-					m_SpriteRenderers.Delete(i);
-				}
-			}
-
-			for (int i = 0; i < m_CircleRenderers.GetCount(); i++)
-			{
-				if (m_CircleRenderers[i]->GetEntityID() == entityID)
-				{
-					m_CircleRenderers.Delete(i);
-				}
-			}
-
-			for (int i = 0; i < m_PolygonRenderers.GetCount(); i++)
-			{
-				if (m_PolygonRenderers[i]->GetEntityID() == entityID)
-				{
-					m_PolygonRenderers.Delete(i);
-				}
-			}
-		}
-
-		
-		// 
-		// Returns the ID of a component's entity.
-		//
-		template <class C>
-		unsigned int GetEntityOf(unsigned int componentID)
-		{
-			if (std::is_same<TransformComponent, C>::value)
-			{				
-				for (int i = 0; i < m_Transforms.GetCount(); i++)
-				{
-					if (m_Transforms[i]->GetComponentID() == componentID) return m_Transforms[i]->GetEntityID();
-				}
-			}
-			else if (std::is_same<SpriteRendererComponent, C>::value)
-			{				
-				for (int i = 0; i < m_SpriteRenderers.GetCount(); i++)
-				{
-					if (m_SpriteRenderers[i]->GetComponentID() == componentID) return m_SpriteRenderers[i]->GetEntityID();
-				}
-			}
-			else if (std::is_same<CircleRendererComponent, C>::value)
-			{
-				for (int i = 0; i < m_CircleRenderers.GetCount(); i++)
-				{
-					if (m_CircleRenderers[i]->GetComponentID() == componentID) return m_CircleRenderers[i]->GetEntityID();
-				}
-			}
-			else if (std::is_same<PolygonRendererComponent, C>::value)
-			{
-				for (int i = 0; i < m_PolygonRenderers.GetCount(); i++)
-				{
-					if (m_PolygonRenderers[i]->GetComponentID() == componentID) return m_PolygonRenderers[i]->GetEntityID();
-				}
-			}
+			DestroyComponent<TransformComponent>(entityID);
+			DestroyComponent<SpriteRendererComponent>(entityID);
+			DestroyComponent<CircleRendererComponent>(entityID);
+			DestroyComponent<PolygonRendererComponent>(entityID);
 		}
 
 		
@@ -121,44 +58,22 @@ namespace ME
 		// Returns a vector of pointers to all components.
 		//
 		template <class C>
-		std::vector<C*> GetComponents()
+		std::vector<C>* GetComponents()
 		{
-			std::vector<C*> components;
 
 			if (std::is_same<TransformComponent, C>::value)
-			{
-				components.reserve(m_Transforms.GetCount());
-				for (int i = 0; i < m_Transforms.GetCount(); i++)
-				{
-					components.push_back((C*)m_Transforms[i]);
-				}
-			}
-			else if (std::is_same<SpriteRendererComponent, C>::value)
-			{
-				components.reserve(m_SpriteRenderers.GetCount());
-				for (int i = 0; i < m_SpriteRenderers.GetCount(); i++)
-				{
-					components.push_back((C*)m_SpriteRenderers[i]);
-				}
-			}
-			else if (std::is_same<CircleRendererComponent, C>::value)
-			{
-				components.reserve(m_CircleRenderers.GetCount());
-				for (int i = 0; i < m_CircleRenderers.GetCount(); i++)
-				{
-					components.push_back((C*)m_CircleRenderers[i]);
-				}
-			}
-			else if (std::is_same<PolygonRendererComponent, C>::value)
-			{
-				components.reserve(m_PolygonRenderers.GetCount());
-				for (int i = 0; i < m_PolygonRenderers.GetCount(); i++)
-				{
-					components.push_back((C*)m_PolygonRenderers[i]);
-				}
-			}
+			return (std::vector<C>*)m_Transforms.GetAll();
 
-			return components;
+			else if (std::is_same<SpriteRendererComponent, C>::value)
+			return (std::vector<C>*)m_SpriteRenderers.GetAll();
+			
+			else if (std::is_same<CircleRendererComponent, C>::value)
+			return (std::vector<C>*)m_CircleRenderers.GetAll();
+
+			else if (std::is_same<PolygonRendererComponent, C>::value)
+			return (std::vector<C>*)m_PolygonRenderers.GetAll();
+
+			return nullptr;
 		}
 
 
@@ -169,45 +84,16 @@ namespace ME
 		C* GetComponent(unsigned int entityID)
 		{
 			if (std::is_same<TransformComponent, C>::value)
-			{
-				for (int i = 0; i < m_Transforms.GetCount(); i++)
-				{
-					if (m_Transforms[i]->GetEntityID() == entityID)
-					{
-						return (C*)m_Transforms[i];
-					}
-				}
-			}
+			return (C*)m_Transforms.GetWithEntityID(entityID);
+			
 			else if (std::is_same<SpriteRendererComponent, C>::value)
-			{
-				for (int i = 0; i < m_SpriteRenderers.GetCount(); i++)
-				{
-					if (m_SpriteRenderers[i]->GetEntityID() == entityID)
-					{
-						return (C*)m_SpriteRenderers[i];
-					}
-				}
-			}
+			return (C*)m_SpriteRenderers.GetWithEntityID(entityID);
+			
 			else if (std::is_same<CircleRendererComponent, C>::value)
-			{
-				for (int i = 0; i < m_CircleRenderers.GetCount(); i++)
-				{
-					if (m_CircleRenderers[i]->GetEntityID() == entityID)
-					{
-						return (C*)m_CircleRenderers[i];
-					}
-				}
-			}
+			return (C*)m_CircleRenderers.GetWithEntityID(entityID);
+			
 			else if (std::is_same<PolygonRendererComponent, C>::value)
-			{
-				for (int i = 0; i < m_PolygonRenderers.GetCount(); i++)
-				{
-					if (m_PolygonRenderers[i]->GetEntityID() == entityID)
-					{
-						return (C*)m_PolygonRenderers[i];
-					}
-				}
-			}
+			return (C*)m_PolygonRenderers.GetWithEntityID(entityID);
 
 			return nullptr;
 		}
@@ -221,58 +107,16 @@ namespace ME
 		C* AddComponent(unsigned int entityID)
 		{
 			if (std::is_same<TransformComponent, C>::value)
-			{
-				for (int i = 0; i < m_Transforms.GetCount(); i++)
-				{
-					if (m_Transforms[i]->GetEntityID() == entityID)
-					{
-						m_Transforms.Delete(i);
-						break;
-					}
-				}
+			return (C*)m_Transforms.Add(entityID);
 
-				return (C*)m_Transforms.Add(entityID);
-			}
 			else if (std::is_same<SpriteRendererComponent, C>::value)
-			{
-				for (int i = 0; i < m_SpriteRenderers.GetCount(); i++)
-				{
-					if (m_SpriteRenderers[i]->GetEntityID() == entityID) 
-					{
-						m_SpriteRenderers.Delete(i);
-						break;
-					}
-				}
+			return (C*)m_SpriteRenderers.Add(entityID);
 
-				return (C*)m_SpriteRenderers.Add(entityID);
-			}
 			else if (std::is_same<CircleRendererComponent, C>::value)
-			{
-				for (int i = 0; i < m_CircleRenderers.GetCount(); i++)
-				{
-					if (m_CircleRenderers[i]->GetEntityID() == entityID)
-					{
-						m_CircleRenderers.Delete(i);
-						break;
-					}
-				}
+			return (C*)m_CircleRenderers.Add(entityID);
 
-				return (C*)m_CircleRenderers.Add(entityID);
-			}
 			else if (std::is_same<PolygonRendererComponent, C>::value)
-			{
-				for (int i = 0; i < m_PolygonRenderers.GetCount(); i++)
-				{
-					if (m_PolygonRenderers[i]->GetEntityID() == entityID)
-					{
-						m_PolygonRenderers.Delete(i);
-						break;
-					}
-				}
-
-				return (C*)m_PolygonRenderers.Add(entityID);
-			}
-
+			return (C*)m_PolygonRenderers.Add(entityID);
 
 			return nullptr;
 		}
@@ -285,45 +129,16 @@ namespace ME
 		bool HasComponent(unsigned int entityID)
 		{
 			if (std::is_same<TransformComponent, C>::value)
-			{
-				for (int i = 0; i < m_Transforms.GetCount(); i++)
-				{
-					if (m_Transforms[i]->GetEntityID() == entityID)
-					{
-						return true;
-					}
-				}
-			}
+			return m_Transforms.GetWithEntityID(entityID) != nullptr;
+
 			else if (std::is_same<SpriteRendererComponent, C>::value)
-			{
-				for (int i = 0; i < m_SpriteRenderers.GetCount(); i++)
-				{
-					if (m_SpriteRenderers[i]->GetEntityID() == entityID)
-					{
-						return true;
-					}
-				}
-			}
+			return m_SpriteRenderers.GetWithEntityID(entityID) != nullptr;
+
 			else if (std::is_same<CircleRendererComponent, C>::value)
-			{
-				for (int i = 0; i < m_CircleRenderers.GetCount(); i++)
-				{
-					if (m_CircleRenderers[i]->GetEntityID() == entityID)
-					{
-						return true;
-					}
-				}
-			}
+			return m_CircleRenderers.GetWithEntityID(entityID) != nullptr;
+
 			else if (std::is_same<PolygonRendererComponent, C>::value)
-			{
-				for (int i = 0; i < m_PolygonRenderers.GetCount(); i++)
-				{
-					if (m_PolygonRenderers[i]->GetEntityID() == entityID)
-					{
-						return true;
-					}
-				}
-			}
+			return m_PolygonRenderers.GetWithEntityID(entityID) != nullptr;
 		}
 
 
@@ -334,49 +149,17 @@ namespace ME
 		void DestroyComponent(unsigned int entityID)
 		{
 			if (std::is_same<TransformComponent, C>::value)
-			{
-				for (int i = 0; i < m_Transforms.GetCount(); i++)
-				{
-					if (m_Transforms[i]->GetEntityID() == entityID)
-					{
-						m_Transforms.Delete(i);
-						break;
-					}
-				}
-			}
+			m_Transforms.DeleteWithEntityID(entityID);
+
 			else if (std::is_same<SpriteRendererComponent, C>::value)
-			{
-				for (int i = 0; i < m_SpriteRenderers.GetCount(); i++)
-				{
-					if (m_SpriteRenderers[i]->GetEntityID() == entityID)
-					{
-						m_SpriteRenderers.Delete(i);
-						break;
-					}
-				}
-			}
+			m_SpriteRenderers.DeleteWithEntityID(entityID);
+			
 			else if (std::is_same<CircleRendererComponent, C>::value)
-			{
-				for (int i = 0; i < m_CircleRenderers.GetCount(); i++)
-				{
-					if (m_CircleRenderers[i]->GetEntityID() == entityID)
-					{
-						m_CircleRenderers.Delete(i);
-						break;
-					}
-				}
-			}
+			m_CircleRenderers.DeleteWithEntityID(entityID);
+			
 			else if (std::is_same<PolygonRendererComponent, C>::value)
-			{
-				for (int i = 0; i < m_PolygonRenderers.GetCount(); i++)
-				{
-					if (m_PolygonRenderers[i]->GetEntityID() == entityID)
-					{
-						m_PolygonRenderers.Delete(i);
-						break;
-					}
-				}
-			}
+			m_PolygonRenderers.DeleteWithEntityID(entityID);
+			
 		}
 
 	private:

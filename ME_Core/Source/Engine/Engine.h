@@ -38,12 +38,6 @@ namespace ME
 
 		/* ECS API */
 		Entity AddEntity();
-		template <class C>
-		Entity GetEntityOf(C component)
-		{
-			unsigned int id = *static_cast<ComponentRef>(&component).GetID();
-			return Entity(&m_ECS, m_ECS.GetEntityOf<C>(id));
-		}
 		void DestroyEntity(Entity entity);
 		
 		/* TEXTURE API */

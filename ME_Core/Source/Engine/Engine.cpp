@@ -113,53 +113,61 @@ namespace ME
 	{
 		m_Renderer.Clear();
 
-		std::vector<SpriteRendererComponent*> spriteRenderers =
+		std::vector<SpriteRendererComponent>* spriteRenderers =
 			m_ECS.GetComponents<SpriteRendererComponent>();
 
-		for (int i = 0; i < spriteRenderers.size(); i++)
+		SpriteRendererComponent spriteRenderer;
+
+		for (int i = 0; i < spriteRenderers->size(); i++)
 		{		
-			TransformComponent transform = *m_ECS.GetComponent<TransformComponent>(spriteRenderers[i]->GetEntityID());
-			ContainedTexture texture = *m_Textures.GetWithID(spriteRenderers[i]->texture.GetTextureID());
+			spriteRenderer = spriteRenderers->operator[](i);
+			TransformComponent transform = *m_ECS.GetComponent<TransformComponent>(spriteRenderer.GetEntityID());
+			ContainedTexture texture = *m_Textures.GetWithID(spriteRenderer.texture.GetTextureID());
 
 			m_Renderer.Enqueue({
 				transform,
-				Sprite(texture.GetSDLTexture(), spriteRenderers[i]->colour, texture.GetSize()),
-				spriteRenderers[i]->layer
+				Sprite(texture.GetSDLTexture(), spriteRenderer.colour, texture.GetSize()),
+				spriteRenderer.layer
 			});
 		}
 
-		std::vector<CircleRendererComponent*> circleRenderers =
+		std::vector<CircleRendererComponent>* circleRenderers =
 			m_ECS.GetComponents<CircleRendererComponent>();
 
-		for (int i = 0; i < circleRenderers.size(); i++)
-		{
-			circleRenderers[i]->CreateSDLTexture(m_Renderer);
+		CircleRendererComponent circleRenderer;
 
-			TransformComponent transform = *m_ECS.GetComponent<TransformComponent>(circleRenderers[i]->GetEntityID());
-			int radius = circleRenderers[i]->GetRadius();
+		for (int i = 0; i < circleRenderers->size(); i++)
+		{
+			circleRenderers->operator[](i).CreateSDLTexture(m_Renderer);
+			circleRenderer = circleRenderers->operator[](i);
+
+			TransformComponent transform = *m_ECS.GetComponent<TransformComponent>(circleRenderer.GetEntityID());
+			int radius = circleRenderer.GetRadius();
 
 			m_Renderer.Enqueue({
 				transform,
-				Sprite(circleRenderers[i]->GetSDLTexture(), circleRenderers[i]->colour, Vector2i(radius * 2, radius * 2)),
-				circleRenderers[i]->layer
+				Sprite(circleRenderer.GetSDLTexture(), circleRenderer.colour, Vector2i(radius * 2, radius * 2)),
+				circleRenderer.layer
 			});
 		}
 
-		std::vector<PolygonRendererComponent*> polygonRenderers =
+		std::vector<PolygonRendererComponent>* polygonRenderers =
 			m_ECS.GetComponents<PolygonRendererComponent>();
 
+		PolygonRendererComponent polygonRenderer;
 		
-		for (int i = 0; i < polygonRenderers.size(); i++)
+		for (int i = 0; i < polygonRenderers->size(); i++)
 		{
-			polygonRenderers[i]->CreateSDLTexture(m_Renderer);
+			polygonRenderers->operator[](i).CreateSDLTexture(m_Renderer);
+			polygonRenderer = polygonRenderers->operator[](i);
 
-			TransformComponent transform = *m_ECS.GetComponent<TransformComponent>(polygonRenderers[i]->GetEntityID());
+			TransformComponent transform = *m_ECS.GetComponent<TransformComponent>(polygonRenderer.GetEntityID());
 			
-			Vector2i size = Vector2i(polygonRenderers[i]->GetPolygon().GetWidth(), polygonRenderers[i]->GetPolygon().GetHeight());
+			Vector2i size = Vector2i(polygonRenderer.GetPolygon().GetWidth(), polygonRenderer.GetPolygon().GetHeight());
 			m_Renderer.Enqueue({
 				transform,
-				Sprite(polygonRenderers[i]->GetSDLTexture(), polygonRenderers[i]->colour, size),
-				polygonRenderers[i]->layer
+				Sprite(polygonRenderer.GetSDLTexture(), polygonRenderer.colour, size),
+				polygonRenderer.layer
 			});
 		}
 
