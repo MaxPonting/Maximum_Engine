@@ -3,7 +3,7 @@
 int main(int argc, char* args[])
 {
 	ME::Manager::Init();
-	ME::Engine engine = ME::Engine("Sandbox", 1280, 720);
+	ME::Engine engine = ME::Engine("Sandbox", 1920, 1080);
 
 	ME::Entity entity = engine.AddEntity();
 	ME::Entity entity2 = engine.AddEntity();
@@ -11,11 +11,27 @@ int main(int argc, char* args[])
 
 	ME::Texture texture = engine.AddTextureWithFilePath("../Assets/PNGs/Sword.png");
 
+	/*
+	short num = 0;
+	for (int x = 0; x < 1280; x += 20)
+	{
+		for (int y = 0; y < 720; y += 40)
+		{
+			ME::Entity entity = engine.AddEntity();
+			ME::Transform transform = entity.GetComponent<ME::Transform>();
+			ME::SpriteRenderer spriteRenderer = entity.AddComponent<ME::SpriteRenderer>();
+			transform.SetPosition(ME::Vector2i(x, y));
+			spriteRenderer.SetTexture(texture);
+			num++;
+		}
+	}
+	std::cout << num;
+	*/
+	
 	ME::Transform transform = entity.GetComponent<ME::Transform>();
-	ME::SpriteRenderer spriteRenderer = entity.AddComponent<ME::SpriteRenderer>();	
-	transform.SetPosition(ME::Vector2f(100, 550));
+	ME::SpriteRenderer spriteRenderer = entity.AddComponent<ME::SpriteRenderer>();
+	transform.SetPosition(ME::Vector2i(300, 700));
 	spriteRenderer.SetTexture(texture);
-	spriteRenderer.SetLayer(3);
 
 	ME::Transform transform2 = entity2.GetComponent<ME::Transform>();
 	ME::PolygonRenderer polygonRenderer = entity2.AddComponent<ME::PolygonRenderer>();
