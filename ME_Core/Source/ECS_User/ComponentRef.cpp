@@ -1,4 +1,5 @@
 #include "ComponentRef.h"
+#include "Entity.h"
 
 namespace ME
 {
@@ -11,6 +12,11 @@ namespace ME
 		m_EntityID(entityID),
 		p_ECS(ecs)
 	{}
+
+	Entity ComponentRef::GetEntity()
+	{
+		return Entity(p_ECS, m_EntityID);
+	}
 
 	unsigned int ComponentRef::GetEntityID()
 	{

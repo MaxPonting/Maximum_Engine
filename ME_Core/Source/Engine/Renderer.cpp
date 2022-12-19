@@ -17,7 +17,7 @@ namespace ME
 	{		
 		//SDL_SetHint(SDL_HINT_RENDER_DRIVER, "opengl");
 		SDLCall(SDL_SetHint(SDL_HINT_RENDER_BATCHING, "1"));
-		SDLCall(p_Renderer = SDL_CreateRenderer(window.GetWindow(), -1, SDL_RENDERER_ACCELERATED));
+		SDLCall(p_Renderer = SDL_CreateRenderer(window.GetWindow(), -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC));
 		SDLCall(SDL_RenderSetLogicalSize(p_Renderer, 1920, 1080));
 		SDLCall(SDL_GetRendererInfo(p_Renderer, &m_Info));
 	}
@@ -51,26 +51,28 @@ namespace ME
 	{
 		if (sprite.GetTexture() == nullptr) return;
 
-		SDLCall(SDL_SetTextureColorMod
+		SDLCall(
+
+		SDL_SetTextureColorMod
 		(
 			sprite.GetTexture(),
 			sprite.colour.GetR(),
 			sprite.colour.GetG(),
 			sprite.colour.GetB()
-		));
+		);
 
-		SDLCall(SDL_SetTextureAlphaMod
+		SDL_SetTextureAlphaMod
 		(
 			sprite.GetTexture(),
 			sprite.colour.GetA()
-		));
+		);
 
 		SDL_FRect rect;
 		rect.x = position.X;
 		rect.y = position.Y;
 		rect.w = sprite.size.X;
 		rect.h = sprite.size.Y;
-		SDLCall(SDL_RenderCopyF
+		SDL_RenderCopyF
 		(
 			p_Renderer,
 			sprite.GetTexture(),
@@ -84,19 +86,21 @@ namespace ME
 	{
 		if (object.sprite.GetTexture() == nullptr) return;
 
-		SDLCall(SDL_SetTextureColorMod
+		SDLCall(
+
+		SDL_SetTextureColorMod
 		(
 			object.sprite.GetTexture(),
 			object.sprite.colour.GetR(),
 			object.sprite.colour.GetG(),
 			object.sprite.colour.GetB()
-		));
+		);
 
-		SDLCall(SDL_SetTextureAlphaMod
+		SDL_SetTextureAlphaMod
 		(
 			object.sprite.GetTexture(),
 			object.sprite.colour.GetA()
-		));
+		);
 
 		SDL_FRect rect;
 		rect.x = object.transform.position.X;
@@ -104,7 +108,7 @@ namespace ME
 		rect.w = object.sprite.size.X * object.transform.scale.X;
 		rect.h = object.sprite.size.Y * object.transform.scale.Y;
 
-		SDLCall(SDL_RenderCopyExF
+		SDL_RenderCopyExF
 		(
 			p_Renderer,
 			object.sprite.GetTexture(),

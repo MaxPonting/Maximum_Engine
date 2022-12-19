@@ -2,8 +2,10 @@
 
 #include "../ECS/ECS.h"
 
+
 namespace ME
 {
+	class Entity;
 	class ComponentRef
 	{
 	public:
@@ -11,6 +13,7 @@ namespace ME
 		ComponentRef();
 		ComponentRef(unsigned int entityID, ECS* ecs);
 		
+		Entity GetEntity();
 		unsigned int GetEntityID();
 
 	protected:

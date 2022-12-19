@@ -7,31 +7,49 @@ namespace ME
 
 	void Transform::SetPosition(Vector2f position)
 	{
-		p_ECS->GetComponent<TransformComponent>(m_EntityID)->position = position;
+		if (p_ECS == nullptr) return;
+		TransformComponent* transform = p_ECS->GetComponent<TransformComponent>(m_EntityID);
+		if (transform == nullptr) return;
+		transform->position = position;
 	}
 
 	void Transform::SetRotation(float rotation)
 	{
-		p_ECS->GetComponent<TransformComponent>(m_EntityID)->rotation = rotation;
+		if (p_ECS == nullptr) return;
+		TransformComponent* transform = p_ECS->GetComponent<TransformComponent>(m_EntityID);
+		if (transform == nullptr) return;
+		transform->rotation = rotation;
 	}
 
 	void Transform::SetScale(Vector2f scale)
 	{
-		p_ECS->GetComponent<TransformComponent>(m_EntityID)->scale = scale;
+		if (p_ECS == nullptr) return;
+		TransformComponent* transform = p_ECS->GetComponent<TransformComponent>(m_EntityID);
+		if (transform == nullptr) return;
+		transform->scale = scale;
 	}
 
 	Vector2f Transform::GetPosition()
 	{
-		return p_ECS->GetComponent<TransformComponent>(m_EntityID)->position;
+		if (p_ECS == nullptr) return Vector2f();
+		TransformComponent* transform = p_ECS->GetComponent<TransformComponent>(m_EntityID);
+		if (transform == nullptr) return Vector2f();
+		transform->position;
 	}
 
 	float Transform::GetRotation()
 	{
-		return p_ECS->GetComponent<TransformComponent>(m_EntityID)->rotation.getDeg();
+		if (p_ECS == nullptr) return 0;
+		TransformComponent* transform = p_ECS->GetComponent<TransformComponent>(m_EntityID);
+		if (transform == nullptr) return 0;
+		transform->rotation.getDeg();
 	}
 
 	Vector2f Transform::GetScale()
 	{
-		return p_ECS->GetComponent<TransformComponent>(m_EntityID)->scale;
+		if (p_ECS == nullptr) return Vector2f();
+		TransformComponent* transform = p_ECS->GetComponent<TransformComponent>(m_EntityID);
+		if (transform == nullptr) return Vector2f();
+		return transform->scale;
 	}
 }

@@ -7,31 +7,49 @@ namespace ME
 
 	void PolygonRenderer::SetPolygon(Polygon polygon)
 	{
-		p_ECS->GetComponent<PolygonRendererComponent>(m_EntityID)->SetPolygon(polygon);
+		if (p_ECS = nullptr) return;
+		PolygonRendererComponent* renderer = p_ECS->GetComponent<PolygonRendererComponent>(m_EntityID);
+		if (renderer == nullptr) return;
+		renderer->SetPolygon(polygon);
 	}
 
 	void PolygonRenderer::SetColour(RGBA colour)
 	{
-		p_ECS->GetComponent<PolygonRendererComponent>(m_EntityID)->colour = colour;
+		if (p_ECS = nullptr) return;
+		PolygonRendererComponent* renderer = p_ECS->GetComponent<PolygonRendererComponent>(m_EntityID);
+		if (renderer == nullptr) return;
+		renderer->colour = colour;
 	}
 
 	void PolygonRenderer::SetLayer(int layer)
 	{
-		p_ECS->GetComponent<PolygonRendererComponent>(m_EntityID)->layer = layer;
+		if (p_ECS = nullptr) return;
+		PolygonRendererComponent* renderer = p_ECS->GetComponent<PolygonRendererComponent>(m_EntityID);
+		if (renderer == nullptr) return;
+		renderer->layer = layer;
 	}
 
 	Polygon PolygonRenderer::GetPolygon(Polygon polygon)
 	{
-		return p_ECS->GetComponent<PolygonRendererComponent>(m_EntityID)->GetPolygon();
+		if (p_ECS = nullptr) return Polygon();
+		PolygonRendererComponent* renderer = p_ECS->GetComponent<PolygonRendererComponent>(m_EntityID);
+		if (renderer == nullptr) return Polygon();
+		renderer->GetPolygon();
 	}
 
 	RGBA PolygonRenderer::GetColour()
 	{
-		return p_ECS->GetComponent<PolygonRendererComponent>(m_EntityID)->colour;
+		if (p_ECS = nullptr) return RGBA();
+		PolygonRendererComponent* renderer = p_ECS->GetComponent<PolygonRendererComponent>(m_EntityID);
+		if (renderer == nullptr) return RGBA();
+		return renderer->colour;
 	}
 
 	int PolygonRenderer::GetLayer()
 	{
-		return p_ECS->GetComponent<PolygonRendererComponent>(m_EntityID)->layer;
+		if (p_ECS = nullptr) return 0;
+		PolygonRendererComponent* renderer = p_ECS->GetComponent<PolygonRendererComponent>(m_EntityID);
+		if (renderer == nullptr) return 0;
+		return renderer->layer;
 	}
 }

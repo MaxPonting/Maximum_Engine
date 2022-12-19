@@ -27,6 +27,7 @@ namespace ME
 			m_ID(id)
 		{}
 
+
 		//
 		// Adds a new component and relates it to this entity ID.
 		//
@@ -36,21 +37,16 @@ namespace ME
 			static_assert(std::is_base_of<ComponentRef, C>::value, "C must inherit from ComponentRef!");
 
 			if (std::is_same<Transform, C>::value)
-			{
-				p_ECS->AddComponent<TransformComponent>(m_ID);
-			}
+			p_ECS->AddComponent<TransformComponent>(m_ID);
+		
 			else if (std::is_same<SpriteRenderer, C>::value)
-			{
-				p_ECS->AddComponent<SpriteRendererComponent>(m_ID);
-			}
+			p_ECS->AddComponent<SpriteRendererComponent>(m_ID);
+
 			else if (std::is_same<CircleRenderer, C>::value)
-			{
-				p_ECS->AddComponent<CircleRendererComponent>(m_ID);
-			}
+			p_ECS->AddComponent<CircleRendererComponent>(m_ID);
+			
 			else if (std::is_same<PolygonRenderer, C>::value)
-			{
-				p_ECS->AddComponent<PolygonRendererComponent>(m_ID);
-			}
+			p_ECS->AddComponent<PolygonRendererComponent>(m_ID);
 			
 			return C(m_ID, p_ECS);
 		}
@@ -66,21 +62,16 @@ namespace ME
 			bool has;
 
 			if (std::is_same<Transform, C>::value)
-			{
-				has = p_ECS->HasComponent<TransformComponent>(m_ID);
-			}
+			has = p_ECS->HasComponent<TransformComponent>(m_ID);
+			
 			else if (std::is_same<SpriteRenderer, C>::value)
-			{
-				has = p_ECS->HasComponent<SpriteRendererComponent>(m_ID);
-			}
+			has = p_ECS->HasComponent<SpriteRendererComponent>(m_ID);
+			
 			else if (std::is_same<CircleRenderer, C>::value)
-			{
-				has = p_ECS->HasComponent<CircleRendererComponent>(m_ID);
-			}
+			has = p_ECS->HasComponent<CircleRendererComponent>(m_ID);
+			
 			else if (std::is_same<PolygonRenderer, C>::value)
-			{
-				has = p_ECS->HasComponent<PolygonRendererComponent>(m_ID);
-			}
+			has = p_ECS->HasComponent<PolygonRendererComponent>(m_ID);
 
 			if (has) return C(m_ID, p_ECS);
 			else return C();		
@@ -95,21 +86,16 @@ namespace ME
 			static_assert(std::is_base_of<ComponentRef, C>::value, "C must be a component!");
 
 			if (std::is_same<Transform, C>::value)
-			{
-				return p_ECS->HasComponent<TransformComponent>(m_ID);
-			}
+			return p_ECS->HasComponent<TransformComponent>(m_ID);
+			
 			else if (std::is_same<SpriteRenderer, C>::value)
-			{
-				return p_ECS->HasComponent<SpriteRendererComponent>(m_ID);
-			}
+			return p_ECS->HasComponent<SpriteRendererComponent>(m_ID);
+			
 			else if (std::is_same<CircleRenderer, C>::value)
-			{
-				return p_ECS->HasComponent<CircleRendererComponent>(m_ID);
-			}
+			return p_ECS->HasComponent<CircleRendererComponent>(m_ID);
+			
 			else if (std::is_same<PolygonRenderer, C>::value)
-			{
-				return p_ECS->HasComponent<PolygonRendererComponent>(m_ID);
-			}
+			return p_ECS->HasComponent<PolygonRendererComponent>(m_ID);
 
 			return false;
 		}
@@ -123,21 +109,16 @@ namespace ME
 			static_assert(std::is_base_of<ComponentRef, C>::value, "C must be a component!");
 
 			if (std::is_same<Transform, C>::value)
-			{
-				p_ECS->DestroyComponent<TransformComponent>(m_ID);
-			}
+			p_ECS->DestroyComponent<TransformComponent>(m_ID);
+			
 			else if (std::is_same<SpriteRenderer, C>::value)
-			{
-				p_ECS->DestroyComponent<SpriteRendererComponent>(m_ID);
-			}
+			p_ECS->DestroyComponent<SpriteRendererComponent>(m_ID);
+			
 			else if (std::is_same<CircleRenderer, C>::value)
-			{
-				p_ECS->DestroyComponent<CircleRendererComponent>(m_ID);
-			}
+			p_ECS->DestroyComponent<CircleRendererComponent>(m_ID);
+			
 			else if (std::is_same<PolygonRenderer, C>::value)
-			{
-				p_ECS->DestroyComponent<PolygonRendererComponent>(m_ID);
-			}
+			p_ECS->DestroyComponent<PolygonRendererComponent>(m_ID);
 		}
 
 		//

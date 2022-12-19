@@ -7,31 +7,49 @@ namespace ME
 
 	void SpriteRenderer::SetTexture(Texture texture)
 	{
-		p_ECS->GetComponent<SpriteRendererComponent>(m_EntityID)->texture = texture;
+		if (p_ECS == nullptr) return;
+		SpriteRendererComponent* renderer = p_ECS->GetComponent<SpriteRendererComponent>(m_EntityID);
+		if (renderer == nullptr) return;
+		renderer->texture = texture;
 	}
 
 	void SpriteRenderer::SetColour(RGBA colour)
 	{
-		p_ECS->GetComponent<SpriteRendererComponent>(m_EntityID)->colour = colour;
+		if (p_ECS == nullptr) return;
+		SpriteRendererComponent* renderer = p_ECS->GetComponent<SpriteRendererComponent>(m_EntityID);
+		if (renderer == nullptr) return;
+		renderer->colour = colour;
 	}
 
 	void SpriteRenderer::SetLayer(int layer)
 	{
-		p_ECS->GetComponent<SpriteRendererComponent>(m_EntityID)->layer = layer;
+		if (p_ECS == nullptr) return;
+		SpriteRendererComponent* renderer = p_ECS->GetComponent<SpriteRendererComponent>(m_EntityID);
+		if (renderer == nullptr) return;
+		renderer->layer = layer;
 	}
 
 	Texture SpriteRenderer::GetTexture()
 	{
-		return p_ECS->GetComponent<SpriteRendererComponent>(m_EntityID)->texture;
+		if (p_ECS == nullptr) return Texture();
+		SpriteRendererComponent* renderer = p_ECS->GetComponent<SpriteRendererComponent>(m_EntityID);
+		if (renderer == nullptr) return Texture();
+		return renderer->texture;
 	}
 
 	RGBA SpriteRenderer::GetColour()
 	{
-		return p_ECS->GetComponent<SpriteRendererComponent>(m_EntityID)->colour;
+		if (p_ECS == nullptr) return RGBA();
+		SpriteRendererComponent* renderer = p_ECS->GetComponent<SpriteRendererComponent>(m_EntityID);
+		if (renderer == nullptr) return RGBA();
+		return renderer->colour;
 	}
 
 	int SpriteRenderer::GetLayer()
 	{
-		return p_ECS->GetComponent<SpriteRendererComponent>(m_EntityID)->layer;
+		if (p_ECS == nullptr) return 0;
+		SpriteRendererComponent* renderer = p_ECS->GetComponent<SpriteRendererComponent>(m_EntityID);
+		if (renderer == nullptr) return 0;
+		return renderer->layer;
 	}
 }

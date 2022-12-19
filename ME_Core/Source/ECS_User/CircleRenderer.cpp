@@ -7,32 +7,50 @@ namespace ME
 
 	void CircleRenderer::SetRadius(unsigned int radius)
 	{
-		p_ECS->GetComponent<CircleRendererComponent>(m_EntityID)->SetRadius(radius);
+		if (p_ECS == nullptr) return;
+		CircleRendererComponent* renderer = p_ECS->GetComponent<CircleRendererComponent>(m_EntityID);
+		if (renderer == nullptr) return;
+		renderer->SetRadius(radius);
 	}
 
 	void CircleRenderer::SetColour(RGBA colour)
 	{
-		p_ECS->GetComponent<CircleRendererComponent>(m_EntityID)->colour = colour;
+		if (p_ECS == nullptr) return;
+		CircleRendererComponent* renderer = p_ECS->GetComponent<CircleRendererComponent>(m_EntityID);
+		if (renderer == nullptr) return;
+		renderer->colour = colour;
 	}
 
 	void CircleRenderer::SetLayer(int layer)
 	{
-		p_ECS->GetComponent<CircleRendererComponent>(m_EntityID)->layer = layer;
+		if (p_ECS == nullptr) return;
+		CircleRendererComponent* renderer = p_ECS->GetComponent<CircleRendererComponent>(m_EntityID);
+		if (renderer == nullptr) return;
+		renderer->layer = layer;
 	}
 
 	unsigned int CircleRenderer::GetRadius()
 	{
-		return p_ECS->GetComponent<CircleRendererComponent>(m_EntityID)->GetRadius();
+		if (p_ECS == nullptr) return 0;
+		CircleRendererComponent* renderer = p_ECS->GetComponent<CircleRendererComponent>(m_EntityID);
+		if (renderer == nullptr) return 0;
+		return renderer->GetRadius();
 	}
 
 	RGBA CircleRenderer::GetColour()
 	{
-		return p_ECS->GetComponent<CircleRendererComponent>(m_EntityID)->colour;
+		if (p_ECS == nullptr) return RGBA();
+		CircleRendererComponent* renderer = p_ECS->GetComponent<CircleRendererComponent>(m_EntityID);
+		if (renderer == nullptr) return RGBA();
+		return renderer->colour;
 	}
 
 	int CircleRenderer::GetLayer()
 	{
-		return p_ECS->GetComponent<CircleRendererComponent>(m_EntityID)->layer;
+		if (p_ECS == nullptr) return 0;
+		CircleRendererComponent* renderer = p_ECS->GetComponent<CircleRendererComponent>(m_EntityID);
+		if (renderer == nullptr) return 0;
+		return renderer->layer;
 	}
 }
 

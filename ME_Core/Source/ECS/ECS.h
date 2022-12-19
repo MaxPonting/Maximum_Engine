@@ -110,14 +110,26 @@ namespace ME
 			return (C*)m_Transforms.Add(entityID);
 
 			else if (std::is_same<SpriteRendererComponent, C>::value)
-			return (C*)m_SpriteRenderers.Add(entityID);
-
+			{
+				DestroyComponent<CircleRendererComponent>(entityID);
+				DestroyComponent<PolygonRendererComponent>(entityID);
+				return (C*)m_SpriteRenderers.Add(entityID);
+			}
+			
 			else if (std::is_same<CircleRendererComponent, C>::value)
-			return (C*)m_CircleRenderers.Add(entityID);
-
+			{
+				DestroyComponent<SpriteRendererComponent>(entityID);
+				DestroyComponent<PolygonRendererComponent>(entityID);
+				return (C*)m_CircleRenderers.Add(entityID);
+			}
+			
 			else if (std::is_same<PolygonRendererComponent, C>::value)
-			return (C*)m_PolygonRenderers.Add(entityID);
-
+			{
+				DestroyComponent<CircleRendererComponent>(entityID);
+				DestroyComponent<SpriteRendererComponent>(entityID);
+				return (C*)m_PolygonRenderers.Add(entityID);
+			}
+			
 			return nullptr;
 		}
 
@@ -158,8 +170,7 @@ namespace ME
 			m_CircleRenderers.DeleteWithEntityID(entityID);
 			
 			else if (std::is_same<PolygonRendererComponent, C>::value)
-			m_PolygonRenderers.DeleteWithEntityID(entityID);
-			
+			m_PolygonRenderers.DeleteWithEntityID(entityID);			
 		}
 
 	private:

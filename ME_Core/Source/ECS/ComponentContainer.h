@@ -67,7 +67,6 @@ namespace ME
 
 		int GetComponentIndex(const unsigned int id)
 		{
-			if (m_Components.size() == 0) return -1;
 			unsigned int low = 0;
 			unsigned int high = m_Components.size();
 
@@ -75,8 +74,10 @@ namespace ME
 			{
 				unsigned int mid = low + (high - low) / 2;
 
+				if (mid >= m_Components.size()) return -1;
+
 				if (m_Components[mid].GetEntityID() == id) return mid;
-				if (m_Components[mid].GetEntityID() < id) low = mid + 1;
+				if (m_Components[mid].GetEntityID() <  id) low = mid + 1;
 				else high = mid - 1;
 			}
 
