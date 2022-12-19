@@ -140,22 +140,22 @@ namespace ME
 
 	void Renderer::SetRenderTargetToTexture(SDL_Texture* texture) const
 	{
-		SDL_SetRenderTarget(p_Renderer, texture);
+		SDLCall(SDL_SetRenderTarget(p_Renderer, texture));
 	}
 
 	void Renderer::ResetRenderTarget() const
 	{
-		SDL_SetRenderTarget(p_Renderer, 0);
+		SDLCall(SDL_SetRenderTarget(p_Renderer, 0));
 	}
 
 	void Renderer::SetRenderDrawColor(RGBA color) const
 	{
-		SDL_SetRenderDrawColor(p_Renderer, color.GetR(), color.GetG(), color.GetB(), color.GetA());
+		SDLCall(SDL_SetRenderDrawColor(p_Renderer, color.GetR(), color.GetG(), color.GetB(), color.GetA()));
 	}
 
 	void Renderer::RenderDrawPoint(int x, int y) const
 	{
-		SDL_RenderDrawPoint(p_Renderer, x, y);
+		SDLCall(SDL_RenderDrawPoint(p_Renderer, x, y));
 	}
 
 	SDL_Texture* Renderer::CreateTexture(SDL_TextureAccess access, int w, int h) const

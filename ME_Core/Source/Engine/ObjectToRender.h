@@ -5,7 +5,7 @@
 
 namespace ME
 {
-	class ObjectToRender
+	class ObjectToRender final
 	{
 	public:
 

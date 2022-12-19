@@ -16,7 +16,7 @@ namespace ME
 	* Creates a SDL2 window.
 	* Colour of window can be set.
 	*/
-	class Window : public SDLWrapper
+	class Window final : public SDLWrapper
 	{
 	public:
 

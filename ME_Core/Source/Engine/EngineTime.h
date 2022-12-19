@@ -6,7 +6,7 @@
 
 namespace ME
 {
-	class EngineTime
+	class EngineTime final
 	{
 	public:
 

@@ -6,7 +6,7 @@
 
 namespace ME
 {
-	class Texture
+	class Texture final
 	{
 	public:
 

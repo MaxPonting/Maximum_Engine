@@ -6,7 +6,7 @@
 
 namespace ME
 {
-	class Font : public SDLWrapper
+	class Font final : public SDLWrapper
 	{
 	public:
 

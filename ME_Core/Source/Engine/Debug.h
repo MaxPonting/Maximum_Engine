@@ -16,7 +16,7 @@
 namespace ME
 {
 	/* Owns multiple DebugText objects to render */
-	class Debug
+	class Debug final
 	{
 	public:
 

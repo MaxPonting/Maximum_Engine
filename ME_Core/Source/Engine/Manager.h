@@ -2,7 +2,7 @@
 
 namespace ME
 {
-	class Manager
+	class Manager final
 	{
 	public:
 

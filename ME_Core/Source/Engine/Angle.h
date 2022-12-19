@@ -2,7 +2,7 @@
 
 namespace ME
 {
-	class Angle
+	class Angle final
 	{
 	public:
 

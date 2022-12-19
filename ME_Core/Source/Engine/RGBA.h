@@ -3,7 +3,7 @@
 namespace ME
 {
 	/* Owns RGBA colour values. */
-	class RGBA
+	class RGBA final
 	{
 	public:
 

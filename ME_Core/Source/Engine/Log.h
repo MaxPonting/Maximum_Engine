@@ -3,7 +3,7 @@
 
 namespace ME
 {
-	class Log
+	class Log final
 	{
 	public:
 

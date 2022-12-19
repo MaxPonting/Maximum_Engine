@@ -4,7 +4,7 @@
 
 namespace ME
 {
-	struct Vector2f
+	struct Vector2f final
 	{
 		/* CONSTRUCTORS */
 		Vector2f();

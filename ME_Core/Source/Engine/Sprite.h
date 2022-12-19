@@ -14,7 +14,7 @@ namespace ME
 	// Own an texture, colour and size.
 	// Used to render a texture to a window.
 	//
-	class Sprite
+	class Sprite final
 	{
 	public:
 

@@ -3,7 +3,7 @@
 namespace ME
 {
 	struct Vector2f;
-	struct Vector2i
+	struct Vector2i final
 	{
 		/* CONSTRUCTORS */
 		Vector2i();
