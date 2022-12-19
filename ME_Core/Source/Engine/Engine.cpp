@@ -9,6 +9,7 @@ namespace ME
 		m_Window(Window()),
 		m_Renderer(Renderer()),
 		m_Textures(TextureContainer()),
+		m_Fonts(FontContainer()),
 		m_Event(SDL_Event()),
 		m_Debug(Debug()),
 		m_Time(EngineTime()),
@@ -22,6 +23,7 @@ namespace ME
 		m_Window(Window(title, width, height)),
 		m_Renderer(Renderer(m_Window)),
 		m_Textures(TextureContainer(100, m_Renderer)),
+		m_Fonts(FontContainer(10)),
 		m_Event(SDL_Event()),
 		m_Debug(Debug(&m_Renderer)),
 		m_Time(EngineTime()),
@@ -69,9 +71,18 @@ namespace ME
 	// Adds a texture to the engine using a filePath.
 	// Supports PNG and JPG/JPEG files.
 	//
-	Texture Engine::AddTextureWithFilePath(const char* filePath)
+	Texture Engine::AddTexture(const char* filePath)
 	{
 		return Texture(m_Textures.AddWithFilePath(filePath, m_Renderer)->GetID());
+	}
+
+	//
+	// Adds a font to the engine using a filePath.
+	// Supports TTF files.
+	//
+	Font Engine::AddFont(const char* filePath)
+	{
+		return Font(m_Fonts.Add(filePath)->GetID());
 	}
 
 	//
@@ -169,6 +180,30 @@ namespace ME
 				Sprite(polygonRenderer.GetSDLTexture(), polygonRenderer.colour, size),
 				polygonRenderer.layer
 			});
+		}
+
+		std::vector<TextRendererComponent>* textRenderers =
+			m_ECS.GetComponents<TextRendererComponent>();
+
+		TextRendererComponent textRenderer;
+
+		for (int i = 0; i < textRenderers->size(); i++)
+		{
+			std::string filePath = m_Fonts.GetWithID(textRenderers->operator[](i).font.GetFontID())->GetFilePath();
+
+			if (filePath.size() != 0)
+			{
+				textRenderers->operator[](i).CreateSDLTexture(m_Renderer, filePath.c_str());
+				textRenderer = textRenderers->operator[](i);
+
+				TransformComponent transform = *m_ECS.GetComponent<TransformComponent>(textRenderer.GetEntityID());
+
+				m_Renderer.Enqueue({
+					transform,
+					Sprite(textRenderer.GetSDLTexture(), textRenderer.colour, textRenderer.GetTextureSize()),
+					textRenderer.layer
+				});
+			}			
 		}
 
 		m_Renderer.RenderQueue();

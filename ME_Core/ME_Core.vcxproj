@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Engine\FontContainer.h" />
     <ClInclude Include="Source\Polygon\Polygon.h" />
     <ClInclude Include="Source\ECS\PolygonRendererComponent.h" />
     <ClInclude Include="Source\ECS_User\PolygonRenderer.h" />
@@ -45,8 +46,11 @@
     <ClInclude Include="Source\ECS_User\SpriteRenderer.h" />
     <ClInclude Include="Source\Engine\TextureContainer.h" />
     <ClInclude Include="Source\Engine\Vector2i.h" />
+    <ClInclude Include="Source\ECS_User\TextRenderer.h" />
+    <ClInclude Include="Source\ECS\TextRendererComponent.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Engine\FontContainer.cpp" />
     <ClCompile Include="Source\Polygon\Polygon.cpp" />
     <ClCompile Include="Source\ECS\PolygonRendererComponent.cpp" />
     <ClCompile Include="Source\ECS_User\PolygonRenderer.cpp" />
@@ -74,6 +78,8 @@
     <ClCompile Include="Source\ECS_User\SpriteRenderer.cpp" />
     <ClCompile Include="Source\Engine\TextureContainer.cpp" />
     <ClCompile Include="Source\Engine\Vector2i.cpp" />
+    <ClCompile Include="Source\ECS_User\TextRenderer.cpp" />
+    <ClCompile Include="Source\ECS\TextRendererComponent.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

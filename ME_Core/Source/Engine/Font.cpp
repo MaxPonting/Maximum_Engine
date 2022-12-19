@@ -4,28 +4,15 @@
 namespace ME
 {
 	Font::Font() :
-		m_Font(nullptr)
+		m_FontID(0)
 	{}
 
-	Font::Font(const char* filePath) :
-		m_FilePath(filePath)
-	{
-		TTFCall(m_Font = TTF_OpenFont(filePath, 12));
-	}
+	Font::Font(unsigned int id) :
+		m_FontID(id)
+	{}
 
-	void Font::SDLCleanUp()
+	unsigned int Font::GetFontID()
 	{
-		TTFCall(TTF_CloseFont(m_Font));
-	}
-
-	void Font::SetSize(int size)
-	{
-		TTFCall(TTF_CloseFont(m_Font));
-		TTFCall(m_Font = TTF_OpenFont(m_FilePath.c_str(), size));
-	}
-
-	TTF_Font* Font::GetFont()
-	{
-		return m_Font;
+		return m_FontID;
 	}
 }

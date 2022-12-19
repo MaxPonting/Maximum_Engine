@@ -6,23 +6,23 @@ namespace ME
 {
 	Debug::Debug() :
 		p_Renderer(nullptr),
-		m_Font(Font()),
+		p_Font(nullptr),
 		m_Timer(0)
 	{}
 
 	/* Creates Debug Text */
 	Debug::Debug(Renderer* renderer) :
-		p_Renderer(renderer),
-		m_Font(Font("../Assets/Fonts/clear-sans.regular.ttf"))
+		p_Renderer(renderer)	
 	{
-		m_Font.SetSize(FONT_SIZE);
-		m_Texts[1] = DebugText("Driver: " + std::string(renderer->GetInfo().name), Vector2i(), &m_Font, *renderer);
-		m_Texts[0] = DebugText("FPS:", Vector2i(0, FONT_SIZE), &m_Font, *renderer);	
-		m_Texts[2] = DebugText("Frame:", Vector2i(0, FONT_SIZE * 2), &m_Font, *renderer);
-		m_Texts[3] = DebugText("Render:", Vector2i(0, FONT_SIZE * 3), &m_Font, *renderer);
-		m_Texts[4] = DebugText("Physics:", Vector2i(0, FONT_SIZE * 4), &m_Font, *renderer);
-		m_Texts[5] = DebugText("Scripts:", Vector2i(0, FONT_SIZE * 5), &m_Font, *renderer);
-		m_Texts[6] = DebugText("Misc:", Vector2i(0, FONT_SIZE * 6), &m_Font, *renderer);
+		SDLCall(p_Font = TTF_OpenFont("../Assets/Fonts/clear-sans.regular.ttf", FONT_SIZE));
+
+		m_Texts[1] = DebugText("Driver: " + std::string(renderer->GetInfo().name), Vector2i(), p_Font, *renderer);
+		m_Texts[0] = DebugText("FPS:", Vector2i(0, FONT_SIZE), p_Font, *renderer);	
+		m_Texts[2] = DebugText("Frame:", Vector2i(0, FONT_SIZE * 2), p_Font, *renderer);
+		m_Texts[3] = DebugText("Render:", Vector2i(0, FONT_SIZE * 3), p_Font, *renderer);
+		m_Texts[4] = DebugText("Physics:", Vector2i(0, FONT_SIZE * 4), p_Font, *renderer);
+		m_Texts[5] = DebugText("Scripts:", Vector2i(0, FONT_SIZE * 5), p_Font, *renderer);
+		m_Texts[6] = DebugText("Misc:", Vector2i(0, FONT_SIZE * 6), p_Font, *renderer);
 	}
 	
 	void Debug::Update(const EngineTime& time)
@@ -59,7 +59,7 @@ namespace ME
 
 	}
 
-	Debug::DebugText::DebugText(std::string text, Vector2i position, Font* font, const Renderer& renderer) :
+	Debug::DebugText::DebugText(std::string text, Vector2i position, TTF_Font* font, const Renderer& renderer) :
 		m_Text(text),
 		m_Position(position),
 		p_Font(font),
@@ -81,7 +81,7 @@ namespace ME
 
 		const char* outputText = m_Text.c_str();
 		SDL_Surface* surface;
-		TTFCall(surface = TTF_RenderText_Blended(p_Font->GetFont(), outputText, SDL_Color{ 0, 255, 0, 255 }));
+		TTFCall(surface = TTF_RenderText_Blended(p_Font, outputText, SDL_Color{ 0, 255, 0, 255 }));
 		
 		p_Texture = renderer.CreateTextureFromSurface(surface);
 

@@ -6,23 +6,18 @@
 
 namespace ME
 {
-	class Font final : public SDLWrapper
+	class Font final
 	{
 	public:
 
 		Font();
-		Font(const char* filePath);
+		Font(unsigned int id);
 
-		void SDLCleanUp();
-
-		void SetSize(int size);
-
-		TTF_Font* GetFont();
+		unsigned int GetFontID();
 
 	private:
 
-		TTF_Font* m_Font;
-		std::string m_FilePath;
+		unsigned int m_FontID;
 	};
 }
 

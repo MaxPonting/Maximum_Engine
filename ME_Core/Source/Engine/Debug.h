@@ -38,7 +38,7 @@ namespace ME
 
 			/* CONSTRUCTOR */
 			DebugText();
-			DebugText(std::string text, Vector2i position, Font* font, const Renderer& renderer);
+			DebugText(std::string text, Vector2i position, TTF_Font* font, const Renderer& renderer);
 
 			/* PUBLIC METHODS */
 			void SetText(const Renderer& renderer, std::string text);
@@ -51,14 +51,14 @@ namespace ME
 			SDL_Texture* p_Texture;
 			Sprite m_Sprite;
 			Vector2i m_Position;
-			Font* p_Font;
+			TTF_Font* p_Font;
 
 		};
 
 		/* PRIVATE MEMBERS */
 		Renderer* p_Renderer;
 		DebugText m_Texts[NUM_DEBUG_TEXTS];
-		Font m_Font;
+		TTF_Font* p_Font;
 		float m_Timer;
 
 	};

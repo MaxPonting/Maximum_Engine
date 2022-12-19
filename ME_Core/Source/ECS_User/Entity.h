@@ -7,6 +7,7 @@
 #include "SpriteRenderer.h"
 #include "CircleRenderer.h"
 #include "PolygonRenderer.h"
+#include "TextRenderer.h"
 
 namespace ME
 {
@@ -47,6 +48,9 @@ namespace ME
 			
 			else if (std::is_same<PolygonRenderer, C>::value)
 			p_ECS->AddComponent<PolygonRendererComponent>(m_ID);
+
+			else if (std::is_same<TextRenderer, C>::value)
+			p_ECS->AddComponent<TextRendererComponent>(m_ID);
 			
 			return C(m_ID, p_ECS);
 		}
@@ -73,6 +77,9 @@ namespace ME
 			else if (std::is_same<PolygonRenderer, C>::value)
 			has = p_ECS->HasComponent<PolygonRendererComponent>(m_ID);
 
+			else if (std::is_same<TextRenderer, C>::value)
+			has = p_ECS->HasComponent<TextRendererComponent>(m_ID);
+
 			if (has) return C(m_ID, p_ECS);
 			else return C();		
 		}
@@ -97,6 +104,9 @@ namespace ME
 			else if (std::is_same<PolygonRenderer, C>::value)
 			return p_ECS->HasComponent<PolygonRendererComponent>(m_ID);
 
+			else if (std::is_same<TextRenderer, C>::value)
+			return p_ECS->HasComponent<TextRendererComponent>(m_ID);
+
 			return false;
 		}
 
@@ -119,6 +129,9 @@ namespace ME
 			
 			else if (std::is_same<PolygonRenderer, C>::value)
 			p_ECS->DestroyComponent<PolygonRendererComponent>(m_ID);
+
+			else if (std::is_same<TextRenderer, C>::value)
+			p_ECS->DestroyComponent<TextRendererComponent>(m_ID);
 		}
 
 		//

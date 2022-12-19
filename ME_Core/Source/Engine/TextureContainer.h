@@ -15,8 +15,8 @@ namespace ME
 	public:
 
 		ContainedTexture();
-		ContainedTexture(unsigned int m_ID, const Renderer& renderer);
-		ContainedTexture(unsigned int m_ID, const char* filePath, const Renderer& renderer);
+		ContainedTexture(unsigned int id, const Renderer& renderer);
+		ContainedTexture(unsigned int id, const char* filePath, const Renderer& renderer);
 
 		void SDLCleanUp();
 
@@ -37,7 +37,7 @@ namespace ME
 	public:
 
 		TextureContainer();
-		TextureContainer(int reserve, const Renderer& renderer);
+		TextureContainer(unsigned int reserve, const Renderer& renderer);
 
 		ContainedTexture* operator[](const int index);
 

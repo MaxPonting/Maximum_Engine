@@ -10,7 +10,7 @@ namespace ME
 		m_ID(0)
 	{}
 
-	ContainedTexture::ContainedTexture(unsigned int m_ID, const Renderer& renderer) :
+	ContainedTexture::ContainedTexture(unsigned int id, const Renderer& renderer) :
 		m_ID(0),
 		m_Size(Vector2i(1, 1))
 	{
@@ -28,7 +28,7 @@ namespace ME
 		SDLCall(SDL_FreeSurface(surface));
 	}
 
-	ContainedTexture::ContainedTexture(unsigned int m_ID, const char* filePath, const Renderer& renderer) :
+	ContainedTexture::ContainedTexture(unsigned int id, const char* filePath, const Renderer& renderer) :
 		p_SDLTexture(nullptr),
 		m_ID(m_ID)
 	{
@@ -62,14 +62,14 @@ namespace ME
 	}
 
 	TextureContainer::TextureContainer() :
-		m_NextTextureID(-1)
+		m_NextTextureID(0)
 	{}
 
-	TextureContainer::TextureContainer(int reserve, const Renderer& renderer) :
-		m_NextTextureID(-1)
+	TextureContainer::TextureContainer(unsigned int reserve, const Renderer& renderer) :
+		m_NextTextureID(0)
 	{
 		m_Textures.reserve(reserve);
-		m_Textures.emplace_back(ContainedTexture(++m_NextTextureID, renderer));
+		m_Textures.emplace_back(ContainedTexture(m_NextTextureID, renderer));
 	}
 
 	ContainedTexture* TextureContainer::operator[](const int index)

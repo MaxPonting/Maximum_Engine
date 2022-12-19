@@ -7,6 +7,7 @@
 #include "SpriteRendererComponent.h"
 #include "CircleRendererComponent.h"
 #include "PolygonRendererComponent.h"
+#include "TextRendererComponent.h"
 
 namespace ME
 {
@@ -25,9 +26,10 @@ namespace ME
 		ECS() :
 			m_NextEntityID(0),
 			m_Transforms(10000),
-			m_SpriteRenderers(10000),
+			m_SpriteRenderers(8000),
 			m_CircleRenderers(100),
-			m_PolygonRenderers(100)
+			m_PolygonRenderers(100),
+			m_TextRenderers(1000)
 		{}
 
 
@@ -51,6 +53,7 @@ namespace ME
 			DestroyComponent<SpriteRendererComponent>(entityID);
 			DestroyComponent<CircleRendererComponent>(entityID);
 			DestroyComponent<PolygonRendererComponent>(entityID);
+			DestroyComponent<TextRendererComponent>(entityID);
 		}
 
 		
@@ -72,6 +75,9 @@ namespace ME
 
 			else if (std::is_same<PolygonRendererComponent, C>::value)
 			return (std::vector<C>*)m_PolygonRenderers.GetAll();
+
+			else if (std::is_same<TextRendererComponent, C>::value)
+			return (std::vector<C>*)m_TextRenderers.GetAll();
 
 			return nullptr;
 		}
@@ -95,6 +101,9 @@ namespace ME
 			else if (std::is_same<PolygonRendererComponent, C>::value)
 			return (C*)m_PolygonRenderers.GetWithEntityID(entityID);
 
+			else if (std::is_same<TextRendererComponent, C>::value)
+			return (C*)m_TextRenderers.GetWithEntityID(entityID);
+
 			return nullptr;
 		}
 
@@ -111,6 +120,7 @@ namespace ME
 
 			else if (std::is_same<SpriteRendererComponent, C>::value)
 			{
+				DestroyComponent<TextRendererComponent>(entityID);
 				DestroyComponent<CircleRendererComponent>(entityID);
 				DestroyComponent<PolygonRendererComponent>(entityID);
 				return (C*)m_SpriteRenderers.Add(entityID);
@@ -118,6 +128,7 @@ namespace ME
 			
 			else if (std::is_same<CircleRendererComponent, C>::value)
 			{
+				DestroyComponent<TextRendererComponent>(entityID);
 				DestroyComponent<SpriteRendererComponent>(entityID);
 				DestroyComponent<PolygonRendererComponent>(entityID);
 				return (C*)m_CircleRenderers.Add(entityID);
@@ -125,9 +136,18 @@ namespace ME
 			
 			else if (std::is_same<PolygonRendererComponent, C>::value)
 			{
+				DestroyComponent<TextRendererComponent>(entityID);
 				DestroyComponent<CircleRendererComponent>(entityID);
 				DestroyComponent<SpriteRendererComponent>(entityID);
 				return (C*)m_PolygonRenderers.Add(entityID);
+			}
+
+			else if (std::is_same<TextRendererComponent, C>::value)
+			{
+				DestroyComponent<PolygonRendererComponent>(entityID);
+				DestroyComponent<CircleRendererComponent>(entityID);
+				DestroyComponent<SpriteRendererComponent>(entityID);
+				return (C*)m_TextRenderers.Add(entityID);
 			}
 			
 			return nullptr;
@@ -151,6 +171,9 @@ namespace ME
 
 			else if (std::is_same<PolygonRendererComponent, C>::value)
 			return m_PolygonRenderers.GetWithEntityID(entityID) != nullptr;
+
+			else if (std::is_same<TextRendererComponent, C>::value)
+			return m_TextRenderers.GetWithEntityID(entityID) != nullptr;
 		}
 
 
@@ -170,7 +193,10 @@ namespace ME
 			m_CircleRenderers.DeleteWithEntityID(entityID);
 			
 			else if (std::is_same<PolygonRendererComponent, C>::value)
-			m_PolygonRenderers.DeleteWithEntityID(entityID);			
+			m_PolygonRenderers.DeleteWithEntityID(entityID);
+
+			else if (std::is_same<TextRendererComponent, C>::value)
+			m_TextRenderers.DeleteWithEntityID(entityID);
 		}
 
 	private:
@@ -186,6 +212,7 @@ namespace ME
 		ComponentContainer<SpriteRendererComponent> m_SpriteRenderers;
 		ComponentContainer<CircleRendererComponent> m_CircleRenderers;
 		ComponentContainer<PolygonRendererComponent> m_PolygonRenderers;
+		ComponentContainer<TextRendererComponent> m_TextRenderers;
 
 	};
 }
