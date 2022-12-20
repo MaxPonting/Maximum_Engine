@@ -7,15 +7,13 @@ namespace ME
 	public:
 
 		Component();
-		Component(const unsigned int entityID, const unsigned int componentID);
+		Component(const unsigned int entityID);
 
 		unsigned int GetEntityID();
-		unsigned int GetComponentID();
-
+		
 	private:
 
 		unsigned int m_EntityID;
-		unsigned int m_ComponentID;
 
 	};
 }

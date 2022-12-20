@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\ECS\ScriptComponent.h" />
     <ClInclude Include="Source\Engine\FontContainer.h" />
     <ClInclude Include="Source\Polygon\Polygon.h" />
     <ClInclude Include="Source\ECS\PolygonRendererComponent.h" />
@@ -50,6 +51,7 @@
     <ClInclude Include="Source\ECS\TextRendererComponent.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\ECS\ScriptComponent.cpp" />
     <ClCompile Include="Source\Engine\FontContainer.cpp" />
     <ClCompile Include="Source\Polygon\Polygon.cpp" />
     <ClCompile Include="Source\ECS\PolygonRendererComponent.cpp" />

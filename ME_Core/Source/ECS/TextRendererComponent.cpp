@@ -15,8 +15,8 @@ namespace ME
 		m_NewTextureNeeded = true;
 	}
 
-	TextRendererComponent::TextRendererComponent(const unsigned int entityID, const unsigned int componentID) : 
-		Component(entityID, componentID),
+	TextRendererComponent::TextRendererComponent(const unsigned int entityID) : 
+		Component(entityID),
 		layer(0),
 		m_FontSize(12),
 		p_SDLFont(nullptr),

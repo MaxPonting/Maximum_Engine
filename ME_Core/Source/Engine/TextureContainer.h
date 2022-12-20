@@ -43,9 +43,7 @@ namespace ME
 
 		ContainedTexture* GetWithID(const int id);
 
-		ContainedTexture* Add(const Renderer& renderer);
-
-		ContainedTexture* AddWithFilePath(const char* filePath, const Renderer& renderer);
+		ContainedTexture* Add(const char* filePath, const Renderer& renderer);
 
 		void Delete(const int index);
 		

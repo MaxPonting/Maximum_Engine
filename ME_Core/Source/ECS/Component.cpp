@@ -3,13 +3,11 @@
 namespace ME
 {
 	Component::Component() :
-		m_EntityID(0),
-		m_ComponentID(0)
+		m_EntityID(0)
 	{}
 
-	Component::Component(unsigned int entityID, unsigned int componentID) :
-		m_EntityID(entityID),
-		m_ComponentID(componentID)
+	Component::Component(unsigned int entityID) :
+		m_EntityID(entityID)
 	{}
 
 	unsigned int Component::GetEntityID()
@@ -17,8 +15,4 @@ namespace ME
 		return m_EntityID;
 	}
 
-	unsigned int Component::GetComponentID()
-	{
-		return m_ComponentID;
-	}
 }

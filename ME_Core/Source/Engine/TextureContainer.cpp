@@ -30,7 +30,7 @@ namespace ME
 
 	ContainedTexture::ContainedTexture(unsigned int id, const char* filePath, const Renderer& renderer) :
 		p_SDLTexture(nullptr),
-		m_ID(m_ID)
+		m_ID(id)
 	{
 		p_SDLTexture = renderer.CreateTextureFromFilePath(filePath);
 
@@ -89,13 +89,7 @@ namespace ME
 		return nullptr;
 	}
 
-	ContainedTexture* TextureContainer::Add(const Renderer& renderer)
-	{
-		m_Textures.emplace_back(ContainedTexture(++m_NextTextureID, renderer));
-		return &m_Textures[m_Textures.size() - 1];
-	}
-
-	ContainedTexture* TextureContainer::AddWithFilePath(const char* filePath, const Renderer& renderer)
+	ContainedTexture* TextureContainer::Add(const char* filePath, const Renderer& renderer)
 	{
 		m_Textures.emplace_back(ContainedTexture(++m_NextTextureID, filePath, renderer));
 		return &m_Textures[m_Textures.size() - 1];

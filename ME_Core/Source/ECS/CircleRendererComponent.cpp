@@ -11,8 +11,8 @@ namespace ME
 		m_NewTextureNeeded(false)
 	{}
 
-	CircleRendererComponent::CircleRendererComponent(const unsigned int entityID, const unsigned int componentID) :
-		Component(entityID, componentID),
+	CircleRendererComponent::CircleRendererComponent(const unsigned int entityID) :
+		Component(entityID),
 		layer(0),
 		m_Radius(1),
 		p_SDLTexture(nullptr),

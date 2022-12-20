@@ -15,7 +15,7 @@ namespace ME
 	public:
 
 		TextRendererComponent();
-		TextRendererComponent(const unsigned int entityID, const unsigned int componentID);
+		TextRendererComponent(const unsigned int entityID);
 
 		void CreateSDLTexture(const Renderer& renderer, const char* filePath);
 

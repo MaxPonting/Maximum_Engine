@@ -11,7 +11,7 @@ namespace ME
 	public:
 
 		PolygonRendererComponent();
-		PolygonRendererComponent(const unsigned int entityID, const unsigned int componentID);
+		PolygonRendererComponent(const unsigned int entityID);
 
 		void SetPolygon(Polygon polygon);
 		void CreateSDLTexture(const Renderer& renderer);

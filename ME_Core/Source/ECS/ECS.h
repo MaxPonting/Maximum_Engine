@@ -8,6 +8,7 @@
 #include "CircleRendererComponent.h"
 #include "PolygonRendererComponent.h"
 #include "TextRendererComponent.h"
+#include "ScriptComponent.h"
 
 namespace ME
 {
@@ -104,6 +105,9 @@ namespace ME
 			else if (std::is_same<TextRendererComponent, C>::value)
 			return (C*)m_TextRenderers.GetWithEntityID(entityID);
 
+			else if (std::is_base_of<ScriptComponent, C>::value)
+			return nullptr;
+
 			return nullptr;
 		}
 
@@ -149,6 +153,9 @@ namespace ME
 				DestroyComponent<SpriteRendererComponent>(entityID);
 				return (C*)m_TextRenderers.Add(entityID);
 			}
+
+			else if (std::is_base_of<ScriptComponent, C>::value)
+			return nullptr;
 			
 			return nullptr;
 		}
@@ -174,6 +181,9 @@ namespace ME
 
 			else if (std::is_same<TextRendererComponent, C>::value)
 			return m_TextRenderers.GetWithEntityID(entityID) != nullptr;
+
+			else if (std::is_base_of<ScriptComponent, C>::value) 
+			return nullptr;
 		}
 
 
@@ -197,7 +207,12 @@ namespace ME
 
 			else if (std::is_same<TextRendererComponent, C>::value)
 			m_TextRenderers.DeleteWithEntityID(entityID);
+
+			else if (std::is_base_of<ScriptComponent, C>::value);
+
 		}
+
+		
 
 	private:
 
@@ -213,7 +228,6 @@ namespace ME
 		ComponentContainer<CircleRendererComponent> m_CircleRenderers;
 		ComponentContainer<PolygonRendererComponent> m_PolygonRenderers;
 		ComponentContainer<TextRendererComponent> m_TextRenderers;
-
 	};
 }
 

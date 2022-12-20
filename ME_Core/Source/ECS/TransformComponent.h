@@ -11,7 +11,7 @@ namespace ME
 	public:
 
 		TransformComponent();
-		TransformComponent(const unsigned int entityID, const unsigned int componentID);
+		TransformComponent(const unsigned int entityID);
 
 		Vector2f position;
 		Angle rotation;

@@ -3,6 +3,7 @@
 #include <type_traits>
 
 #include "../ECS//ECS.h"
+#include "../ECS/ScriptComponent.h"
 #include "Transform.h"
 #include "SpriteRenderer.h"
 #include "CircleRenderer.h"
@@ -30,7 +31,7 @@ namespace ME
 
 
 		//
-		// Adds a new component and relates it to this entity ID.
+		// Adds a new component and relates it to this entity's ID.
 		//
 		template <class C>
 		C AddComponent()
@@ -85,7 +86,7 @@ namespace ME
 		}
 
 		//
-		// Returns true if this entity has a given component.
+		// Returns true the entity has a given component.
 		//
 		template <class C>
 		bool HasComponent()
@@ -111,7 +112,7 @@ namespace ME
 		}
 
 		//
-		// Destroys a given component of this entity.
+		// Destroys a given component of the entity.
 		//
 		template <class C>
 		void DestroyComponent()
@@ -132,6 +133,30 @@ namespace ME
 
 			else if (std::is_same<TextRenderer, C>::value)
 			p_ECS->DestroyComponent<TextRendererComponent>(m_ID);
+		}
+
+		//
+		// Adds a given script to the entity
+		//
+		template <class C>
+		C* AddScript()
+		{
+			static_assert(std::is_base_of<ScriptComponent, C>::value, "C must be a script!");
+
+			return p_ECS->AddScript<C>(m_ID);
+		}
+
+		//
+		// Returns a given script of the entity
+		//
+		template <class C>
+		C* GetScript()
+		{
+			static_assert(std::is_base_of<ScriptComponent, C>::value, "C must be a script!");
+
+			
+
+			return p_ECS->AddScript<C>(m_ID)
 		}
 
 		//

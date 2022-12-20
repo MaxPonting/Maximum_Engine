@@ -2,7 +2,6 @@
 
 #include <vector>
 
-
 namespace ME
 {
 	template <class C>
@@ -32,7 +31,7 @@ namespace ME
 			DeleteWithEntityID(entityID);
 
 			m_NextID++;
-			m_Components.emplace_back(C(entityID, m_NextID));
+			m_Components.emplace_back(C(entityID));
 
 			return &m_Components[m_Components.size() - 1];
 		}
@@ -45,17 +44,17 @@ namespace ME
 			return &m_Components[index];
 		}
 
-		std::vector<C>* GetAll()
-		{
-			return &m_Components;
-		}
-
 		void DeleteWithEntityID(const unsigned int id)
 		{
 			int index = GetComponentIndex(id);
 			if (index == -1) return;
 
 			m_Components.erase(m_Components.begin() + index);
+		}
+
+		std::vector<C>* GetAll()
+		{
+			return &m_Components;
 		}
 
 		unsigned int GetCount()

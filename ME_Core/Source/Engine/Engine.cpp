@@ -73,7 +73,7 @@ namespace ME
 	//
 	Texture Engine::AddTexture(const char* filePath)
 	{
-		return Texture(m_Textures.AddWithFilePath(filePath, m_Renderer)->GetID());
+		return Texture(m_Textures.Add(filePath, m_Renderer)->GetID());
 	}
 
 	//
@@ -124,6 +124,9 @@ namespace ME
 	{
 		m_Renderer.Clear();
 
+		//
+		// Add sprites to the render queue
+		//
 		std::vector<SpriteRendererComponent>* spriteRenderers =
 			m_ECS.GetComponents<SpriteRendererComponent>();
 
@@ -142,6 +145,9 @@ namespace ME
 			});
 		}
 
+		//
+		// Add circles to the render queue
+		//
 		std::vector<CircleRendererComponent>* circleRenderers =
 			m_ECS.GetComponents<CircleRendererComponent>();
 
@@ -162,6 +168,9 @@ namespace ME
 			});
 		}
 
+		//
+		// Add polygons to the render queue
+		//
 		std::vector<PolygonRendererComponent>* polygonRenderers =
 			m_ECS.GetComponents<PolygonRendererComponent>();
 
@@ -182,6 +191,9 @@ namespace ME
 			});
 		}
 
+		//
+		// Add text to the render queue
+		//
 		std::vector<TextRendererComponent>* textRenderers =
 			m_ECS.GetComponents<TextRendererComponent>();
 
@@ -214,4 +226,5 @@ namespace ME
 
 		m_Time.UpdateSubFrame(EngineTime::SubFrameType::Renderer);
 	}
+
 }

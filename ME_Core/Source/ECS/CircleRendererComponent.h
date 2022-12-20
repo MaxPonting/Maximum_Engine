@@ -10,7 +10,7 @@ namespace ME
 	public:
 
 		CircleRendererComponent();
-		CircleRendererComponent(const unsigned int entityID, const unsigned int componentID);
+		CircleRendererComponent(const unsigned int entityID);
 
 		void SetRadius(float radius);
 		void CreateSDLTexture(const Renderer& renderer);

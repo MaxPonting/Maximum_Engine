@@ -7,8 +7,8 @@ namespace ME
 		layer(0)
 	{}
 
-	SpriteRendererComponent::SpriteRendererComponent(const unsigned int entityID, const unsigned int componentID) : 
-		Component(entityID, componentID),
+	SpriteRendererComponent::SpriteRendererComponent(const unsigned int entityID) : 
+		Component(entityID),
 		layer(0)
 	{}
 }
