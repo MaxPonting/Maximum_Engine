@@ -10,7 +10,7 @@ namespace ME
 		m_EntityID(entityID)
 	{}
 
-	unsigned int Component::GetEntityID()
+	unsigned int Component::GetEntityID() const
 	{
 		return m_EntityID;
 	}

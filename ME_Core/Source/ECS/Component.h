@@ -9,7 +9,7 @@ namespace ME
 		Component();
 		Component(unsigned int entityID);
 
-		unsigned int GetEntityID();
+		unsigned int GetEntityID() const;
 		
 	private:
 

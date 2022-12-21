@@ -12,7 +12,6 @@
 
 namespace ME
 {
-	class Entity;
 	//
 	// Contains all components in unique containers.
 	// Links all component objects to a unique entity IDs.
@@ -60,7 +59,7 @@ namespace ME
 
 		
 		//
-		// Returns a vector of pointers to all components.
+		// Returns a pointer to the vector of a given component.
 		//
 		template <class C>
 		std::vector<C>* GetComponents()
@@ -105,9 +104,6 @@ namespace ME
 
 			else if (std::is_same<TextRendererComponent, C>::value)
 			return (C*)m_TextRenderers.GetWithEntityID(entityID);
-
-			else if (std::is_base_of<ScriptComponent, C>::value)
-			return nullptr;
 
 			return nullptr;
 		}
@@ -154,9 +150,6 @@ namespace ME
 				DestroyComponent<SpriteRendererComponent>(entityID);
 				return (C*)m_TextRenderers.Add(entityID);
 			}
-
-			else if (std::is_base_of<ScriptComponent, C>::value)
-			return nullptr;
 			
 			return nullptr;
 		}
@@ -182,9 +175,6 @@ namespace ME
 
 			else if (std::is_same<TextRendererComponent, C>::value)
 			return m_TextRenderers.GetWithEntityID(entityID) != nullptr;
-
-			else if (std::is_base_of<ScriptComponent, C>::value) 
-			return false;
 		}
 
 
@@ -208,12 +198,90 @@ namespace ME
 
 			else if (std::is_same<TextRendererComponent, C>::value)
 			m_TextRenderers.DeleteWithEntityID(entityID);
-
-			else if (std::is_base_of<ScriptComponent, C>::value);
-
 		}
 
+		//
+		// Returns a pointer to a vector of script pointers
+		//
+		std::vector<ScriptComponent*>* GetScripts()
+		{
+			return &m_Scripts;
+		}
 		
+		//
+	    // Returns a pointer to a ScriptComponent
+		//
+		template <class C>
+		C* GetScript(unsigned int entityID)
+		{
+			static_assert(std::is_base_of<ScriptComponent, C>::value, "C must be a script!");
+
+			for (int i = 0; i < m_Scripts.size(); i++)
+			{
+				if(m_Scripts[i]->GetEntityID() == entityID)
+				{
+					if (static_cast<C>(m_Scripts[i]))
+					{
+						return m_Scripts[i];
+					}
+				}
+			}
+		}
+
+		//
+		// Adds a given script to a entity using a unique ID
+		//
+		template <class C>
+		C* AddScript(unsigned int entityID)
+		{
+			static_assert(std::is_base_of<ScriptComponent, C>::value, "C must be a script!");
+
+			m_Scripts.emplace_back(new C(entityID, this));
+			return (C*)m_Scripts[m_Scripts.size() - 1];
+		}
+
+		//
+		// Returns true if a entity has a given script
+		//
+		template <class C>
+		bool HasScript(unsigned int entityID)
+		{
+			static_assert(std::is_base_of<ScriptComponent, C>::value, "C must be a script!");
+
+			for (int i = 0; i < m_Scripts.size(); i++)
+			{
+				if (m_Scripts[i]->GetEntityID() == entityID)
+				{
+					if (static_cast<C>(m_Scripts[i]))
+					{
+						return true;
+					}
+				}
+			}
+
+			return false;
+		}
+
+		//
+		// Destroys a given script of a entity
+		//
+		template <class C>
+		void DestroyScript(unsigned int entityID)
+		{
+			static_assert(std::is_base_of<ScriptComponent, C>::value, "C must be a script!");
+
+			for (int i = 0; i < m_Scripts.size(); i++)
+			{
+				if (m_Scripts[i]->GetEntityID() == entityID)
+				{
+					if (static_cast<C>(m_Scripts[i]))
+					{
+						return m_Scripts[i];
+					}
+				}
+			}
+		}
+
 
 	private:
 
@@ -229,6 +297,12 @@ namespace ME
 		ComponentContainer<CircleRendererComponent> m_CircleRenderers;
 		ComponentContainer<PolygonRendererComponent> m_PolygonRenderers;
 		ComponentContainer<TextRendererComponent> m_TextRenderers;
+
+		//
+		// Vector of pointers to user defined scripts
+		//
+		std::vector<ScriptComponent*> m_Scripts;
+
 	};
 }
 

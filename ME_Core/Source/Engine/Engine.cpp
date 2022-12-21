@@ -105,6 +105,16 @@ namespace ME
 	
 	void Engine::UpdateComponents()
 	{
+		//
+		// Scripts
+		//
+		std::vector<ScriptComponent*>* scripts = m_ECS.GetScripts();
+
+		for (int i = 0; i < scripts->size(); i++)
+		{
+			scripts->operator[](i)->Update();
+		}
+
 		m_Time.UpdateSubFrame(EngineTime::SubFrameType::Script);
 	}
 

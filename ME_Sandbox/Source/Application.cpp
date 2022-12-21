@@ -4,9 +4,12 @@ class Controller : public ME::ScriptComponent
 {
 	using ScriptComponent::ScriptComponent;
 
+	ME::Vector2f pos;
+
 	void Update()
 	{
-
+		pos = ME::Vector2f(pos.X + 0.1, 400);
+		GetEntity().GetComponent<ME::Transform>().SetPosition(pos);
 	}
 };
 
@@ -19,33 +22,18 @@ int main(int argc, char* args[])
 
 	ME::Texture texture = engine.AddTexture("../Assets/PNGs/Sword.png");
 
-	/*
-	unsigned short num = 0;
-	for (int x = 0; x < 1920; x += 20)
-	{
-		for (int y = 0; y < 1080; y += 30)
-		{
-			ME::Entity entity = engine.AddEntity();
-			ME::Transform transform = entity.GetComponent<ME::Transform>();
-			transform.SetPosition(ME::Vector2i(x, y));
-			ME::SpriteRenderer renderer = entity.AddComponent<ME::SpriteRenderer>();
-			renderer.SetTexture(texture);
-			num++;
-		}
-	}
-	std::cout << num;
-	*/
-	
 	
 	ME::Transform transform = engine.AddEntity().GetComponent<ME::Transform>();
 	transform.SetPosition(ME::Vector2i(500, 500));
 	transform.SetRotation(60);
 
-	ME::TextRenderer textRenderer = transform.AddComponent<ME::TextRenderer>();
+	ME::TextRenderer textRenderer = transform.GetEntity().AddComponent<ME::TextRenderer>();
 	textRenderer.SetText("Hello World");
 	textRenderer.SetFont(font);
 	textRenderer.SetFontSize(36);
 	textRenderer.SetColour(ME::RGBA(255, 0, 255, 255));
+
+	transform.GetEntity().AddScript<Controller>();
 
 	engine.Run();
 

@@ -3,7 +3,7 @@
 #include <type_traits>
 
 #include "../ECS//ECS.h"
-#include "../ECS/ScriptComponent.h"
+
 
 
 namespace ME
@@ -14,6 +14,7 @@ namespace ME
 	class CircleRenderer;
 	class PolygonRenderer;
 	class TextRenderer;
+	class ScriptComponent;
 	//
 	// Related to a set of components.
 	//
@@ -145,7 +146,7 @@ namespace ME
 		{
 			static_assert(std::is_base_of<ScriptComponent, C>::value, "C must be a script!");
 
-			return nullptr;
+			return p_ECS->AddScript<C>(m_ID);
 		}
 
 		//
@@ -156,7 +157,29 @@ namespace ME
 		{
 			static_assert(std::is_base_of<ScriptComponent, C>::value, "C must be a script!");
 
-			return nullptr;
+			return p_ECS->GetScript<C>(m_ID);
+		}
+
+		//
+		// Returns true if a entity has a given script
+		//
+		template <class C>
+		bool HasScript()
+		{
+			static_assert(std::is_base_of<ScriptComponent, C>::value, "C must be a script!");
+
+			return p_ECS->HasScript<C>(m_ID);
+		}
+
+		//
+		// Destroys a given script of the entity.
+		//
+		template <class C>
+		void DestroyScript()
+		{
+			static_assert(std::is_base_of<ScriptComponent, C>::value, "C must be a script!");
+
+			return p_ECS->DestroyScript<C>(m_ID);
 		}
 
 		//

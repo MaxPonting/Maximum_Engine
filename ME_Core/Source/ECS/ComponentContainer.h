@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <algorithm>
 
 namespace ME
 {
@@ -32,6 +33,8 @@ namespace ME
 
 			m_NextID++;
 			m_Components.emplace_back(C(entityID));
+
+			SortByID();
 
 			return &m_Components[m_Components.size() - 1];
 		}
@@ -83,6 +86,11 @@ namespace ME
 			return -1;
 		}
 
+		void SortByID()
+		{
+			std::sort(m_Components.begin(), m_Components.end(),
+				[](const C& c1, const C& c2) { return c1.GetEntityID() < c2.GetEntityID(); });
+		}
 
 		std::vector<C> m_Components;
 		unsigned int m_NextID;
