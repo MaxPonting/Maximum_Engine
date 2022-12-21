@@ -12,6 +12,7 @@
 
 namespace ME
 {
+	class Entity;
 	//
 	// Contains all components in unique containers.
 	// Links all component objects to a unique entity IDs.
@@ -183,7 +184,7 @@ namespace ME
 			return m_TextRenderers.GetWithEntityID(entityID) != nullptr;
 
 			else if (std::is_base_of<ScriptComponent, C>::value) 
-			return nullptr;
+			return false;
 		}
 
 

@@ -4,14 +4,16 @@
 
 #include "../ECS//ECS.h"
 #include "../ECS/ScriptComponent.h"
-#include "Transform.h"
-#include "SpriteRenderer.h"
-#include "CircleRenderer.h"
-#include "PolygonRenderer.h"
-#include "TextRenderer.h"
+
 
 namespace ME
 {
+	class ComponentRef;
+	class Transform;
+	class SpriteRenderer;
+	class CircleRenderer;
+	class PolygonRenderer;
+	class TextRenderer;
 	//
 	// Related to a set of components.
 	//
@@ -143,7 +145,7 @@ namespace ME
 		{
 			static_assert(std::is_base_of<ScriptComponent, C>::value, "C must be a script!");
 
-			return p_ECS->AddScript<C>(m_ID);
+			return nullptr;
 		}
 
 		//
@@ -154,9 +156,7 @@ namespace ME
 		{
 			static_assert(std::is_base_of<ScriptComponent, C>::value, "C must be a script!");
 
-			
-
-			return p_ECS->AddScript<C>(m_ID)
+			return nullptr;
 		}
 
 		//

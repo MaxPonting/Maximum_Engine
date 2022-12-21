@@ -10,7 +10,7 @@ namespace ME
 		m_NewTextureNeeded(false)
 	{}
 
-	PolygonRendererComponent::PolygonRendererComponent(const unsigned int entityID) :
+	PolygonRendererComponent::PolygonRendererComponent(unsigned int entityID) :
 		Component(entityID),
 		layer(0),
 		p_SDLTexture(nullptr),

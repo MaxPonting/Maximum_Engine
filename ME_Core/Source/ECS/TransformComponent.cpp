@@ -9,7 +9,7 @@ namespace ME
 		scale(Vector2f(1, 1))
 	{}
 
-	TransformComponent::TransformComponent(const unsigned int entityID) : 
+	TransformComponent::TransformComponent(unsigned int entityID) :
 		Component(entityID),
 		position(Vector2f()),
 		rotation(0),

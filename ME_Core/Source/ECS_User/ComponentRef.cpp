@@ -1,5 +1,4 @@
 #include "ComponentRef.h"
-#include "Entity.h"
 
 namespace ME
 {

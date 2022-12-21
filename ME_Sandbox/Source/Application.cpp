@@ -1,5 +1,15 @@
 #include <ME.h>
 
+class Controller : public ME::ScriptComponent
+{
+	using ScriptComponent::ScriptComponent;
+
+	void Update()
+	{
+
+	}
+};
+
 int main(int argc, char* args[])
 {
 	ME::Manager::Init();
@@ -26,13 +36,12 @@ int main(int argc, char* args[])
 	std::cout << num;
 	*/
 	
-	ME::Entity entity = engine.AddEntity();
 	
-	ME::Transform transform = entity.GetComponent<ME::Transform>();
+	ME::Transform transform = engine.AddEntity().GetComponent<ME::Transform>();
 	transform.SetPosition(ME::Vector2i(500, 500));
 	transform.SetRotation(60);
 
-	ME::TextRenderer textRenderer = entity.AddComponent<ME::TextRenderer>();
+	ME::TextRenderer textRenderer = transform.AddComponent<ME::TextRenderer>();
 	textRenderer.SetText("Hello World");
 	textRenderer.SetFont(font);
 	textRenderer.SetFontSize(36);

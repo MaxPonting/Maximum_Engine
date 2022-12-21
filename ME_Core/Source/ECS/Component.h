@@ -7,7 +7,7 @@ namespace ME
 	public:
 
 		Component();
-		Component(const unsigned int entityID);
+		Component(unsigned int entityID);
 
 		unsigned int GetEntityID();
 		

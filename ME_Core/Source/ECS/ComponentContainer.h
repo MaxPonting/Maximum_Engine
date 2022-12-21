@@ -26,7 +26,7 @@ namespace ME
 			return &m_Components[index];
 		}
 
-		C* Add(int entityID)
+		C* Add(unsigned int entityID)
 		{
 			DeleteWithEntityID(entityID);
 

@@ -11,7 +11,7 @@ namespace ME
 	public:
 
 		SpriteRendererComponent();
-		SpriteRendererComponent(const unsigned int entityID);
+		SpriteRendererComponent(unsigned int entityID);
 
 		Texture texture;
 		RGBA colour;
