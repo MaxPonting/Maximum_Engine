@@ -11,6 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\ECS_User\Camera.h" />
+    <ClInclude Include="Source\ECS\CameraComponent.h" />
     <ClInclude Include="Source\ECS\ScriptComponent.h" />
     <ClInclude Include="Source\Engine\FontContainer.h" />
     <ClInclude Include="Source\Polygon\Polygon.h" />
@@ -51,6 +53,8 @@
     <ClInclude Include="Source\User\Time.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\ECS_User\Camera.cpp" />
+    <ClCompile Include="Source\ECS\CameraComponent.cpp" />
     <ClCompile Include="Source\ECS\ScriptComponent.cpp" />
     <ClCompile Include="Source\Engine\FontContainer.cpp" />
     <ClCompile Include="Source\Polygon\Polygon.cpp" />

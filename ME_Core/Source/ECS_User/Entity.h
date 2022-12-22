@@ -14,6 +14,7 @@ namespace ME
 	class CircleRenderer;
 	class PolygonRenderer;
 	class TextRenderer;
+	class Camera;
 	class ScriptComponent;
 	//
 	// Related to a set of components.
@@ -55,6 +56,9 @@ namespace ME
 
 			else if (std::is_same<TextRenderer, C>::value)
 			p_ECS->AddComponent<TextRendererComponent>(m_ID);
+
+			else if (std::is_same<Camera, C>::value)
+			p_ECS->AddComponent<CameraComponent>(m_ID);
 			
 			return C(m_ID, p_ECS);
 		}
@@ -84,6 +88,9 @@ namespace ME
 			else if (std::is_same<TextRenderer, C>::value)
 			has = p_ECS->HasComponent<TextRendererComponent>(m_ID);
 
+			else if (std::is_same<Camera, C>::value)
+			has = p_ECS->HasComponent<CameraComponent>(m_ID);
+
 			if (has) return C(m_ID, p_ECS);
 			else return C();		
 		}
@@ -111,6 +118,9 @@ namespace ME
 			else if (std::is_same<TextRenderer, C>::value)
 			return p_ECS->HasComponent<TextRendererComponent>(m_ID);
 
+			else if (std::is_same<Camera, C>::value)
+			return p_ECS->HasComponent<CameraComponent>(m_ID);
+
 			return false;
 		}
 
@@ -136,6 +146,9 @@ namespace ME
 
 			else if (std::is_same<TextRenderer, C>::value)
 			p_ECS->DestroyComponent<TextRendererComponent>(m_ID);
+
+			else if (std::is_same<Camera, C>::value)
+			p_ECS->DestroyComponent<CameraComponent>(m_ID);
 		}
 
 		//

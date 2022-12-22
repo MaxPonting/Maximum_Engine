@@ -19,6 +19,7 @@
 #include "../ECS/ECS.h"
 #include "../ECS_User/Entity.h"
 #include "../ECS_User/ComponentRef.h"
+#include "../ECS_User/Camera.h"
 #include "../User/Time.h"
 
 namespace ME
@@ -53,7 +54,11 @@ namespace ME
 		/* FONT API */
 		static Font AddFont(const char* filePath);
 		
+		//
+		// Getters
+		//
 		static Time GetTime();
+		static Camera GetMainCamera();
 				
 	private:
 
@@ -68,6 +73,7 @@ namespace ME
 		static Window m_Window;
 		static Renderer m_Renderer;
 		static ECS m_ECS;
+		static Camera m_MainCamera;
 		static TextureContainer m_Textures;
 		static FontContainer m_Fonts;
 		static SDL_Event m_Event;

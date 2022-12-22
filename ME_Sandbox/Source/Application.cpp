@@ -27,6 +27,8 @@ int main(int argc, char* args[])
 
 	ME::Texture texture = ME::Engine::AddTexture("../Assets/PNGs/Sword.png");
 
+	ME::Camera camera = ME::Engine::GetMainCamera();
+
 	ME::Transform transform = ME::Engine::AddEntity().GetComponent<ME::Transform>();
 	transform.SetPosition(ME::Vector2i(700, 500));
 	transform.SetRotation(60);

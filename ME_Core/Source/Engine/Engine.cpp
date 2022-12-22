@@ -9,6 +9,7 @@ namespace ME
 	Window Engine::m_Window = Window();
 	Renderer Engine::m_Renderer = Renderer();
 	ECS Engine::m_ECS = ECS();
+	Camera Engine::m_MainCamera = Camera();
 	TextureContainer Engine::m_Textures = TextureContainer();
 	FontContainer Engine::m_Fonts = FontContainer();
 	SDL_Event Engine::m_Event = SDL_Event();
@@ -30,6 +31,8 @@ namespace ME
 		m_Textures = TextureContainer(100, m_Renderer);
 		m_Fonts = FontContainer(10);
 		m_Debug = Debug(&m_Renderer);
+
+		m_MainCamera = Camera(AddEntity().AddComponent<Camera>().GetEntityID(), &m_ECS);
 
 		m_State = State::Init;
 	}
@@ -98,6 +101,11 @@ namespace ME
 	Time Engine::GetTime()
 	{
 		return Time(m_Time.GetDeltaTimeInSeconds());
+	}
+
+	Camera Engine::GetMainCamera()
+	{
+		return m_MainCamera;
 	}
 
 	//

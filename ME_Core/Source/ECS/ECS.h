@@ -8,6 +8,7 @@
 #include "CircleRendererComponent.h"
 #include "PolygonRendererComponent.h"
 #include "TextRendererComponent.h"
+#include "CameraComponent.h"
 #include "ScriptComponent.h"
 
 namespace ME
@@ -55,6 +56,7 @@ namespace ME
 			DestroyComponent<CircleRendererComponent>(entityID);
 			DestroyComponent<PolygonRendererComponent>(entityID);
 			DestroyComponent<TextRendererComponent>(entityID);
+			DestroyComponent<CameraComponent>(entityID);
 		}
 
 		
@@ -64,7 +66,6 @@ namespace ME
 		template <class C>
 		std::vector<C>* GetComponents()
 		{
-
 			if (std::is_same<TransformComponent, C>::value)
 			return (std::vector<C>*)m_Transforms.GetAll();
 
@@ -79,6 +80,9 @@ namespace ME
 
 			else if (std::is_same<TextRendererComponent, C>::value)
 			return (std::vector<C>*)m_TextRenderers.GetAll();
+
+			else if (std::is_same<CameraComponent, C>::value)
+			return (std::vector<C>*)m_Cameras.GetAll();
 
 			return nullptr;
 		}
@@ -104,6 +108,9 @@ namespace ME
 
 			else if (std::is_same<TextRendererComponent, C>::value)
 			return (C*)m_TextRenderers.GetWithEntityID(entityID);
+
+			else if (std::is_same<CameraComponent, C>::value)
+			return (C*)m_Cameras.GetWithEntityID(entityID);
 
 			return nullptr;
 		}
@@ -150,6 +157,9 @@ namespace ME
 				DestroyComponent<SpriteRendererComponent>(entityID);
 				return (C*)m_TextRenderers.Add(entityID);
 			}
+
+			if (std::is_same<CameraComponent, C>::value)
+			return (C*)m_Cameras.Add(entityID);
 			
 			return nullptr;
 		}
@@ -175,6 +185,9 @@ namespace ME
 
 			else if (std::is_same<TextRendererComponent, C>::value)
 			return m_TextRenderers.GetWithEntityID(entityID) != nullptr;
+
+			else if (std::is_same<CameraComponent, C>::value)
+			return m_Cameras.GetWithEntityID(entityID) != nullptr;
 		}
 
 
@@ -198,6 +211,9 @@ namespace ME
 
 			else if (std::is_same<TextRendererComponent, C>::value)
 			m_TextRenderers.DeleteWithEntityID(entityID);
+
+			else if (std::is_same<CameraComponent, C>::value)
+			m_Cameras.DeleteWithEntityID(entityID);
 		}
 
 		//
@@ -300,6 +316,7 @@ namespace ME
 		ComponentContainer<CircleRendererComponent> m_CircleRenderers;
 		ComponentContainer<PolygonRendererComponent> m_PolygonRenderers;
 		ComponentContainer<TextRendererComponent> m_TextRenderers;
+		ComponentContainer<CameraComponent> m_Cameras;
 
 		//
 		// Vector of pointers to user defined scripts
