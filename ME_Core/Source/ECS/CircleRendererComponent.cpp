@@ -1,5 +1,5 @@
 #include "CircleRendererComponent.h"
-#include "../Engine/Manager.h"
+#include "../Engine/Engine.h"
 
 namespace ME
 {

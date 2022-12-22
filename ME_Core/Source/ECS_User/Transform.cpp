@@ -34,7 +34,7 @@ namespace ME
 		if (p_ECS == nullptr) return Vector2f();
 		TransformComponent* transform = p_ECS->GetComponent<TransformComponent>(m_EntityID);
 		if (transform == nullptr) return Vector2f();
-		transform->position;
+		return transform->position;
 	}
 
 	float Transform::GetRotation()
@@ -42,7 +42,7 @@ namespace ME
 		if (p_ECS == nullptr) return 0;
 		TransformComponent* transform = p_ECS->GetComponent<TransformComponent>(m_EntityID);
 		if (transform == nullptr) return 0;
-		transform->rotation.getDeg();
+		return transform->rotation.getDeg();
 	}
 
 	Vector2f Transform::GetScale()

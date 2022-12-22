@@ -1,34 +1,104 @@
 #include "Engine.h"
+#include "Log.h"
 
 namespace ME
 {
 	//
-	// Default Constructor.
+	// Initialize Members
 	//
-	Engine::Engine() :
-		m_Window(Window()),
-		m_Renderer(Renderer()),
-		m_Textures(TextureContainer()),
-		m_Fonts(FontContainer()),
-		m_Event(SDL_Event()),
-		m_Debug(Debug()),
-		m_Time(EngineTime()),
-		m_Running(false)		
-	{}
+	Window Engine::m_Window = Window();
+	Renderer Engine::m_Renderer = Renderer();
+	ECS Engine::m_ECS = ECS();
+	TextureContainer Engine::m_Textures = TextureContainer();
+	FontContainer Engine::m_Fonts = FontContainer();
+	SDL_Event Engine::m_Event = SDL_Event();
+	Debug Engine::m_Debug = Debug();
+	EngineTime Engine::m_Time = EngineTime();
+	Engine::State Engine::m_State = Engine::State::Null;
+
+	// 
+	// Initialize SDL2
+	//
+	void Engine::Init(const char* title, const int width, const int height)
+	{
+		SDLCall(SDL_Init(SDL_INIT_VIDEO));
+		SDLCall(TTF_Init());
+		SDLCall(IMG_Init(IMG_INIT_PNG | IMG_INIT_JPG));
+
+		m_Window = Window(title, width, height);
+		m_Renderer = Renderer(m_Window);
+		m_Textures = TextureContainer(100, m_Renderer);
+		m_Fonts = FontContainer(10);
+		m_Debug = Debug(&m_Renderer);
+
+		m_State = State::Init;
+	}
 
 	//
-	// Creates SDL2 window and renderer.
+	// Check SDL2 Error
 	//
-	Engine::Engine(const char* title, const int width, const int height) :
-		m_Window(Window(title, width, height)),
-		m_Renderer(Renderer(m_Window)),
-		m_Textures(TextureContainer(100, m_Renderer)),
-		m_Fonts(FontContainer(10)),
-		m_Event(SDL_Event()),
-		m_Debug(Debug(&m_Renderer)),
-		m_Time(EngineTime()),
-		m_Running(false)		
-	{}
+	bool Engine::CheckSDLError()
+	{
+		std::string error = SDL_GetError();
+		SDL_ClearError();
+		if (error.size() == 0) return false;
+		else if (error == "Not a PNG") return false;
+		else
+		{
+			Log::PrintToLog("[SDL][Error]", error);
+			return true;
+		}
+	}
+
+	void Engine::Start()
+	{
+		if (m_State != State::Init) return;
+		
+		Run();
+	}
+
+	//
+	// Returns a new entity that can contain components.
+	//
+	Entity Engine::AddEntity()
+	{
+		if (m_State != State::Init) return Entity();
+		return Entity(&m_ECS, m_ECS.AddEntity());
+	}
+
+	//
+	// Destroys the entity and all its components.
+	//
+	void Engine::DestroyEntity(Entity entity)
+	{
+		if (m_State != State::Init) return;
+		m_ECS.DestroyEntity(entity.GetID());
+	}
+
+	//
+	// Adds a texture to the engine using a filePath.
+	// Supports PNG and JPG/JPEG files.
+	//
+	Texture Engine::AddTexture(const char* filePath)
+	{
+		if (m_State != State::Init) return Texture();
+		return Texture(m_Textures.Add(filePath, m_Renderer)->GetID());
+	}
+
+	//
+	// Adds a font to the engine using a filePath.
+	// Supports TTF files.
+	//
+	Font Engine::AddFont(const char* filePath)
+	{
+		if (m_State != State::Init) return Font();
+		return Font(m_Fonts.Add(filePath)->GetID());
+	}
+
+	Time Engine::GetTime()
+	{
+		return Time(m_Time.GetDeltaTimeInSeconds());
+	}
 
 	//
 	// Call to start the game loop.
@@ -36,9 +106,9 @@ namespace ME
 	// 
 	void Engine::Run()
 	{
-		m_Running = true;
+		m_State = State::Running;
 
-		while (m_Running)
+		while (m_State == State::Running)
 		{
 			m_Time.Update();
 			UpdateEvents();
@@ -52,40 +122,6 @@ namespace ME
 	}
 
 	//
-	// Returns a new entity that can contain components.
-	//
-	Entity Engine::AddEntity()
-	{
-		return Entity(&m_ECS, m_ECS.AddEntity());
-	}
-
-	//
-	// Destroys the entity and all its components.
-	//
-	void Engine::DestroyEntity(Entity entity)
-	{
-		m_ECS.DestroyEntity(entity.GetID());
-	}
-
-	//
-	// Adds a texture to the engine using a filePath.
-	// Supports PNG and JPG/JPEG files.
-	//
-	Texture Engine::AddTexture(const char* filePath)
-	{
-		return Texture(m_Textures.Add(filePath, m_Renderer)->GetID());
-	}
-
-	//
-	// Adds a font to the engine using a filePath.
-	// Supports TTF files.
-	//
-	Font Engine::AddFont(const char* filePath)
-	{
-		return Font(m_Fonts.Add(filePath)->GetID());
-	}
-
-	//
 	// Polls for SDL2 events.
 	// Sets running to false if the window has closed.
 	//
@@ -95,7 +131,7 @@ namespace ME
 		{
 			if (m_Event.type == SDL_QUIT)
 			{
-				m_Running = false;
+				m_State = State::Init;
 			}
 		}
 

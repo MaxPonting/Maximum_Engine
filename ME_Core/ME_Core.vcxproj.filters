@@ -36,9 +36,6 @@
     <ClInclude Include="Source\Engine\Renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Engine\Manager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Engine\Log.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -129,6 +126,9 @@
     <ClInclude Include="Source\ECS\ScriptComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\User\Time.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Engine\Sprite.cpp">
@@ -141,9 +141,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Engine\Renderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Engine\Manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Engine\Log.cpp">
@@ -222,6 +219,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\ECS\ScriptComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\User\Time.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -32,7 +32,6 @@
     <ClInclude Include="Source\Engine\Angle.h" />
     <ClInclude Include="Source\Engine\RGBA.h" />
     <ClInclude Include="Source\Engine\Log.h" />
-    <ClInclude Include="Source\Engine\Manager.h" />
     <ClInclude Include="Source\Engine\Renderer.h" />
     <ClInclude Include="Source\Engine\Arena.h" />
     <ClInclude Include="Source\Engine\Engine.h" />
@@ -49,6 +48,7 @@
     <ClInclude Include="Source\Engine\Vector2i.h" />
     <ClInclude Include="Source\ECS_User\TextRenderer.h" />
     <ClInclude Include="Source\ECS\TextRendererComponent.h" />
+    <ClInclude Include="Source\User\Time.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ECS\ScriptComponent.cpp" />
@@ -67,7 +67,6 @@
     <ClCompile Include="Source\Engine\Angle.cpp" />
     <ClCompile Include="Source\Engine\RGBA.cpp" />
     <ClCompile Include="Source\Engine\Log.cpp" />
-    <ClCompile Include="Source\Engine\Manager.cpp" />
     <ClCompile Include="Source\Engine\Renderer.cpp" />
     <ClCompile Include="Source\Polygon\Scanline.cpp" />
     <ClCompile Include="Source\Engine\Sprite.cpp" />
@@ -82,6 +81,7 @@
     <ClCompile Include="Source\Engine\Vector2i.cpp" />
     <ClCompile Include="Source\ECS_User\TextRenderer.cpp" />
     <ClCompile Include="Source\ECS\TextRendererComponent.cpp" />
+    <ClCompile Include="Source\User\Time.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

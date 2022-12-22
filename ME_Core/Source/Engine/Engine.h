@@ -19,53 +19,92 @@
 #include "../ECS/ECS.h"
 #include "../ECS_User/Entity.h"
 #include "../ECS_User/ComponentRef.h"
+#include "../User/Time.h"
 
 namespace ME
 {
 	//
 	// Owns window and render.
-	// Starts the game loop when 'Run' is called.
+	// Starts the game loop when 'Start' is called.
 	//	
 	class Engine final
 	{
 	public:
+		//
+		// Initialization
+		//
+		static void Init(const char* title, const int width, const int height);
 
-		/* CONSTRUCTORS */
-		Engine();				
-		Engine(const char* title, const int width, const int height);
+		//
+		// Error Checking
+		//
+		static bool CheckSDLError();
 		
 		/* PUBLIC METHODS */
-		void Run();
+		static void Start();
 
 		/* ECS API */
-		Entity AddEntity();
-		void DestroyEntity(Entity entity);
+		static Entity AddEntity();
+		static void DestroyEntity(Entity entity);
 		
 		/* TEXTURE API */
-		Texture AddTexture(const char* filePath);
+		static Texture AddTexture(const char* filePath);
 
 		/* FONT API */
-		Font AddFont(const char* filePath);
-					
+		static Font AddFont(const char* filePath);
+		
+		static Time GetTime();
+				
 	private:
 
 		/* PRIVATE METHODS */
-		void UpdateEvents();		
-		void UpdateComponents();					
-		void UpdatePhysics();		
-		void UpdateRenderer();
+		static void Run();
+		static void UpdateEvents();		
+		static void UpdateComponents();					
+		static void UpdatePhysics();		
+		static void UpdateRenderer();
 		
 		/* PRIVATE MEMBERS */
-		Window m_Window;
-		Renderer m_Renderer;
-		ECS m_ECS;
-		TextureContainer m_Textures;
-		FontContainer m_Fonts;
-		SDL_Event m_Event;
-		Debug m_Debug;
-		EngineTime m_Time;
-		bool m_Running;
+		static Window m_Window;
+		static Renderer m_Renderer;
+		static ECS m_ECS;
+		static TextureContainer m_Textures;
+		static FontContainer m_Fonts;
+		static SDL_Event m_Event;
+		static Debug m_Debug;
+		static EngineTime m_Time;
+		
+		enum class State { Null, Init, Running };
+		static State m_State;
 	};
+
 }
+
+/*
+Wrapper for every SDL Call
+//
+	Prints a SDL error to the console
+//
+	Breaks if an error occurs
+*/
+#define SDLCall(x) x; if(ME::Engine::CheckSDLError()) __debugbreak();  
+
+/*
+	Wrapper for every TTF Call
+//
+	Prints a TTF error to the console
+//
+	Breaks if an error occurs
+*/
+#define TTFCall(x) x; if(ME::Engine::CheckSDLError()) __debugbreak();  
+
+/* Defines prefix for a SDL Error */
+#define SDL_Error "[SDL][Error][" + __LINE__ + "]"
+
+/* Defines prefix for a ME Error */
+#define ME_Error "[ME][Error][" + __LINE__ + "]"
+
+/* Define prefix for ME Debug */
+#define ME_Debug "[ME][Debug][" + __LINE__ + "]"
 
 

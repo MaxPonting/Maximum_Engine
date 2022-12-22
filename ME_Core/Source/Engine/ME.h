@@ -3,7 +3,6 @@
 //Include to use ME
 
 #include "Engine.h"
-#include "Manager.h"
 
 #include "../ECS_User/ComponentRef.h"
 #include "../ECS_User/Transform.h"

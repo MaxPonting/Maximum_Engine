@@ -3,7 +3,7 @@
 
 /* ME */
 #include "Renderer.h"
-#include "Manager.h"
+#include "Engine.h"
 
 namespace ME
 {
@@ -17,7 +17,7 @@ namespace ME
 	{		
 		//SDL_SetHint(SDL_HINT_RENDER_DRIVER, "opengl");
 		SDLCall(SDL_SetHint(SDL_HINT_RENDER_BATCHING, "1"));
-		SDLCall(p_Renderer = SDL_CreateRenderer(window.GetWindow(), -1, SDL_RENDERER_ACCELERATED /*| SDL_RENDERER_PRESENTVSYNC*/));
+		SDLCall(p_Renderer = SDL_CreateRenderer(window.GetWindow(), -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC));
 		SDLCall(SDL_RenderSetLogicalSize(p_Renderer, 1920, 1080));
 		SDLCall(SDL_GetRendererInfo(p_Renderer, &m_Info));
 	}
@@ -107,7 +107,8 @@ namespace ME
 		rect.y = object.transform.position.Y;
 		rect.w = object.sprite.size.X * object.transform.scale.X;
 		rect.h = object.sprite.size.Y * object.transform.scale.Y;
-
+		rect.x -= rect.w / 2;
+		rect.y -= rect.h / 2;
 		SDL_RenderCopyExF
 		(
 			p_Renderer,

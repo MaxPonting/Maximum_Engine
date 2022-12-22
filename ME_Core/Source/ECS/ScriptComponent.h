@@ -14,6 +14,7 @@ namespace ME
 		ScriptComponent();
 		ScriptComponent(unsigned int entityID, ECS* ecs);
 
+		void virtual Start() {};
 		void virtual Update() {};
 
 		Entity GetEntity();

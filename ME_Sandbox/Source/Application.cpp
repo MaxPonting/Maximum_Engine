@@ -3,28 +3,32 @@
 class Controller : public ME::ScriptComponent
 {
 	using ScriptComponent::ScriptComponent;
+	
+	ME::Transform transform;
 
-	ME::Vector2f pos;
+	void Start()
+	{
+		transform = GetEntity().GetComponent<ME::Transform>();
+	}
 
 	void Update()
 	{
-		pos = ME::Vector2f(pos.X + 0.1, 400);
-		GetEntity().GetComponent<ME::Transform>().SetPosition(pos);
+		transform.SetPosition(ME::Vector2f(transform.GetPosition().X, 400));
+		transform.SetRotation(transform.GetRotation() + 1 * ME::Engine::GetTime().DeltaTime);
+		transform.SetScale(ME::Vector2f(transform.GetScale().X + 0.01 * ME::Engine::GetTime().DeltaTime, 1));
 	}
 };
 
 int main(int argc, char* args[])
 {
-	ME::Manager::Init();
-	ME::Engine engine = ME::Engine("Sandbox", 1920, 1080);
+	ME::Engine::Init("Sandbox", 1920, 1080);
 
-    ME::Font font = engine.AddFont("../Assets/Fonts/PixelFJVerdana12pt.ttf");
+    ME::Font font = ME::Engine::AddFont("../Assets/Fonts/PixelFJVerdana12pt.ttf");
 
-	ME::Texture texture = engine.AddTexture("../Assets/PNGs/Sword.png");
+	ME::Texture texture = ME::Engine::AddTexture("../Assets/PNGs/Sword.png");
 
-	
-	ME::Transform transform = engine.AddEntity().GetComponent<ME::Transform>();
-	transform.SetPosition(ME::Vector2i(500, 500));
+	ME::Transform transform = ME::Engine::AddEntity().GetComponent<ME::Transform>();
+	transform.SetPosition(ME::Vector2i(700, 500));
 	transform.SetRotation(60);
 
 	ME::TextRenderer textRenderer = transform.GetEntity().AddComponent<ME::TextRenderer>();
@@ -32,10 +36,9 @@ int main(int argc, char* args[])
 	textRenderer.SetFont(font);
 	textRenderer.SetFontSize(36);
 	textRenderer.SetColour(ME::RGBA(255, 0, 255, 255));
-
 	transform.GetEntity().AddScript<Controller>();
 
-	engine.Run();
+	ME::Engine::Start();
 
 	return 0;
 }

@@ -237,6 +237,7 @@ namespace ME
 			static_assert(std::is_base_of<ScriptComponent, C>::value, "C must be a script!");
 
 			m_Scripts.emplace_back(new C(entityID, this));
+			m_Scripts[m_Scripts.size() - 1]->Start();
 			return (C*)m_Scripts[m_Scripts.size() - 1];
 		}
 
@@ -276,7 +277,9 @@ namespace ME
 				{
 					if (static_cast<C>(m_Scripts[i]))
 					{
-						return m_Scripts[i];
+						delete m_Scripts[i];
+						m_Scripts.erase(m_Scripts.begin() + i);
+						break;
 					}
 				}
 			}
