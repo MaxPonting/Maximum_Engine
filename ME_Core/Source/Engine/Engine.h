@@ -8,14 +8,11 @@
 
 /* ME */
 #include "Window.h"
-#include "Renderer.h"
-#include "Arena.h"
-#include "Texture.h"
-#include "Sprite.h"
 #include "Debug.h"
-#include "Texture.h"
-#include "TextureContainer.h"
-#include "FontContainer.h"
+#include "../Rendering/Renderer.h"
+#include "../Rendering/Sprite.h"
+#include "../Rendering/TextureContainer.h"
+#include "../Rendering/FontContainer.h"
 #include "../ECS/ECS.h"
 #include "../ECS_User/Entity.h"
 #include "../ECS_User/ComponentRef.h"

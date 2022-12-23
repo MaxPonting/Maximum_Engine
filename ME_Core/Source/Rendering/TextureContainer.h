@@ -4,7 +4,7 @@
 
 #include "SDL.h"
 
-#include "SDLWrapper.h"
+#include "../Helper/SDLWrapper.h"
 #include "Renderer.h"
 
 

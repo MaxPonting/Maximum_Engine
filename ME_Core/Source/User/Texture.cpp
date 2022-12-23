@@ -1,5 +1,4 @@
 #include "Texture.h"
-#include "Engine.h"
 
 namespace ME
 {

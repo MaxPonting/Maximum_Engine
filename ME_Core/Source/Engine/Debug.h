@@ -1,11 +1,11 @@
 #pragma once
 
 #include <string>
-#include "Sprite.h"
-#include "Font.h"
-#include "Renderer.h"
+#include <SDL_ttf.h>
+#include "../Rendering/Sprite.h"
+#include "../Rendering/Renderer.h"
 #include "EngineTime.h"
-#include "RGBA.h"
+#include "../Helper/RGBA.h"
 
 #define NUM_DEBUG_TEXTS 7
 #define UPDATE_TIME_MILLISECONDS 100

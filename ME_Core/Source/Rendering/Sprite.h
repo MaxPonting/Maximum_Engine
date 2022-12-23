@@ -4,9 +4,10 @@
 #include "SDL.h"
 
 /* ME */
-#include "RGBA.h"
-#include "Texture.h"
-#include "Vector2i.h"
+#include "../Helper/RGBA.h"
+#include "../Helper/Vector2i.h"
+#include "../User/Texture.h"
+
 
 namespace ME
 {

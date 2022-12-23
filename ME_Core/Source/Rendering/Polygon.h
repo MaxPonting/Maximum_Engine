@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include "../Engine/Vector2i.h"
+#include "../Helper/Vector2i.h"
 #include "Scanline.h"
 
 namespace ME

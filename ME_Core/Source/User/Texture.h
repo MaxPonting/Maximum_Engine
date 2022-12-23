@@ -1,9 +1,5 @@
 #pragma once
 
-#include "SDL.h"
-
-#include "SDLWrapper.h"
-
 namespace ME
 {
 	class Texture final

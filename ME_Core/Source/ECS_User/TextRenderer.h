@@ -1,8 +1,8 @@
 #pragma once
 
 #include "ComponentRef.h"
-#include "../Engine/Font.h"
-#include "../Engine/RGBA.h"
+#include "../User/Font.h"
+#include "../Helper/RGBA.h"
 
 namespace ME
 {

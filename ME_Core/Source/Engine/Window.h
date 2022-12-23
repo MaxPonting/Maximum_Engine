@@ -7,9 +7,9 @@
 #include <SDL.h>
 
 /* ME */
-#include "RGBA.h"
-#include "SDLWrapper.h"
-#include "Vector2i.h"
+#include "../Helper/RGBA.h"
+#include "../Helper/SDLWrapper.h"
+#include "../Helper/Vector2i.h"
 
 namespace ME
 {

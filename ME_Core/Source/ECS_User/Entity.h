@@ -4,8 +4,6 @@
 
 #include "../ECS//ECS.h"
 
-
-
 namespace ME
 {
 	class ComponentRef;

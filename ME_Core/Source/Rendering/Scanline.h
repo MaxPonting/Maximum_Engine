@@ -2,8 +2,8 @@
 
 #include <vector>
 
-#include "../Engine/Vector2i.h"
-#include "../Engine/Vector2f.h"
+#include "../Helper/Vector2i.h"
+#include "../Helper/Vector2f.h"
 
 namespace ME
 {

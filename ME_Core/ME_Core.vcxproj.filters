@@ -18,43 +18,40 @@
     <ClInclude Include="Source\Engine\Engine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Engine\Arena.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Engine\ME.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Engine\Sprite.h">
+    <ClInclude Include="Source\Rendering\Sprite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Engine\Texture.h">
+    <ClInclude Include="Source\User\Texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Engine\Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Engine\Renderer.h">
+    <ClInclude Include="Source\Rendering\Renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Engine\Log.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Engine\RGBA.h">
+    <ClInclude Include="Source\Helper\RGBA.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Engine\Vector2f.h">
+    <ClInclude Include="Source\Helper\Vector2f.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Engine\Angle.h">
+    <ClInclude Include="Source\Helper\Angle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Engine\Debug.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Engine\Font.h">
+    <ClInclude Include="Source\User\Font.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Engine\SDLWrapper.h">
+    <ClInclude Include="Source\Helper\SDLWrapper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Engine\EngineTime.h">
@@ -87,10 +84,10 @@
     <ClInclude Include="Source\ECS_User\SpriteRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Engine\TextureContainer.h">
+    <ClInclude Include="Source\Rendering\TextureContainer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Engine\ObjectToRender.h">
+    <ClInclude Include="Source\Rendering\ObjectToRender.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\ECS\CircleRendererComponent.h">
@@ -105,13 +102,13 @@
     <ClInclude Include="Source\ECS\PolygonRendererComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Polygon\Polygon.h">
+    <ClInclude Include="Source\Rendering\Polygon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Engine\Vector2i.h">
+    <ClInclude Include="Source\Helper\Vector2i.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Polygon\Scanline.h">
+    <ClInclude Include="Source\Rendering\Scanline.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\ECS_User\TextRenderer.h">
@@ -120,7 +117,7 @@
     <ClInclude Include="Source\ECS\TextRendererComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Engine\FontContainer.h">
+    <ClInclude Include="Source\Rendering\FontContainer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\ECS\ScriptComponent.h">
@@ -135,33 +132,36 @@
     <ClInclude Include="Source\ECS_User\Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Engine\Input.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Engine\Sprite.cpp">
+    <ClCompile Include="Source\Rendering\Sprite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Engine\Texture.cpp">
+    <ClCompile Include="Source\User\Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Engine\Window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Engine\Renderer.cpp">
+    <ClCompile Include="Source\Rendering\Renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Engine\Log.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Engine\RGBA.cpp">
+    <ClCompile Include="Source\Helper\RGBA.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Engine\Angle.cpp">
+    <ClCompile Include="Source\Helper\Angle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Engine\Debug.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Engine\Font.cpp">
+    <ClCompile Include="Source\User\Font.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Engine\EngineTime.cpp">
@@ -188,7 +188,7 @@
     <ClCompile Include="Source\ECS_User\SpriteRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Engine\TextureContainer.cpp">
+    <ClCompile Include="Source\Rendering\TextureContainer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\ECS\CircleRendererComponent.cpp">
@@ -203,16 +203,16 @@
     <ClCompile Include="Source\ECS\PolygonRendererComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Polygon\Polygon.cpp">
+    <ClCompile Include="Source\Rendering\Polygon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Engine\Vector2f.cpp">
+    <ClCompile Include="Source\Helper\Vector2f.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Engine\Vector2i.cpp">
+    <ClCompile Include="Source\Helper\Vector2i.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Polygon\Scanline.cpp">
+    <ClCompile Include="Source\Rendering\Scanline.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\ECS_User\TextRenderer.cpp">
@@ -221,7 +221,7 @@
     <ClCompile Include="Source\ECS\TextRendererComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Engine\FontContainer.cpp">
+    <ClCompile Include="Source\Rendering\FontContainer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\ECS\ScriptComponent.cpp">
@@ -234,6 +234,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\ECS_User\Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Engine\Input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

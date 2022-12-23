@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Component.h"
-#include "../Engine/Vector2f.h"
+#include "../Helper/Vector2f.h"
 
 namespace ME
 {

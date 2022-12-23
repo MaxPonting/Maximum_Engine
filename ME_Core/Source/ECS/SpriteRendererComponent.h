@@ -1,8 +1,8 @@
 #pragma once
 
 #include "Component.h"
-#include "../Engine/Texture.h"
-#include "../Engine/RGBA.h"
+#include "../User/Texture.h"
+#include "../Helper/RGBA.h"
 
 namespace ME
 {

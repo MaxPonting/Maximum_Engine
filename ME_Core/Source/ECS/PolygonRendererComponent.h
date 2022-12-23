@@ -1,8 +1,8 @@
 #pragma once
 
 #include "Component.h"
-#include "../Engine/TextureContainer.h"
-#include "../Polygon/Polygon.h"
+#include "../Rendering/TextureContainer.h"
+#include "../Rendering/Polygon.h"
 
 namespace ME
 {

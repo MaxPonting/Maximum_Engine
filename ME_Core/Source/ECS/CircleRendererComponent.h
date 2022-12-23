@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Component.h"
-#include "../Engine/TextureContainer.h"
+#include "../Rendering/TextureContainer.h"
 
 namespace ME
 {

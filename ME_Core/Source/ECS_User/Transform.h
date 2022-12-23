@@ -1,8 +1,8 @@
 #pragma once
 
 #include "ComponentRef.h"
-#include "../Engine/Angle.h"
-#include "../Engine/Vector2f.h"
+#include "../Helper/Angle.h"
+#include "../Helper/Vector2f.h"
 
 namespace ME
 {

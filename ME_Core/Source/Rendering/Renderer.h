@@ -11,8 +11,8 @@
 #include "Sprite.h"
 #include "../ECS/TransformComponent.h"
 #include "ObjectToRender.h"
-#include "Window.h"
-#include "SDLWrapper.h"
+#include "../Engine/Window.h"
+#include "../Helper/SDLWrapper.h"
 
 namespace ME
 {
@@ -24,7 +24,6 @@ namespace ME
 	{
 	public:
 
-		/* CONSTRUCTOR */
 		Renderer();
 		Renderer(const Window window);
 		
@@ -50,13 +49,12 @@ namespace ME
 		SDL_RendererInfo GetInfo();
 
 	private:
-
 		
 		void RenderObject(const Window window, const ObjectToRender object, const TransformComponent mainCamera);
 		void SetRendererSize();
 		SDL_FRect GetRectRelativeToCamera(const TransformComponent mainCamera, SDL_FRect rect);
 
-		/* PRIVATE MEMBERS */
+
 		SDL_Renderer* p_Renderer;
 		SDL_RendererInfo m_Info;
 		Vector2i m_RendererSize;

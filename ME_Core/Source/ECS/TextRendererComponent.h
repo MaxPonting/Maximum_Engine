@@ -4,9 +4,9 @@
 #include <SDL_ttf.h>
 
 #include "Component.h"
-#include "../Engine/Font.h"
-#include "../Engine/RGBA.h"
-#include "../Engine/Renderer.h"
+#include "../User/Font.h"
+#include "../Rendering/Renderer.h"
+#include "../Helper/RGBA.h"
 
 namespace ME
 {
