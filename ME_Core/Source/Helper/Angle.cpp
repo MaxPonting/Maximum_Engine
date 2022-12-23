@@ -14,9 +14,13 @@ namespace ME
 
 	/* Set angle to between 0 and 360 */
 	void Angle::operator=(float angle)
-	{
-	
+	{	
 		m_degrees = std::fmodf(angle, 360);
+	}
+
+	void Angle::operator+=(const float angle)
+	{
+		m_degrees = std::fmodf(m_degrees + angle, 360);		
 	}
 
 	/* Set angle to between 0 and 360 */

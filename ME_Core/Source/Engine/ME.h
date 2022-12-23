@@ -10,4 +10,6 @@
 #include "../ECS_User/CircleRenderer.h"
 #include "../ECS_User/PolygonRenderer.h"
 #include "../ECS_User/TextRenderer.h"
+#include "../ECS_User/Rigidbody.h"
+#include "../ECS_User/Camera.h"
 #include "../ECS/ScriptComponent.h"

@@ -68,11 +68,16 @@ int main(int argc, char* args[])
 
 	ME::SpriteRenderer spriteRenderer = ME::Engine::AddEntity().AddComponent<ME::SpriteRenderer>();
 	spriteRenderer.SetTexture(texture);
+	ME::Rigidbody body = spriteRenderer.AddComponent<ME::Rigidbody>();
+	body.AddForce({ 250, 250 });
+	body.AddTorque(300);
 
 	ME::Transform transform = ME::Engine::AddEntity().GetComponent<ME::Transform>();
 	transform.AddComponent<ME::SpriteRenderer>();
 	transform.SetPosition({ 300, 300 });
 	transform.SetScale({ 200, 200 });
+	ME::Rigidbody body2 = transform.AddComponent<ME::Rigidbody>();
+	body2.AddForce({ -80, 120 });
 
 	ME::Engine::Start();
 

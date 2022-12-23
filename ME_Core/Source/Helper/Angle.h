@@ -11,9 +11,10 @@ namespace ME
 		Angle(float angle);
 
 		/* OPERATORS */
-		void operator=(float angle);
-		Angle operator+(float degrees);
-		bool operator==(Angle angle);
+		void operator=(const float angle);
+		void operator+=(const float angle);
+		Angle operator+(const float degrees);
+		bool operator==(const Angle angle);
 		
 		/* GETTERS */
 		float getDeg() const;

@@ -15,13 +15,22 @@ namespace ME
 		RigidbodyComponent();
 		RigidbodyComponent(unsigned int entityID);
 		
-		void Update(TransformComponent& transform, float deltaTime);
 		void AddForce(Vector2f force);
-
+		void AddTorque(float torque);
+		void Update(TransformComponent& transform, float deltaTime);
+		
 		float Mass;
 		float GravityScale;
+		float Torque;
+		float RotationalVelocity;
 		Vector2f Force;
 		Vector2f Velocity;
 
+	private:
+
+		void ApplyGravity(float deltaTime);
+		void ApplyForce(float deltaTime);
+		void ApplyTorque(float deltaTime);
+		void Step(TransformComponent& transform, float deltaTime);
 	};
 }

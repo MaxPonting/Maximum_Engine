@@ -12,7 +12,8 @@ namespace ME
 
 	/* Creates Debug Text */
 	Debug::Debug(Renderer* renderer) :
-		p_Renderer(renderer)	
+		p_Renderer(renderer),
+		m_Timer(0)
 	{
 		SDLCall(p_Font = TTF_OpenFont("../Assets/Fonts/clear-sans.regular.ttf", FONT_SIZE));
 

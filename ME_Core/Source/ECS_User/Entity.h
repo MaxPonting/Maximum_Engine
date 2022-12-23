@@ -13,6 +13,7 @@ namespace ME
 	class PolygonRenderer;
 	class TextRenderer;
 	class Camera;
+	class Rigidbody;
 	class ScriptComponent;
 	//
 	// Related to a set of components.
@@ -55,6 +56,9 @@ namespace ME
 			else if (std::is_same<TextRenderer, C>::value)
 			p_ECS->AddComponent<TextRendererComponent>(m_ID);
 
+			else if (std::is_same<Rigidbody, C>::value)
+			p_ECS->AddComponent<RigidbodyComponent>(m_ID);
+
 			else if (std::is_same<Camera, C>::value)
 			p_ECS->AddComponent<CameraComponent>(m_ID);
 			
@@ -86,6 +90,9 @@ namespace ME
 			else if (std::is_same<TextRenderer, C>::value)
 			has = p_ECS->HasComponent<TextRendererComponent>(m_ID);
 
+			else if (std::is_same<Rigidbody, C>::value)
+			has = p_ECS->HasComponent<RigidbodyComponent>(m_ID);
+
 			else if (std::is_same<Camera, C>::value)
 			has = p_ECS->HasComponent<CameraComponent>(m_ID);
 
@@ -116,6 +123,9 @@ namespace ME
 			else if (std::is_same<TextRenderer, C>::value)
 			return p_ECS->HasComponent<TextRendererComponent>(m_ID);
 
+			else if (std::is_same<Rigidbody, C>::value)
+			return p_ECS->HasComponent<RigidbodyComponent>(m_ID);
+
 			else if (std::is_same<Camera, C>::value)
 			return p_ECS->HasComponent<CameraComponent>(m_ID);
 
@@ -144,6 +154,9 @@ namespace ME
 
 			else if (std::is_same<TextRenderer, C>::value)
 			p_ECS->DestroyComponent<TextRendererComponent>(m_ID);
+
+			else if (std::is_same<Rigidbody, C>::value)
+			p_ECS->DestroyComponent<RigidbodyComponent>(m_ID);
 
 			else if (std::is_same<Camera, C>::value)
 			p_ECS->DestroyComponent<CameraComponent>(m_ID);

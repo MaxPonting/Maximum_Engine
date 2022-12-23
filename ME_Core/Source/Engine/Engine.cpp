@@ -163,6 +163,8 @@ namespace ME
 
 		m_Input.Update();
 
+		m_Debug.Update(m_Time);
+
 		m_Time.UpdateSubFrame(EngineTime::SubFrameType::Misc);
 	}
 
@@ -182,10 +184,21 @@ namespace ME
 		m_Time.UpdateSubFrame(EngineTime::SubFrameType::Script);
 	}
 
-	
+	//
+	// Update Rigidbodies
+	//
 	void Engine::UpdatePhysics()
 	{
-		m_Debug.Update(m_Time);
+		std::vector<RigidbodyComponent>* bodies = m_ECS.GetComponents<RigidbodyComponent>();
+
+		for (int i = 0; i < bodies->size(); i++)
+		{
+			bodies->operator[](i).Update(
+				*m_ECS.GetComponent<TransformComponent>(bodies->operator[](i).GetEntityID()),
+				 m_Time.GetDeltaTimeInSeconds()
+			);
+		}
+
 
 		m_Time.UpdateSubFrame(EngineTime::SubFrameType::Physics);
 	}

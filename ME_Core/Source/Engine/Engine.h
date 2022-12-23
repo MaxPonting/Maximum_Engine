@@ -1,12 +1,16 @@
 #pragma once
 
-/* C++ */
+//
+// C++
+//
 #include <iostream>
 #include <type_traits>
 #include <vector>
 #include <algorithm>
 
-/* ME */
+//
+// ME
+//
 #include "Window.h"
 #include "Debug.h"
 #include "Input.h"
@@ -41,17 +45,21 @@ namespace ME
 		//
 		static bool CheckSDLError();
 		
-		/* PUBLIC METHODS */
+		//
+		// Start Game
+		//
 		static void Start();
 
-		/* ECS API */
+		//
+		// Add/Destroy Entities
+		//
 		static Entity AddEntity();
 		static void DestroyEntity(Entity entity);
 		
-		/* TEXTURE API */
+		//
+		// Add Textures/Fonts
+		//
 		static Texture AddTexture(const char* filePath);
-
-		/* FONT API */
 		static Font AddFont(const char* filePath);
 		
 		//
@@ -65,26 +73,33 @@ namespace ME
 				
 	private:
 
-		/* PRIVATE METHODS */
+		//
+		// Game Loop
+		//
 		static void Run();
 		static void UpdateEvents();		
 		static void UpdateComponents();					
 		static void UpdatePhysics();		
 		static void UpdateRenderer();
-		
-		/* PRIVATE MEMBERS */
+				
 		static Window m_Window;
 		static Renderer m_Renderer;
 		static ECS m_ECS;
 		static Debug m_Debug;
 		static EngineTime m_Time;
 		static Input m_Input;
-		static Camera m_MainCamera;
+		static Camera m_MainCamera;		
+		static SDL_Event m_Event;
+
+		//
+		// Texture/Font containers
+		//
 		static TextureContainer m_Textures;
 		static FontContainer m_Fonts;
-		static SDL_Event m_Event;
 	
-		
+		//
+		// Engine State
+		//
 		enum class State { Null, Init, Running };
 		static State m_State;
 	};
