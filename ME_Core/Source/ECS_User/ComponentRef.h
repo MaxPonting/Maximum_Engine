@@ -1,18 +1,41 @@
 #pragma once
 
-#include "../ECS/ECS.h"
-
+#include "Entity.h"
 
 namespace ME
 {
-	class Entity;
+	class ECS;
 	class ComponentRef
 	{
 	public:
 
 		ComponentRef();
 		ComponentRef(unsigned int entityID, ECS* ecs);
-		
+
+		template<class C>
+		C GetComponent()
+		{
+			return GetEntity().GetComponent<C>();
+		}
+
+		template<class C>
+		C AddComponent()
+		{
+			return GetEntity().AddComponent<C>();
+		}
+
+		template<class C>
+		bool HasComponent()
+		{
+			return GetEntity().HasComponent<C>();
+		}
+
+		template<class C>
+		void DestroyComponent()
+		{
+			return GetEntity().DestroyComponent<C>();
+		}
+
 		Entity GetEntity();
 		unsigned int GetEntityID();
 

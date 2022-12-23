@@ -17,4 +17,49 @@ namespace ME
 		Y(vector2.Y)
 	{}
 
+	void Vector2f::operator=(const Vector2f vector2)
+	{
+		X = vector2.X; Y = vector2.Y;
+	}
+
+	void Vector2f::operator+=(const Vector2f vector2)
+	{
+		X += vector2.X; Y += vector2.Y;
+	}
+
+	void Vector2f::operator-=(const Vector2f vector2)
+	{
+		X -= vector2.X; Y -= vector2.Y;
+	}
+
+	Vector2f Vector2f::operator+(const Vector2f vector2)
+	{
+		return Vector2f(X + vector2.X, Y + vector2.Y);
+	}
+
+	Vector2f Vector2f::operator-(const Vector2f vector2)
+	{
+		return Vector2f(X - vector2.X, Y - vector2.Y);
+	}
+
+	Vector2f Vector2f::operator*(const Vector2f vector2)
+	{
+		return Vector2f(X * vector2.X, Y * vector2.Y);
+	}
+
+	Vector2f Vector2f::operator*(const float scale)
+	{
+		return Vector2f(X * scale, Y * scale);
+	}
+
+	Vector2f Vector2f::operator/(const Vector2f vector2)
+	{
+		return Vector2f(X / vector2.X, Y / vector2.Y);
+	}
+
+	Vector2f Vector2f::operator/(const float scale)
+	{
+		return Vector2f(X / scale, Y / scale);
+	}
+
 }

@@ -10,12 +10,14 @@ namespace ME
 	Renderer Engine::m_Renderer = Renderer();
 	ECS Engine::m_ECS = ECS();
 	Camera Engine::m_MainCamera = Camera();
+	Debug Engine::m_Debug = Debug();
+	EngineTime Engine::m_Time = EngineTime();
+	Input Engine::m_Input = Input();
 	TextureContainer Engine::m_Textures = TextureContainer();
 	FontContainer Engine::m_Fonts = FontContainer();
 	SDL_Event Engine::m_Event = SDL_Event();
-	Debug Engine::m_Debug = Debug();
-	EngineTime Engine::m_Time = EngineTime();
 	Engine::State Engine::m_State = Engine::State::Null;
+
 
 	// 
 	// Initialize SDL2
@@ -108,6 +110,21 @@ namespace ME
 		return m_MainCamera;
 	}
 
+	bool Engine::GetKey(const unsigned char code)
+	{
+		return m_Input.GetKey(code);
+	}
+
+	bool Engine::GetKeyUp(const unsigned char code)
+	{
+		return m_Input.GetKeyUp(code);
+	}
+
+	bool Engine::GetKeyDown(const unsigned char code)
+	{
+		return m_Input.GetKeyDown(code);
+	}
+
 	//
 	// Call to start the game loop.
 	// Updates components and renders textures every frame.
@@ -132,6 +149,7 @@ namespace ME
 	//
 	// Polls for SDL2 events.
 	// Sets running to false if the window has closed.
+	// Updates Input.
 	//
 	void Engine::UpdateEvents()
 	{
@@ -142,6 +160,8 @@ namespace ME
 				m_State = State::Init;
 			}
 		}
+
+		m_Input.Update();
 
 		m_Time.UpdateSubFrame(EngineTime::SubFrameType::Misc);
 	}

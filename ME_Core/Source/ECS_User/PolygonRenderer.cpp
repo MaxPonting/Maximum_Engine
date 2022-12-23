@@ -1,4 +1,6 @@
 #include "PolygonRenderer.h"
+#include "../ECS/ECS.h"
+#include "../ECS/PolygonRendererComponent.h"
 
 namespace ME
 {

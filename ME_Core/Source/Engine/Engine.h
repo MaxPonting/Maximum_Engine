@@ -9,11 +9,13 @@
 /* ME */
 #include "Window.h"
 #include "Debug.h"
+#include "Input.h"
 #include "../Rendering/Renderer.h"
 #include "../Rendering/Sprite.h"
 #include "../Rendering/TextureContainer.h"
 #include "../Rendering/FontContainer.h"
 #include "../ECS/ECS.h"
+#include "../ECS/ScriptComponent.h"
 #include "../ECS_User/Entity.h"
 #include "../ECS_User/ComponentRef.h"
 #include "../ECS_User/Camera.h"
@@ -28,6 +30,7 @@ namespace ME
 	class Engine final
 	{
 	public:
+
 		//
 		// Initialization
 		//
@@ -56,6 +59,9 @@ namespace ME
 		//
 		static Time GetTime();
 		static Camera GetMainCamera();
+		static bool GetKey(const unsigned char code);
+		static bool GetKeyUp(const unsigned char code);
+		static bool GetKeyDown(const unsigned char code);
 				
 	private:
 
@@ -70,12 +76,14 @@ namespace ME
 		static Window m_Window;
 		static Renderer m_Renderer;
 		static ECS m_ECS;
+		static Debug m_Debug;
+		static EngineTime m_Time;
+		static Input m_Input;
 		static Camera m_MainCamera;
 		static TextureContainer m_Textures;
 		static FontContainer m_Fonts;
 		static SDL_Event m_Event;
-		static Debug m_Debug;
-		static EngineTime m_Time;
+	
 		
 		enum class State { Null, Init, Running };
 		static State m_State;

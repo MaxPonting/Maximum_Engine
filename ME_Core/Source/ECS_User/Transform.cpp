@@ -1,4 +1,6 @@
 #include "Transform.h"
+#include "../ECS/ECS.h"
+#include "../ECS/TransformComponent.h"
 
 namespace ME
 {

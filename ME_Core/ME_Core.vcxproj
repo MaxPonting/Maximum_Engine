@@ -11,6 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\ECS\RigidbodyComponent.h" />
+    <ClInclude Include="Source\ECS\ColliderComponent.h" />
     <ClInclude Include="Source\Engine\Input.h" />
     <ClInclude Include="Source\ECS_User\Camera.h" />
     <ClInclude Include="Source\ECS\CameraComponent.h" />
@@ -53,6 +55,9 @@
     <ClInclude Include="Source\User\Time.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\ECS\ECS.cpp" />
+    <ClCompile Include="Source\ECS\RigidbodyComponent.cpp" />
+    <ClCompile Include="Source\ECS\ColliderComponent.cpp" />
     <ClCompile Include="Source\Engine\Input.cpp" />
     <ClCompile Include="Source\ECS_User\Camera.cpp" />
     <ClCompile Include="Source\ECS\CameraComponent.cpp" />

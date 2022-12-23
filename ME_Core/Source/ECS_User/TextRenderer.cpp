@@ -1,4 +1,6 @@
 #include "TextRenderer.h"
+#include "../ECS/ECS.h"
+#include "../ECS/TextRendererComponent.h"
 
 namespace ME
 {

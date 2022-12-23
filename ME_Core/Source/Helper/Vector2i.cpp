@@ -18,5 +18,50 @@ namespace ME
 		Y(vector2.Y)
 	{}
 
+	void Vector2i::operator=(const Vector2i vector2)
+	{
+		X = vector2.X; Y = vector2.Y;
+	}
+
+	void Vector2i::operator+=(const Vector2i vector2)
+	{
+		X += vector2.X; Y += vector2.Y;
+	}
+
+	void Vector2i::operator-=(const Vector2i vector2)
+	{
+		X -= vector2.X; Y -= vector2.Y;
+	}
+
+	Vector2i Vector2i::operator+(const Vector2i vector2)
+	{
+		return Vector2i(X + vector2.X, Y + vector2.Y);
+	}
+
+	Vector2i Vector2i::operator-(const Vector2i vector2)
+	{
+		return Vector2i(X - vector2.X, Y - vector2.Y);
+	}
+
+	Vector2i Vector2i::operator*(const Vector2i vector2)
+	{
+		return Vector2i(X * vector2.X, Y * vector2.Y);
+	}
+
+	Vector2i Vector2i::operator*(const float scale)
+	{
+		return Vector2i(X * scale, Y * scale);
+	}
+
+	Vector2i Vector2i::operator/(const Vector2i vector2)
+	{
+		return Vector2i(X / vector2.X, Y / vector2.Y);
+	}
+
+	Vector2i Vector2i::operator/(const float scale)
+	{
+		return Vector2i(X / scale, Y / scale);
+	}
+
 	
 }

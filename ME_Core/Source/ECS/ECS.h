@@ -8,11 +8,12 @@
 #include "CircleRendererComponent.h"
 #include "PolygonRendererComponent.h"
 #include "TextRendererComponent.h"
+#include "RigidbodyComponent.h"
 #include "CameraComponent.h"
-#include "ScriptComponent.h"
 
 namespace ME
 {
+	class ScriptComponent;
 	//
 	// Contains all components in unique containers.
 	// Links all component objects to a unique entity IDs.
@@ -56,6 +57,7 @@ namespace ME
 			DestroyComponent<CircleRendererComponent>(entityID);
 			DestroyComponent<PolygonRendererComponent>(entityID);
 			DestroyComponent<TextRendererComponent>(entityID);
+			DestroyComponent<RigidbodyComponent>(entityID);
 			DestroyComponent<CameraComponent>(entityID);
 		}
 
@@ -80,6 +82,9 @@ namespace ME
 
 			else if (std::is_same<TextRendererComponent, C>::value)
 			return (std::vector<C>*)m_TextRenderers.GetAll();
+
+			else if (std::is_same<RigidbodyComponent, C>::value)
+			return (std::vector<C>*)m_Rigidbodies.GetAll();
 
 			else if (std::is_same<CameraComponent, C>::value)
 			return (std::vector<C>*)m_Cameras.GetAll();
@@ -108,6 +113,9 @@ namespace ME
 
 			else if (std::is_same<TextRendererComponent, C>::value)
 			return (C*)m_TextRenderers.GetWithEntityID(entityID);
+
+			else if (std::is_same<RigidbodyComponent, C>::value)
+			return (C*)m_Rigidbodies.GetWithEntityID(entityID);
 
 			else if (std::is_same<CameraComponent, C>::value)
 			return (C*)m_Cameras.GetWithEntityID(entityID);
@@ -158,6 +166,9 @@ namespace ME
 				return (C*)m_TextRenderers.Add(entityID);
 			}
 
+			if (std::is_same<RigidbodyComponent, C>::value)
+			return (C*)m_Rigidbodies.Add(entityID);
+
 			if (std::is_same<CameraComponent, C>::value)
 			return (C*)m_Cameras.Add(entityID);
 			
@@ -186,6 +197,9 @@ namespace ME
 			else if (std::is_same<TextRendererComponent, C>::value)
 			return m_TextRenderers.GetWithEntityID(entityID) != nullptr;
 
+			else if (std::is_same<RigidbodyComponent, C>::value)
+			return m_Rigidbodies.GetWithEntityID(entityID) != nullptr;
+
 			else if (std::is_same<CameraComponent, C>::value)
 			return m_Cameras.GetWithEntityID(entityID) != nullptr;
 		}
@@ -212,9 +226,13 @@ namespace ME
 			else if (std::is_same<TextRendererComponent, C>::value)
 			m_TextRenderers.DeleteWithEntityID(entityID);
 
+			else if (std::is_same<RigidbodyComponent, C>::value)
+			m_Rigidbodies.DeleteWithEntityID(entityID);
+
 			else if (std::is_same<CameraComponent, C>::value)
 			m_Cameras.DeleteWithEntityID(entityID);
 		}
+
 
 		//
 		// Returns a pointer to a vector of script pointers
@@ -223,6 +241,7 @@ namespace ME
 		{
 			return &m_Scripts;
 		}
+
 		
 		//
 	    // Returns a pointer to a ScriptComponent
@@ -234,7 +253,7 @@ namespace ME
 
 			for (int i = 0; i < m_Scripts.size(); i++)
 			{
-				if(m_Scripts[i]->GetEntityID() == entityID)
+				if(CheckScriptID(m_Scripts[i], entityID))
 				{
 					if (static_cast<C>(m_Scripts[i]))
 					{
@@ -243,6 +262,7 @@ namespace ME
 				}
 			}
 		}
+
 
 		//
 		// Adds a given script to a entity using a unique ID
@@ -253,9 +273,10 @@ namespace ME
 			static_assert(std::is_base_of<ScriptComponent, C>::value, "C must be a script!");
 
 			m_Scripts.emplace_back(new C(entityID, this));
-			m_Scripts[m_Scripts.size() - 1]->Start();
+			StartScript(*m_Scripts[m_Scripts.size() - 1]);
 			return (C*)m_Scripts[m_Scripts.size() - 1];
 		}
+
 
 		//
 		// Returns true if a entity has a given script
@@ -267,7 +288,7 @@ namespace ME
 
 			for (int i = 0; i < m_Scripts.size(); i++)
 			{
-				if (m_Scripts[i]->GetEntityID() == entityID)
+				if (CheckScriptID(m_Scripts[i], entityID))
 				{
 					if (static_cast<C>(m_Scripts[i]))
 					{
@@ -279,6 +300,7 @@ namespace ME
 			return false;
 		}
 
+
 		//
 		// Destroys a given script of a entity
 		//
@@ -289,7 +311,7 @@ namespace ME
 
 			for (int i = 0; i < m_Scripts.size(); i++)
 			{
-				if (m_Scripts[i]->GetEntityID() == entityID)
+				if (CheckScriptID(m_Scripts[i], entityID))
 				{
 					if (static_cast<C>(m_Scripts[i]))
 					{
@@ -301,6 +323,15 @@ namespace ME
 			}
 		}
 
+		//
+		// Start Script
+		//
+		void StartScript(ScriptComponent& script);
+
+		//
+		// Check Script ID
+		//
+		bool CheckScriptID(ScriptComponent& script, const unsigned int id);
 
 	private:
 
@@ -315,8 +346,10 @@ namespace ME
 		ComponentContainer<SpriteRendererComponent> m_SpriteRenderers;
 		ComponentContainer<CircleRendererComponent> m_CircleRenderers;
 		ComponentContainer<PolygonRendererComponent> m_PolygonRenderers;
-		ComponentContainer<TextRendererComponent> m_TextRenderers;
+		ComponentContainer<TextRendererComponent> m_TextRenderers;		
+		ComponentContainer<RigidbodyComponent> m_Rigidbodies;
 		ComponentContainer<CameraComponent> m_Cameras;
+		
 
 		//
 		// Vector of pointers to user defined scripts

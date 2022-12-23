@@ -195,8 +195,8 @@ namespace ME
 		//
 		// Set position relative to camera position
 		//
-		rect.x -= mainCamera.position.X;
-		rect.y += mainCamera.position.Y;
+		rect.x -= mainCamera.position.X / mainCamera.scale.X;
+		rect.y += mainCamera.position.Y / mainCamera.scale.Y;
 
 		//
 		// Center rect position

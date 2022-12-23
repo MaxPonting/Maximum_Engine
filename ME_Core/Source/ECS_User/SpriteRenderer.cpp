@@ -1,4 +1,6 @@
 #include "SpriteRenderer.h"
+#include "../ECS/ECS.h"
+#include "../ECS/SpriteRendererComponent.h"
 
 namespace ME
 {

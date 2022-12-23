@@ -1,4 +1,6 @@
 #include "CircleRenderer.h"
+#include "../ECS/ECS.h"
+#include "../ECS/CircleRendererComponent.h"
 
 namespace ME
 {
