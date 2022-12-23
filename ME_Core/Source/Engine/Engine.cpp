@@ -32,9 +32,9 @@ namespace ME
 		m_Fonts = FontContainer(10);
 		m_Debug = Debug(&m_Renderer);
 
-		m_MainCamera = Camera(AddEntity().AddComponent<Camera>().GetEntityID(), &m_ECS);
-
 		m_State = State::Init;
+
+		m_MainCamera = Camera(AddEntity().AddComponent<Camera>().GetEntityID(), &m_ECS);	
 	}
 
 	//
@@ -272,7 +272,7 @@ namespace ME
 			}			
 		}
 
-		m_Renderer.RenderQueue();
+		m_Renderer.RenderQueue(m_Window, *m_ECS.GetComponent<TransformComponent>(m_MainCamera.GetEntityID()));
 
 		m_Debug.Render();
 

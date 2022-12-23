@@ -27,13 +27,15 @@ namespace ME
 		/* CONSTRUCTOR */
 		Renderer();
 		Renderer(const Window window);
-
-		/* PUBLIC METHODS */
+		
 		void Clear();
+		void Present(const Window windowa);
+
 		void Enqueue(ObjectToRender object);
-		void RenderQueue();
+		void RenderQueue(const Window window, const TransformComponent mainCamera);
+
 		void RenderSprite(const Sprite sprite, const Vector2f position) const;
-		void Present(const Window window);
+		
 		void SDLCleanUp();
 
 		void SetRenderTargetToTexture(SDL_Texture* texture) const;
@@ -49,12 +51,15 @@ namespace ME
 
 	private:
 
-		/* PRIVATE METHODS */
-		void RenderObject(const ObjectToRender object);
+		
+		void RenderObject(const Window window, const ObjectToRender object, const TransformComponent mainCamera);
+		void SetRendererSize();
+		SDL_FRect GetRectRelativeToCamera(const TransformComponent mainCamera, SDL_FRect rect);
 
 		/* PRIVATE MEMBERS */
 		SDL_Renderer* p_Renderer;
 		SDL_RendererInfo m_Info;
+		Vector2i m_RendererSize;
 		std::vector<ObjectToRender> m_ObjectsToRender;
 
 	};

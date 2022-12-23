@@ -31,4 +31,12 @@ namespace ME
 		return p_Window;
 	}
 
+	Vector2i Window::GetSize() const
+	{
+		int w, h;
+		SDL_GetWindowSize(p_Window, &w, &h);
+		return { w, h };
+	}
+
+	
 }

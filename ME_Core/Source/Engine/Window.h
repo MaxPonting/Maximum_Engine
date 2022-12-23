@@ -9,6 +9,7 @@
 /* ME */
 #include "RGBA.h"
 #include "SDLWrapper.h"
+#include "Vector2i.h"
 
 namespace ME
 {
@@ -29,6 +30,7 @@ namespace ME
 
 		/* GETTERS */
 		SDL_Window* GetWindow() const;
+		Vector2i GetSize() const;
 
 		/* PUBLIC MEMBERS */
 		RGBA m_Colour;

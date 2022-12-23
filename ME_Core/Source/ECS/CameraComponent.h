@@ -12,9 +12,6 @@ namespace ME
 		CameraComponent();
 		CameraComponent(unsigned int entityID);
 
-		Vector2f position;
-		float scale;
-
 	};
 }
 
