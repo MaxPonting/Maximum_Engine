@@ -32,7 +32,7 @@ namespace ME
 			DeleteWithEntityID(entityID);
 
 			m_NextID++;
-			m_Components.emplace_back(C(entityID));
+			m_Components.emplace_back(entityID);
 
 			SortByID();
 

@@ -4,10 +4,10 @@
 #include "../ECS_User/Entity.h"
 #include "../ECS/ECS.h"
 #include "../Engine/EngineTime.h"
+#include "../ECS_User/Collider.h"
 
 namespace ME
 {
-	
 	class Entity;
 	class ScriptComponent : public Component
 	{
@@ -18,6 +18,7 @@ namespace ME
 
 		void virtual Start() {};
 		void virtual Update() {};
+		void virtual OnCollision(Collider collider) {};
 
 		template<class C>
 		C GetComponent()

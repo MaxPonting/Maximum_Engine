@@ -1,13 +1,13 @@
 #pragma once
 
 #include "Component.h"
-#include "TransformComponent.h"
 #include "../Helper/Vector2f.h"
 
 #define GRAVITY ME::Vector2f(0, -9.81)
 
 namespace ME
 {
+	class TransformComponent;
 	class RigidbodyComponent : public Component
 	{
 	public:
@@ -17,6 +17,7 @@ namespace ME
 		
 		void AddForce(Vector2f force);
 		void AddTorque(float torque);
+
 		void Update(TransformComponent& transform, float deltaTime);
 		
 		float Mass;

@@ -36,6 +36,12 @@ namespace ME
 			return GetEntity().DestroyComponent<C>();
 		}
 
+		template<class C>
+		C* AddScript()
+		{
+			return GetEntity().AddScript<C>();
+		}
+
 		Entity GetEntity();
 		unsigned int GetEntityID();
 

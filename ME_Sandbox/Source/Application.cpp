@@ -1,6 +1,6 @@
 #include <ME.h>
 
-class Controller : public ME::ScriptComponent
+class CameraController : public ME::ScriptComponent
 {
 	using ScriptComponent::ScriptComponent;
 	
@@ -58,26 +58,73 @@ class Controller : public ME::ScriptComponent
 	}
 };
 
+class Controller : public ME::ScriptComponent
+{
+	using ScriptComponent::ScriptComponent;
+
+	ME::Transform transform;
+
+	const float moveSpeed = 400;
+
+	void Start()
+	{
+		transform = GetEntity().GetComponent<ME::Transform>();
+	}
+
+	void Update()
+	{
+		// Movement
+		if (ME::Engine::GetKey(ME_KEYCODE_W))
+		{
+			transform.SetPosition({ transform.GetPosition().X, transform.GetPosition().Y + moveSpeed * ME::Engine::GetTime().DeltaTime });
+		}
+		if (ME::Engine::GetKey(ME_KEYCODE_S))
+		{
+			transform.SetPosition({ transform.GetPosition().X, transform.GetPosition().Y - moveSpeed * ME::Engine::GetTime().DeltaTime });
+		}
+		if (ME::Engine::GetKey(ME_KEYCODE_D))
+		{
+			transform.SetPosition({ transform.GetPosition().X + moveSpeed * ME::Engine::GetTime().DeltaTime, transform.GetPosition().Y });
+		}
+		if (ME::Engine::GetKey(ME_KEYCODE_A))
+		{
+			transform.SetPosition({ transform.GetPosition().X - moveSpeed * ME::Engine::GetTime().DeltaTime, transform.GetPosition().Y });
+		}
+	}	
+
+	void OnCollision(ME::Collider collider)
+	{
+		//std::cout << "Collison\n";
+	}
+};
+
+
 int main(int argc, char* args[])
 {
 	ME::Engine::Init("Sandbox", 1920, 1080);
 
-	ME::Texture texture = ME::Engine::AddTexture("../Assets/PNGs/Sword.png");
+	//ME::Engine::GetMainCamera().GetEntity().AddScript<CameraController>();
 
-	ME::Engine::GetMainCamera().GetEntity().AddScript<Controller>();
-
-	ME::SpriteRenderer spriteRenderer = ME::Engine::AddEntity().AddComponent<ME::SpriteRenderer>();
-	spriteRenderer.SetTexture(texture);
-	ME::Rigidbody body = spriteRenderer.AddComponent<ME::Rigidbody>();
-	body.AddForce({ 250, 250 });
-	body.AddTorque(300);
-
-	ME::Transform transform = ME::Engine::AddEntity().GetComponent<ME::Transform>();
-	transform.AddComponent<ME::SpriteRenderer>();
-	transform.SetPosition({ 300, 300 });
+	ME::SpriteRenderer SpriteRenderer = ME::Engine::AddEntity().AddComponent<ME::SpriteRenderer>();	
+	SpriteRenderer.AddScript<Controller>();
+	ME::RectangleCollider collider = SpriteRenderer.AddComponent<ME::RectangleCollider>();
+	collider.SetHeight(200); collider.SetWidth(200);
+	ME::Transform transform = SpriteRenderer.GetComponent<ME::Transform>();
+	transform.SetPosition({ 400, 0 });
 	transform.SetScale({ 200, 200 });
-	ME::Rigidbody body2 = transform.AddComponent<ME::Rigidbody>();
-	body2.AddForce({ -80, 120 });
+	
+	
+	ME::CircleRenderer circleRenderer2 = ME::Engine::AddEntity().AddComponent<ME::CircleRenderer>();
+	circleRenderer2.SetRadius(100);
+	circleRenderer2.AddComponent<ME::CircleCollider>().SetRadius(100);
+	
+	ME::SpriteRenderer spriteRenderer2 = ME::Engine::AddEntity().AddComponent<ME::SpriteRenderer>();
+	spriteRenderer2.GetComponent<ME::Transform>().SetScale({ 200, 200 });
+	spriteRenderer2.GetComponent<ME::Transform>().SetPosition({ -250, 0 });
+	ME::RectangleCollider collider2 = spriteRenderer2.AddComponent<ME::RectangleCollider>();
+	collider2.SetHeight(200); collider2.SetWidth(200);
+	
+	
 
 	ME::Engine::Start();
 

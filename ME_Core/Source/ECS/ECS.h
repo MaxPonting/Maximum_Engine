@@ -9,6 +9,10 @@
 #include "PolygonRendererComponent.h"
 #include "TextRendererComponent.h"
 #include "RigidbodyComponent.h"
+#include "ColliderComponent.h"
+#include "CircleColliderComponent.h"
+#include "RectangleColliderComponent.h"
+#include "PolygonColliderComponent.h"
 #include "CameraComponent.h"
 
 namespace ME
@@ -28,11 +32,15 @@ namespace ME
 		//
 		ECS() :
 			m_NextEntityID(0),
-			m_Transforms(10000),
-			m_SpriteRenderers(8000),
+			m_Transforms(1000),
+			m_SpriteRenderers(100),
 			m_CircleRenderers(100),
 			m_PolygonRenderers(100),
-			m_TextRenderers(1000)
+			m_TextRenderers(100),
+			m_Cameras(10),
+			m_Rigidbodies(100),
+			m_CircleColliders(100),
+			m_RectangleColliders(100)
 		{}
 
 
@@ -86,9 +94,18 @@ namespace ME
 			else if (std::is_same<RigidbodyComponent, C>::value)
 			return (std::vector<C>*)m_Rigidbodies.GetAll();
 
+			else if (std::is_same<CircleColliderComponent, C>::value)
+			return (std::vector<C>*)m_CircleColliders.GetAll();
+
+			else if (std::is_same<RectangleColliderComponent, C>::value)
+			return (std::vector<C>*)m_RectangleColliders.GetAll();
+
+			else if (std::is_same<PolygonColliderComponent, C>::value)
+			return (std::vector<C>*)m_PolygonColliders.GetAll();
+
 			else if (std::is_same<CameraComponent, C>::value)
 			return (std::vector<C>*)m_Cameras.GetAll();
-
+		
 			return nullptr;
 		}
 
@@ -116,6 +133,15 @@ namespace ME
 
 			else if (std::is_same<RigidbodyComponent, C>::value)
 			return (C*)m_Rigidbodies.GetWithEntityID(entityID);
+
+			else if (std::is_same<CircleColliderComponent, C>::value)
+			return (C*)m_CircleColliders.GetWithEntityID(entityID);
+
+			else if (std::is_same<RectangleColliderComponent, C>::value)
+			return (C*)m_RectangleColliders.GetWithEntityID(entityID);
+
+			else if (std::is_same<PolygonColliderComponent, C>::value)
+			return (C*)m_PolygonColliders.GetWithEntityID(entityID);
 
 			else if (std::is_same<CameraComponent, C>::value)
 			return (C*)m_Cameras.GetWithEntityID(entityID);
@@ -166,10 +192,31 @@ namespace ME
 				return (C*)m_TextRenderers.Add(entityID);
 			}
 
-			if (std::is_same<RigidbodyComponent, C>::value)
+			else if (std::is_same<RigidbodyComponent, C>::value)
 			return (C*)m_Rigidbodies.Add(entityID);
 
-			if (std::is_same<CameraComponent, C>::value)
+			else if (std::is_same<CircleColliderComponent, C>::value)
+			{
+				DestroyComponent<RectangleColliderComponent>(entityID);
+				DestroyComponent<PolygonColliderComponent>(entityID);
+				return (C*)m_CircleColliders.Add(entityID);
+			}
+
+			else if (std::is_same<RectangleColliderComponent, C>::value)
+			{
+				DestroyComponent<CircleColliderComponent>(entityID);
+				DestroyComponent<PolygonColliderComponent>(entityID);
+				return (C*)m_RectangleColliders.Add(entityID);
+			}
+
+			else if (std::is_same<PolygonColliderComponent, C>::value)
+			{
+				DestroyComponent<PolygonColliderComponent>(entityID);
+				DestroyComponent<RectangleColliderComponent>(entityID);
+				return (C*)m_PolygonColliders.Add(entityID);
+			}
+			
+			else if (std::is_same<CameraComponent, C>::value)
 			return (C*)m_Cameras.Add(entityID);
 			
 			return nullptr;
@@ -200,6 +247,12 @@ namespace ME
 			else if (std::is_same<RigidbodyComponent, C>::value)
 			return m_Rigidbodies.GetWithEntityID(entityID) != nullptr;
 
+			else if (std::is_same<CircleColliderComponent, C>::value)
+			return m_CircleColliders.GetWithEntityID(entityID) != nullptr;
+
+			else if (std::is_same<RectangleColliderComponent, C>::value)
+			return m_RectangleColliders.GetWithEntityID(entityID) != nullptr;
+
 			else if (std::is_same<CameraComponent, C>::value)
 			return m_Cameras.GetWithEntityID(entityID) != nullptr;
 		}
@@ -229,6 +282,15 @@ namespace ME
 			else if (std::is_same<RigidbodyComponent, C>::value)
 			m_Rigidbodies.DeleteWithEntityID(entityID);
 
+			else if (std::is_same<CircleColliderComponent, C>::value)
+			m_CircleColliders.DeleteWithEntityID(entityID);
+
+			else if (std::is_same<RectangleColliderComponent, C>::value)
+			m_RectangleColliders.DeleteWithEntityID(entityID);
+
+			else if (std::is_same<PolygonColliderComponent, C>::value)
+			m_PolygonColliders.DeleteWithEntityID(entityID);
+
 			else if (std::is_same<CameraComponent, C>::value)
 			m_Cameras.DeleteWithEntityID(entityID);
 		}
@@ -242,6 +304,21 @@ namespace ME
 			return &m_Scripts;
 		}
 
+
+		//
+		// Returns a vector of script pointers 
+		//
+		std::vector<ScriptComponent*> GetScriptsOf(const unsigned int entityID)
+		{
+			std::vector<ScriptComponent*> scripts;
+
+			for (ScriptComponent* s : m_Scripts)
+			{
+				if (CheckScriptID(*s, entityID)) scripts.push_back(s);
+			}
+
+			return scripts;
+		}
 		
 		//
 	    // Returns a pointer to a ScriptComponent
@@ -348,14 +425,15 @@ namespace ME
 		ComponentContainer<PolygonRendererComponent> m_PolygonRenderers;
 		ComponentContainer<TextRendererComponent> m_TextRenderers;		
 		ComponentContainer<RigidbodyComponent> m_Rigidbodies;
+		ComponentContainer<CircleColliderComponent> m_CircleColliders;
+		ComponentContainer<RectangleColliderComponent> m_RectangleColliders;
+		ComponentContainer<PolygonColliderComponent> m_PolygonColliders;
 		ComponentContainer<CameraComponent> m_Cameras;
 		
-
 		//
 		// Vector of pointers to user defined scripts
 		//
 		std::vector<ScriptComponent*> m_Scripts;
-
 	};
 }
 

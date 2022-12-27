@@ -11,5 +11,8 @@
 #include "../ECS_User/PolygonRenderer.h"
 #include "../ECS_User/TextRenderer.h"
 #include "../ECS_User/Rigidbody.h"
+#include "../ECS_User/CircleCollider.h"
+#include "../ECS_User/RectangleCollider.h"
+#include "../ECS_User/PolygonCollider.h"
 #include "../ECS_User/Camera.h"
 #include "../ECS/ScriptComponent.h"

@@ -1,4 +1,5 @@
 #include "RigidbodyComponent.h"
+#include "TransformComponent.h"
 
 namespace ME
 {

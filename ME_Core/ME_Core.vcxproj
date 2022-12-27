@@ -11,6 +11,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\ECS_User\Collider.h" />
+    <ClInclude Include="Source\ECS_User\PolygonCollider.h" />
+    <ClInclude Include="Source\ECS\PolygonColliderComponent.h" />
+    <ClInclude Include="Source\ECS_User\RectangleCollider.h" />
+    <ClInclude Include="Source\ECS_User\CircleCollider.h" />
+    <ClInclude Include="Source\Physics\ClosestPoint.h" />
+    <ClInclude Include="Source\Physics\Collision.h" />
+    <ClInclude Include="Source\ECS\RectangleColliderComponent.h" />
+    <ClInclude Include="Source\ECS\CircleColliderComponent.h" />
     <ClInclude Include="Source\ECS_User\Rigidbody.h" />
     <ClInclude Include="Source\ECS\RigidbodyComponent.h" />
     <ClInclude Include="Source\ECS\ColliderComponent.h" />
@@ -18,6 +27,8 @@
     <ClInclude Include="Source\ECS_User\Camera.h" />
     <ClInclude Include="Source\ECS\CameraComponent.h" />
     <ClInclude Include="Source\ECS\ScriptComponent.h" />
+    <ClInclude Include="Source\Physics\CollisionAlgo.h" />
+    <ClInclude Include="Source\Physics\CollisionManifold.h" />
     <ClInclude Include="Source\Rendering\FontContainer.h" />
     <ClInclude Include="Source\Rendering\Polygon.h" />
     <ClInclude Include="Source\ECS\PolygonRendererComponent.h" />
@@ -56,14 +67,22 @@
     <ClInclude Include="Source\User\Time.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\ECS_User\Collider.cpp" />
+    <ClCompile Include="Source\ECS_User\PolygonCollider.cpp" />
+    <ClCompile Include="Source\ECS\PolygonColliderComponent.cpp" />
+    <ClCompile Include="Source\ECS_User\RectangleCollider.cpp" />
+    <ClCompile Include="Source\ECS_User\CircleCollider.cpp" />
+    <ClCompile Include="Source\Physics\Collision.cpp" />
+    <ClCompile Include="Source\ECS\RectangleColliderComponent.cpp" />
+    <ClCompile Include="Source\ECS\CircleColliderComponent.cpp" />
     <ClCompile Include="Source\ECS_User\Rigidbody.cpp" />
     <ClCompile Include="Source\ECS\ECS.cpp" />
     <ClCompile Include="Source\ECS\RigidbodyComponent.cpp" />
-    <ClCompile Include="Source\ECS\ColliderComponent.cpp" />
     <ClCompile Include="Source\Engine\Input.cpp" />
     <ClCompile Include="Source\ECS_User\Camera.cpp" />
     <ClCompile Include="Source\ECS\CameraComponent.cpp" />
     <ClCompile Include="Source\ECS\ScriptComponent.cpp" />
+    <ClCompile Include="Source\Physics\CollisionAlgo.cpp" />
     <ClCompile Include="Source\Rendering\FontContainer.cpp" />
     <ClCompile Include="Source\Rendering\Polygon.cpp" />
     <ClCompile Include="Source\ECS\PolygonRendererComponent.cpp" />

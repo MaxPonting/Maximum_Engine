@@ -1,5 +1,12 @@
 #include "Engine.h"
 #include "Log.h"
+#include "../Physics/Collision.h"
+#include "../Physics/CollisionManifold.h"
+#include "../ECS/ColliderComponent.h"
+#include "../ECS/CircleColliderComponent.h"
+#include "../ECS/RectangleColliderComponent.h"
+#include "../ECS_User/Collider.h"
+#include "../Physics/CollisionAlgo.h"
 
 namespace ME
 {
@@ -184,11 +191,12 @@ namespace ME
 		m_Time.UpdateSubFrame(EngineTime::SubFrameType::Script);
 	}
 
-	//
-	// Update Rigidbodies
-	//
+	
 	void Engine::UpdatePhysics()
 	{
+		//
+		// Update Rigidbodies
+		//
 		std::vector<RigidbodyComponent>* bodies = m_ECS.GetComponents<RigidbodyComponent>();
 
 		for (int i = 0; i < bodies->size(); i++)
@@ -199,6 +207,55 @@ namespace ME
 			);
 		}
 
+		//
+		// Get Colliders
+		//
+		std::vector<CircleColliderComponent>* circleColliders = m_ECS.GetComponents<CircleColliderComponent>();
+		std::vector<RectangleColliderComponent>* rectangleColliders = m_ECS.GetComponents<RectangleColliderComponent>();
+		std::vector<PolygonColliderComponent>* polygonColliders = m_ECS.GetComponents<PolygonColliderComponent>();
+		std::vector<ColliderComponent*> colliders;
+		colliders.reserve(circleColliders->size() + rectangleColliders->size());
+
+		for (int i = 0; i < circleColliders->size(); i++)
+			colliders.emplace_back(&circleColliders->operator[](i));
+			
+		for (int i = 0; i < rectangleColliders->size(); i++)
+			colliders.emplace_back(&rectangleColliders->operator[](i));
+
+		for (int i = 0; i < polygonColliders->size(); i++)
+			colliders.emplace_back(&polygonColliders->operator[](i));
+
+		//
+		// Check Collisions and Resolve Collisions
+		//
+
+		for (ColliderComponent* a : colliders)
+		{
+			for (ColliderComponent* b : colliders)
+			{
+				if (a == b) continue;
+
+				TransformComponent& transformA = *m_ECS.GetComponent<TransformComponent>(a->GetEntityID());
+				TransformComponent& transformB = *m_ECS.GetComponent<TransformComponent>(b->GetEntityID());
+
+				CollisionManifold manifold = a->CheckCollision(transformA, b, transformB);
+
+				if (!manifold.HasCollision) continue;
+
+				std::vector<ScriptComponent*> scriptsA = m_ECS.GetScriptsOf(a->GetEntityID());		
+				for (ScriptComponent* s : scriptsA) s->OnCollision(Collider(a->GetEntityID(), &m_ECS));
+
+				std::vector<ScriptComponent*> scriptsB = m_ECS.GetScriptsOf(b->GetEntityID());
+				for (ScriptComponent* s : scriptsB) s->OnCollision(Collider(b->GetEntityID(), &m_ECS));
+			
+				RigidbodyComponent* bodyA = m_ECS.GetComponent<RigidbodyComponent>(a->GetEntityID());
+				RigidbodyComponent* bodyB = m_ECS.GetComponent<RigidbodyComponent>(a->GetEntityID());
+
+				Collision collision = { manifold, transformA, transformB, bodyA, bodyB };
+
+				SolveCollision(collision);
+			}
+		}
 
 		m_Time.UpdateSubFrame(EngineTime::SubFrameType::Physics);
 	}

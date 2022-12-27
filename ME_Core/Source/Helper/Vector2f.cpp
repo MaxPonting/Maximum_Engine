@@ -32,34 +32,56 @@ namespace ME
 		X -= vector2.X; Y -= vector2.Y;
 	}
 
-	Vector2f Vector2f::operator+(const Vector2f vector2)
+	Vector2f Vector2f::operator+(const Vector2f vector2) const
 	{
 		return Vector2f(X + vector2.X, Y + vector2.Y);
 	}
 
-	Vector2f Vector2f::operator-(const Vector2f vector2)
+	Vector2f Vector2f::operator-(const Vector2f vector2) const
 	{
 		return Vector2f(X - vector2.X, Y - vector2.Y);
 	}
 
-	Vector2f Vector2f::operator*(const Vector2f vector2)
+	Vector2f Vector2f::operator-() const
 	{
-		return Vector2f(X * vector2.X, Y * vector2.Y);
+		return Vector2f(-X, -Y);
 	}
 
-	Vector2f Vector2f::operator*(const float scale)
+	float Vector2f::operator*(const Vector2f vector2) const
+	{
+		return X * vector2.X + Y * vector2.Y;
+	}
+
+	Vector2f Vector2f::operator*(const float scale) const
 	{
 		return Vector2f(X * scale, Y * scale);
 	}
 
-	Vector2f Vector2f::operator/(const Vector2f vector2)
+	Vector2f Vector2f::operator/(const Vector2f vector2) const
 	{
 		return Vector2f(X / vector2.X, Y / vector2.Y);
 	}
 
-	Vector2f Vector2f::operator/(const float scale)
+	Vector2f Vector2f::operator/(const float scale) const
 	{
 		return Vector2f(X / scale, Y / scale);
+	}
+
+	float Vector2f::Magnitude()
+	{
+		return pow(LengthSqr(), 0.5);
+	}
+
+	float Vector2f::LengthSqr()
+	{
+		return X * X + Y * Y;
+	}
+
+	Vector2f Vector2f::Normalize()
+	{
+		float magnitude = Magnitude();
+		if (magnitude == 0) return Vector2f(0, 0);
+		return Vector2f(X * 1 / magnitude, Y * 1 / magnitude);
 	}
 
 }

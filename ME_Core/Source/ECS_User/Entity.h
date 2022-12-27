@@ -14,7 +14,12 @@ namespace ME
 	class TextRenderer;
 	class Camera;
 	class Rigidbody;
+	class Collider;
+	class CircleCollider;
+	class RectangleCollider;
+	class PolygonCollider;
 	class ScriptComponent;
+
 	//
 	// Related to a set of components.
 	//
@@ -59,6 +64,15 @@ namespace ME
 			else if (std::is_same<Rigidbody, C>::value)
 			p_ECS->AddComponent<RigidbodyComponent>(m_ID);
 
+			else if (std::is_same<CircleCollider, C>::value)
+			p_ECS->AddComponent<CircleColliderComponent>(m_ID);
+
+			else if (std::is_same<RectangleCollider, C>::value)
+			p_ECS->AddComponent<RectangleColliderComponent>(m_ID);
+
+			else if (std::is_same<PolygonCollider, C>::value)
+			p_ECS->AddComponent<PolygonColliderComponent>(m_ID);
+
 			else if (std::is_same<Camera, C>::value)
 			p_ECS->AddComponent<CameraComponent>(m_ID);
 			
@@ -93,6 +107,15 @@ namespace ME
 			else if (std::is_same<Rigidbody, C>::value)
 			has = p_ECS->HasComponent<RigidbodyComponent>(m_ID);
 
+			else if (std::is_same<CircleCollider, C>::value)
+			has = p_ECS->HasComponent<CircleColliderComponent>(m_ID);
+
+			else if (std::is_same<RectangleCollider, C>::value)
+			has = p_ECS->HasComponent<RectangleColliderComponent>(m_ID);
+
+			else if (std::is_same<PolygonCollider, C>::value)
+			has = p_ECS->HasComponent<PolygonColliderComponent>(m_ID);
+
 			else if (std::is_same<Camera, C>::value)
 			has = p_ECS->HasComponent<CameraComponent>(m_ID);
 
@@ -126,6 +149,15 @@ namespace ME
 			else if (std::is_same<Rigidbody, C>::value)
 			return p_ECS->HasComponent<RigidbodyComponent>(m_ID);
 
+			else if (std::is_same<CircleCollider, C>::value)
+			return p_ECS->HasComponent<CircleColliderComponent>(m_ID);
+
+			else if (std::is_same<RectangleCollider, C>::value)
+			return p_ECS->HasComponent<RectangleColliderComponent>(m_ID);
+
+			else if (std::is_same<PolygonCollider, C>::value)
+			return p_ECS->HasComponent<PolygonColliderComponent>(m_ID);
+
 			else if (std::is_same<Camera, C>::value)
 			return p_ECS->HasComponent<CameraComponent>(m_ID);
 
@@ -157,6 +189,15 @@ namespace ME
 
 			else if (std::is_same<Rigidbody, C>::value)
 			p_ECS->DestroyComponent<RigidbodyComponent>(m_ID);
+
+			else if (std::is_same<CircleCollider, C>::value)
+			p_ECS->DestroyComponent<CircleColliderComponent>(m_ID);
+
+			else if (std::is_same<RectangleCollider, C>::value)
+			p_ECS->DestroyComponent<RectangleColliderComponent>(m_ID);
+
+			else if (std::is_same<PolygonCollider, C>::value)
+			p_ECS->DestroyComponent<PolygonColliderComponent>(m_ID);
 
 			else if (std::is_same<Camera, C>::value)
 			p_ECS->DestroyComponent<CameraComponent>(m_ID);

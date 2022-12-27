@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Vector2i.h"
+#include <math.h>
 
 namespace ME
 {
@@ -17,12 +18,20 @@ namespace ME
 		void operator=(const Vector2f vector2);
 		void operator+=(const Vector2f vector2);
 		void operator-=(const Vector2f vector2);
-		Vector2f operator+(const Vector2f vector2);		
-		Vector2f operator-(const Vector2f vector2);
-		Vector2f operator*(const Vector2f vector2);
-		Vector2f operator*(const float scale);
-		Vector2f operator/(const Vector2f vector2);
-		Vector2f operator/(const float scale);
+		Vector2f operator+(const Vector2f vector2) const;		
+		Vector2f operator-(const Vector2f vector2) const;
+		Vector2f operator-() const;
+		float operator*(const Vector2f vector2) const;
+		Vector2f operator*(const float scale) const;
+		Vector2f operator/(const Vector2f vector2) const;
+		Vector2f operator/(const float scale) const;
+
+		//
+		// Helper Functions
+		//
+		float Magnitude();
+		float LengthSqr();
+		Vector2f Normalize();
 		
 		/* MEMBERS */
 		float X, Y;
