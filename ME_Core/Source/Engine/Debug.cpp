@@ -78,6 +78,7 @@ namespace ME
 		if (p_Texture != nullptr)
 		{
 			SDLCall(SDL_DestroyTexture(p_Texture));
+			p_Texture = nullptr;
 		}
 
 		const char* outputText = m_Text.c_str();

@@ -22,6 +22,11 @@ namespace ME
 		X = vector2.X; Y = vector2.Y;
 	}
 
+	bool Vector2f::operator==(const Vector2f vector2)
+	{
+		return X == vector2.X && Y == vector2.Y;
+	}
+
 	void Vector2f::operator+=(const Vector2f vector2)
 	{
 		X += vector2.X; Y += vector2.Y;

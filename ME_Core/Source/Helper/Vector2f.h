@@ -16,6 +16,7 @@ namespace ME
 		// Operators
 		//
 		void operator=(const Vector2f vector2);
+		bool operator==(const Vector2f vector2);
 		void operator+=(const Vector2f vector2);
 		void operator-=(const Vector2f vector2);
 		Vector2f operator+(const Vector2f vector2) const;		

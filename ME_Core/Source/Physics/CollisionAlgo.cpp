@@ -7,6 +7,7 @@
 #include "../Helper/Vector2f.h"
 #include "../Helper/Edge.h"
 
+
 namespace ME
 {
 	CollisionManifold GetPolygonPolygonCollisionManifold(const TransformComponent& transformA, const PolygonColliderComponent* polyA, const TransformComponent& transformB, const PolygonColliderComponent* polyB)
@@ -20,7 +21,9 @@ namespace ME
 
 	CollisionManifold GetPolygonRectangleCollisionManifold(const TransformComponent& transformA, const PolygonColliderComponent* polyA, const TransformComponent& transformB, const RectangleColliderComponent* rectB)
 	{
-		return CollisionManifold();
+		CollisionManifold manifold = SAT(transformA, polyA->GetVertices(transformA), transformB, rectB->GetVertices(transformB));
+
+		return manifold;
 	}
 
 	CollisionManifold GetPolygonCircleCollisionManifold(const TransformComponent& transformA, const PolygonColliderComponent* polyA, const TransformComponent& transformB, const CircleColliderComponent* circleB)
@@ -132,11 +135,19 @@ namespace ME
 
 	CollisionManifold SAT(const TransformComponent& transformA, const std::vector<Vector2f>& verticesA, const TransformComponent& transformB, const std::vector<Vector2f>& verticesB)
 	{
-		int j = verticesA.size() - 1;
+		//
+		// Needs Fixed!!!
+		// Can cause error on corners
+		// Unknown reason		
+		//
+		
+		Vector2f normal;
+		float depth = 0;
+
 		for (int i = 0; i < verticesA.size(); i++)
 		{
-			Vector2f edge = verticesA[j] - verticesA[i];
-			Vector2f axis = Vector2f(-edge.Y, edge.X);
+			Vector2f edge = verticesA[(i + 1) % verticesA.size()] - verticesA[i];
+			Vector2f axis = Vector2f(-edge.Y, edge.X).Normalize();
 
 			float minA, maxA;
 			float minB, maxB;
@@ -146,14 +157,24 @@ namespace ME
 
 			if (minA >= maxB || minB >= maxA) return CollisionManifold();
 
-			j = i;
+			float axisDepth = fminf(maxB - minA, maxA - minB);
+
+			if (depth == 0)
+			{
+				depth = axisDepth;
+				normal = axis;
+			}
+			else if (axisDepth < depth)
+			{
+				depth = axisDepth;
+				normal = axis;
+			}
 		}
 
-		j = verticesB.size() - 1;
 		for (int i = 0; i < verticesB.size(); i++)
 		{
-			Vector2f edge = verticesB[j] - verticesB[i];
-			Vector2f axis = Vector2f(-edge.Y, edge.X);
+			Vector2f edge = verticesB[(i + 1) % verticesB.size()] - verticesB[i];
+			Vector2f axis = Vector2f(-edge.Y, edge.X).Normalize();
 
 			float minA, maxA;
 			float minB, maxB;
@@ -163,13 +184,26 @@ namespace ME
 
 			if (minA >= maxB || minB >= maxA) return CollisionManifold();
 
-			j = i;
+			float axisDepth = fminf(maxB - minA, maxA - minB);
+
+			if (depth == 0)
+			{
+				depth = axisDepth;
+				normal = axis;
+			}
+			else if (axisDepth < depth)
+			{
+				depth = axisDepth;
+				normal = axis;				
+			}
 		}
 
 		CollisionManifold manifold;
 
 		manifold.HasCollision = true;
-
+		manifold.Depth = depth;
+		manifold.Normal = normal;
+		
 		return manifold;
 	}
 
@@ -192,6 +226,20 @@ namespace ME
 		}
 	}
 
+	Vector2f FindArithmeticMean(const std::vector<Vector2f>& vertices)
+	{
+		float sumX = 0;
+		float sumY = 0;
+
+		for (int i = 0; i < vertices.size(); i++)
+		{
+			sumX += vertices[i].X;
+			sumY += vertices[i].Y;
+		}
+
+		return { sumX / vertices.size(), sumY / vertices.size() };
+	}
+
 	void RotateVertices(const float rotation, std::vector<Vector2f>& vertices)
 	{
 		for (int i = 0; i < vertices.size(); i++)
@@ -205,6 +253,7 @@ namespace ME
 	
 	void SolveCollision(Collision collision)
 	{
+
 		// Seperate bodies
 		// A
 

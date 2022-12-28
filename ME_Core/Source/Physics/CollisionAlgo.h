@@ -27,6 +27,8 @@ namespace ME
 
 	void ProjectVertices(const std::vector<Vector2f>& vertices, const Vector2f& axis, float& min, float& max);
 
+	Vector2f FindArithmeticMean(const std::vector<Vector2f>& vertices);
+
 	void RotateVertices(const float rotation, std::vector<Vector2f>& vertices);
 
 	void SolveCollision(Collision collision);
