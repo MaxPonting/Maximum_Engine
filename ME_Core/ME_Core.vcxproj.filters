@@ -102,7 +102,7 @@
     <ClInclude Include="Source\ECS\PolygonRendererComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Rendering\Polygon.h">
+    <ClInclude Include="Source\Helper\Polygon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Helper\Vector2i.h">
@@ -174,7 +174,7 @@
     <ClInclude Include="Source\ECS_User\Collider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Physics\ClosestPoint.h">
+    <ClInclude Include="Source\Helper\Edge.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -245,7 +245,7 @@
     <ClCompile Include="Source\ECS\PolygonRendererComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Rendering\Polygon.cpp">
+    <ClCompile Include="Source\Helper\Polygon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Helper\Vector2f.cpp">

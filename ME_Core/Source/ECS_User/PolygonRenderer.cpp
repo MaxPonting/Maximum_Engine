@@ -9,7 +9,7 @@ namespace ME
 
 	void PolygonRenderer::SetPolygon(Polygon polygon)
 	{
-		if (p_ECS = nullptr) return;
+		if (p_ECS == nullptr) return;
 		PolygonRendererComponent* renderer = p_ECS->GetComponent<PolygonRendererComponent>(m_EntityID);
 		if (renderer == nullptr) return;
 		renderer->SetPolygon(polygon);
@@ -17,7 +17,7 @@ namespace ME
 
 	void PolygonRenderer::SetColour(RGBA colour)
 	{
-		if (p_ECS = nullptr) return;
+		if (p_ECS == nullptr) return;
 		PolygonRendererComponent* renderer = p_ECS->GetComponent<PolygonRendererComponent>(m_EntityID);
 		if (renderer == nullptr) return;
 		renderer->colour = colour;
@@ -25,7 +25,7 @@ namespace ME
 
 	void PolygonRenderer::SetLayer(int layer)
 	{
-		if (p_ECS = nullptr) return;
+		if (p_ECS == nullptr) return;
 		PolygonRendererComponent* renderer = p_ECS->GetComponent<PolygonRendererComponent>(m_EntityID);
 		if (renderer == nullptr) return;
 		renderer->layer = layer;
@@ -33,7 +33,7 @@ namespace ME
 
 	Polygon PolygonRenderer::GetPolygon(Polygon polygon)
 	{
-		if (p_ECS = nullptr) return Polygon();
+		if (p_ECS == nullptr) return Polygon();
 		PolygonRendererComponent* renderer = p_ECS->GetComponent<PolygonRendererComponent>(m_EntityID);
 		if (renderer == nullptr) return Polygon();
 		renderer->GetPolygon();
@@ -41,7 +41,7 @@ namespace ME
 
 	RGBA PolygonRenderer::GetColour()
 	{
-		if (p_ECS = nullptr) return RGBA();
+		if (p_ECS == nullptr) return RGBA();
 		PolygonRendererComponent* renderer = p_ECS->GetComponent<PolygonRendererComponent>(m_EntityID);
 		if (renderer == nullptr) return RGBA();
 		return renderer->colour;
@@ -49,7 +49,7 @@ namespace ME
 
 	int PolygonRenderer::GetLayer()
 	{
-		if (p_ECS = nullptr) return 0;
+		if (p_ECS == nullptr) return 0;
 		PolygonRendererComponent* renderer = p_ECS->GetComponent<PolygonRendererComponent>(m_EntityID);
 		if (renderer == nullptr) return 0;
 		return renderer->layer;

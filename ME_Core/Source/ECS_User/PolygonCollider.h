@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "Collider.h"
+#include "../Helper/Polygon.h"
 
 namespace ME
 {
@@ -12,9 +13,9 @@ namespace ME
 
 		using Collider::Collider;
 
-		void SetVertices(std::vector<Vector2f> vertices);
+		void SetPolygon(Polygon polygon);
 
-		std::vector<Vector2f> GetVertices();
+		Polygon GetPolygon();
 
 	};
 }

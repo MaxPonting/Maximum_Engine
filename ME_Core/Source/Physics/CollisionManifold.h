@@ -6,10 +6,8 @@ namespace ME
 {
 	struct CollisionManifold
 	{
-		Vector2f A;
-		Vector2f B;
-		Vector2f Normal;
-		float Depth;
-		bool HasCollision;
+		Vector2f Normal = Vector2f();
+		float Depth = 0;
+		bool HasCollision = false;
 	};
 }

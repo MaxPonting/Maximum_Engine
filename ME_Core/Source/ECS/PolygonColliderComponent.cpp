@@ -26,7 +26,7 @@ namespace ME
 
 	std::vector<Vector2f> PolygonColliderComponent::GetVertices(const TransformComponent& transform) const
 	{
-		std::vector<Vector2f> vertices = Vertices;
+		std::vector<Vector2f> vertices = Polygon.GetVertices();
 
 		for (int i = 0; i < vertices.size(); i++)
 		{
@@ -34,6 +34,15 @@ namespace ME
 		}
 		
 		RotateVertices(transform.rotation.getDeg(), vertices);
+
+		return vertices;
+	}
+
+	std::vector<Vector2f> PolygonColliderComponent::GetRawVertices(const float rotation) const
+	{
+		std::vector<Vector2f> vertices = Polygon.GetVertices();
+
+		RotateVertices(rotation, vertices);
 
 		return vertices;
 	}

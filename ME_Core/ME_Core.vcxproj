@@ -16,7 +16,7 @@
     <ClInclude Include="Source\ECS\PolygonColliderComponent.h" />
     <ClInclude Include="Source\ECS_User\RectangleCollider.h" />
     <ClInclude Include="Source\ECS_User\CircleCollider.h" />
-    <ClInclude Include="Source\Physics\ClosestPoint.h" />
+    <ClInclude Include="Source\Helper\Edge.h" />
     <ClInclude Include="Source\Physics\Collision.h" />
     <ClInclude Include="Source\ECS\RectangleColliderComponent.h" />
     <ClInclude Include="Source\ECS\CircleColliderComponent.h" />
@@ -30,7 +30,7 @@
     <ClInclude Include="Source\Physics\CollisionAlgo.h" />
     <ClInclude Include="Source\Physics\CollisionManifold.h" />
     <ClInclude Include="Source\Rendering\FontContainer.h" />
-    <ClInclude Include="Source\Rendering\Polygon.h" />
+    <ClInclude Include="Source\Helper\Polygon.h" />
     <ClInclude Include="Source\ECS\PolygonRendererComponent.h" />
     <ClInclude Include="Source\ECS_User\PolygonRenderer.h" />
     <ClInclude Include="Source\ECS_User\CircleRenderer.h" />
@@ -84,7 +84,7 @@
     <ClCompile Include="Source\ECS\ScriptComponent.cpp" />
     <ClCompile Include="Source\Physics\CollisionAlgo.cpp" />
     <ClCompile Include="Source\Rendering\FontContainer.cpp" />
-    <ClCompile Include="Source\Rendering\Polygon.cpp" />
+    <ClCompile Include="Source\Helper\Polygon.cpp" />
     <ClCompile Include="Source\ECS\PolygonRendererComponent.cpp" />
     <ClCompile Include="Source\ECS_User\PolygonRenderer.cpp" />
     <ClCompile Include="Source\ECS_User\CircleRenderer.cpp" />

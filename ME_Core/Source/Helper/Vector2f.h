@@ -31,7 +31,8 @@ namespace ME
 		//
 		float Magnitude();
 		float LengthSqr();
-		Vector2f Normalize();
+		Vector2f virtual Normalize();
+		Vector2f virtual Normalize(float magnitude);
 		
 		/* MEMBERS */
 		float X, Y;

@@ -39,7 +39,7 @@ namespace ME
 		const int minX = m_Polygon.GetMinX();
 		const int minY = m_Polygon.GetMinY();
 
-		SDLCall(SDL_Surface * surface = SDL_CreateRGBSurfaceWithFormat(0, width + 1, height + 1, 32, SDL_PIXELFORMAT_RGBA32));
+		SDLCall(SDL_Surface * surface = SDL_CreateRGBSurfaceWithFormat(0, width, height, 32, SDL_PIXELFORMAT_RGBA32));
 		Uint32* buffer = (Uint32*)surface->pixels;
 		SDLCall(Uint32 colour = SDL_MapRGBA(surface->format, 255, 255, 255, 255));
 		SDLCall(SDL_LockSurface(surface));
@@ -48,9 +48,11 @@ namespace ME
 		int offset;
 		for (int i = 0; i < polygonPoints.size(); i++)
 		{
-			offset = (polygonPoints[i].Y - minY) * surface->w + (polygonPoints[i].X - minX);
+			offset = abs(polygonPoints[i].Y - minY - height) * surface->w + (polygonPoints[i].X - minX);
 			buffer[offset] = colour;
 		}
+
+		m_Offset = { (minX + m_Polygon.GetMaxX()) / 2, (minY + m_Polygon.GetMaxY()) / 2};
 	
 		SDLCall(SDL_UnlockSurface(surface));
 		p_SDLTexture = renderer.CreateTextureFromSurface(surface);
@@ -65,5 +67,9 @@ namespace ME
 	SDL_Texture* PolygonRendererComponent::GetSDLTexture()
 	{
 		return p_SDLTexture;
+	}
+	Vector2i PolygonRendererComponent::GetOffset()
+	{
+		return m_Offset;
 	}
 }

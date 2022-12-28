@@ -1,29 +1,19 @@
 #include "CollisionAlgo.h"
 #include "CollisionManifold.h"
-#include "ClosestPoint.h"
 #include "../ECS/CircleColliderComponent.h"
 #include "../ECS/RectangleColliderComponent.h"
+#include "../ECS/PolygonColliderComponent.h"
 #include "../ECS/TransformComponent.h"
 #include "../Helper/Vector2f.h"
+#include "../Helper/Edge.h"
 
 namespace ME
 {
 	CollisionManifold GetPolygonPolygonCollisionManifold(const TransformComponent& transformA, const PolygonColliderComponent* polyA, const TransformComponent& transformB, const PolygonColliderComponent* polyB)
 	{
 		// Check for collision
-		bool collision = SAT(transformA, polyA, transformB, polyB);
 
-		CollisionManifold manifold;
-		manifold.HasCollision = collision;
-
-		// Return if no collision
-		if (!collision) return manifold;
-
-		// Set Collision manifold
-		manifold.Depth = 0;
-		manifold.Normal = Vector2f();
-		manifold.A = Vector2f();
-		manifold.B = Vector2f();
+		CollisionManifold manifold = SAT(transformA, polyA->GetVertices(transformA), transformB, polyB->GetVertices(transformB));
 
 		return manifold;
 	}
@@ -36,19 +26,7 @@ namespace ME
 	CollisionManifold GetPolygonCircleCollisionManifold(const TransformComponent& transformA, const PolygonColliderComponent* polyA, const TransformComponent& transformB, const CircleColliderComponent* circleB)
 	{
 		// Check for collision
-		bool collision = SATCircle(transformA, polyA, transformB, circleB);
-
-		CollisionManifold manifold;
-		manifold.HasCollision = collision;
-
-		// Return if no collision
-		if (!collision) return manifold;
-
-		// Set Collision manifold
-		manifold.Depth = 0;
-		manifold.Normal = Vector2f();
-		manifold.A = Vector2f();
-		manifold.B = Vector2f();
+		CollisionManifold manifold = SATCircle(transformA, polyA->GetVertices(transformA), transformB, circleB);
 
 		return manifold;
 	}
@@ -56,67 +34,12 @@ namespace ME
 	CollisionManifold GetRectangleRectangleCollisionManifold(const TransformComponent& transformA, const RectangleColliderComponent* rectA, const TransformComponent& transformB, const RectangleColliderComponent* rectB)
 	{
 		// Check for collision
-		bool depth;
-
-		if (transformA.rotation.getDeg() == 0)
-			depth = AxisAlignedRectangleRectangleCollision(transformA, rectA, transformB, rectB);
-		else
-			depth = 0;
-
 		CollisionManifold manifold;
-		manifold.HasCollision = depth > 0;
 
-		// Return if no collision
-		if (!manifold.HasCollision) return manifold;
-
-		// Find the closest point on the rect B to the center of A
-		std::vector<Vector2f> VerticesB = rectB->GetVertices(transformB);
-
-		ClosestPoint closestPointA = GetLineSegmentClosestToPoint(
-			VerticesB[VerticesB.size() - 1],
-			VerticesB[0],
-			transformA.position
-		);
-
-		int j = 0;
-		for (int i = 1; i < VerticesB.size(); i++)
-		{
-			ClosestPoint point = GetLineSegmentClosestToPoint(
-				VerticesB[j], 
-				VerticesB[i],
-				transformA.position
-			);
-			if (point.Distance < closestPointA.Distance) closestPointA = point;
-			j = i;
-		}
-
-		// Find the closest point on the rect A to the center of B
-		std::vector<Vector2f> VerticesA = rectA->GetVertices(transformA);
-
-		ClosestPoint closestPointB = GetLineSegmentClosestToPoint(
-			VerticesA[VerticesA.size() - 1],
-			VerticesA[0],
-			transformB.position
-		);
-
-		j = 0;
-		for (int i = 1; i < VerticesA.size(); i++)
-		{
-			ClosestPoint point = GetLineSegmentClosestToPoint(
-				VerticesA[j], 
-				VerticesA[i],
-				transformB.position
-			);
-			if (point.Distance < closestPointB.Distance) closestPointB = point;
-			j = i;
-		}
-
-
-		// Set Collision manifold
-		manifold.A = closestPointA.Point;
-		manifold.B = closestPointB.Point;
-		manifold.Depth = depth;
-		manifold.Normal = manifold.B - manifold.A;
+		if (transformA.rotation.getDeg() == transformB.rotation.getDeg())
+			manifold = AxisAlignedRectangleRectangleCollision(transformA, rectA, transformB, rectB);
+		else
+			manifold = CollisionManifold();
 
 		return manifold;
 	}
@@ -124,51 +47,12 @@ namespace ME
 	CollisionManifold GetRectangleCircleCollisionManifold(const TransformComponent& transformA, const RectangleColliderComponent* rectA, const TransformComponent& transformB, const CircleColliderComponent* circleB)
 	{
 		// Check for collision
-		bool collision;
+		CollisionManifold manifold;
 
 		if (transformA.rotation.getDeg() == 0)
-			collision = AxisAlignedCircleRectangleCollision(transformA, rectA, transformB, circleB);
+			manifold = AxisAlignedCircleRectangleCollision(transformA, rectA, transformB, circleB);
 		else
-			collision = false;
-
-		CollisionManifold manifold;
-		manifold.HasCollision = collision;
-
-		// Return if no collision
-		if (!collision) return manifold;
-		
-		// Find the closest point on the rect A to the center of B
-		std::vector<Vector2f> Vertices = rectA->GetVertices(transformA);
-
-		ClosestPoint closestPointB = GetLineSegmentClosestToPoint(
-			Vertices[Vertices.size() - 1],
-			Vertices[0],
-			transformB.position
-		);
-
-		int j = 0;
-		for (int i = 1; i < Vertices.size(); i++)
-		{
-			ClosestPoint point = GetLineSegmentClosestToPoint(
-				Vertices[j], 
-				Vertices[i],
-				transformB.position
-			);
-			if (point.Distance < closestPointB.Distance) closestPointB = point;
-			j = i;
-		}
-
-		// Find the closest point on the cirlce B to the center of A
-		ClosestPoint closestPointA;
-
-		Vector2f BToClosestBDir = (closestPointB.Point - transformB.position).Normalize();
-		closestPointA.Point = transformB.position + BToClosestBDir * circleB->Radius;
-
-		// Set Collision manifold
-		manifold.A = closestPointA.Point;
-		manifold.B = closestPointB.Point;
-		manifold.Depth = (manifold.B - manifold.A).Magnitude() / 2;
-		manifold.Normal = (manifold.B - manifold.A).Normalize();
+			manifold = CollisionManifold();
 		
 		return manifold;
 	}
@@ -187,66 +71,125 @@ namespace ME
 		if (!collision) return manifold;
 
 		// Set Collision manifold
-		manifold.Depth = (circleA->Radius + circleB->Radius - distance + 0.001) / 2;
+		manifold.Depth = (circleA->Radius + circleB->Radius - distance) / 2;
 		manifold.Normal = heading.Normalize();
-		manifold.A = transformA.position + manifold.Normal * (circleA->Radius - manifold.Depth * 2);
-		manifold.B = transformB.position - manifold.Normal * (circleB->Radius - manifold.Depth * 2);
 
 		return manifold;
 	}
 
 	
-	float AxisAlignedRectangleRectangleCollision(const TransformComponent& transformA, const RectangleColliderComponent* rectA, const TransformComponent& transformB, const RectangleColliderComponent* rectB)
+	CollisionManifold AxisAlignedRectangleRectangleCollision(const TransformComponent& transformA, const RectangleColliderComponent* rectA, const TransformComponent& transformB, const RectangleColliderComponent* rectB)
 	{
-		if (abs(transformA.position.X - transformB.position.X) > (rectA->Width / 2 + rectB->Width / 2)) return 0;
-		if (abs(transformA.position.Y - transformB.position.Y) > (rectA->Height / 2 + rectB->Height / 2)) return 0;
+		if (abs(transformA.position.X - transformB.position.X) > (rectA->Width / 2 + rectB->Width / 2)) return CollisionManifold();
+		if (abs(transformA.position.Y - transformB.position.Y) > (rectA->Height / 2 + rectB->Height / 2)) return CollisionManifold();
 
-		float depthX = rectA->Width / 2 + rectB->Width / 2 - transformA.position.X - transformB.position.X;
-		float depthY = rectA->Height / 2 + rectB->Height / 2 - transformA.position.Y - transformB.position.Y;
+		CollisionManifold manifold;
+		manifold.HasCollision = true;
 
-		if (depthX < depthY) return depthX;
-		return depthY;
+		float depthX = rectA->Width / 2 + rectB->Width / 2 - abs(transformA.position.X - transformB.position.X);
+		float depthY = rectA->Height / 2 + rectB->Height / 2 - abs(transformA.position.Y - transformB.position.Y);
+
+		if (depthX < depthY)
+		{
+			manifold.Depth = depthX / 2 + 0.001f;
+			if (transformA.position.X > transformB.position.X) manifold.Normal = { -1, 0 };
+			else manifold.Normal = { 1, 0 };		
+		}
+		else
+		{
+			manifold.Depth = depthY / 2 + 0.001f;
+			if (transformA.position.Y > transformB.position.Y) manifold.Normal = { 0, -1 };
+			else manifold.Normal = { 0, 1 };			
+		}
+
+		return manifold;
 	}
 
-	bool AxisAlignedCircleRectangleCollision(const TransformComponent& transformA, const RectangleColliderComponent* rectA, const TransformComponent& transformB, const CircleColliderComponent* circleB)
+	CollisionManifold AxisAlignedCircleRectangleCollision(const TransformComponent& transformA, const RectangleColliderComponent* rectA, const TransformComponent& transformB, const CircleColliderComponent* circleB)
 	{
-		float dx = abs(transformB.position.X - transformA.position.X) - rectA->Width / 2;
-		float dy = abs(transformB.position.Y - transformA.position.Y) - rectA->Height / 2;
+		float px = transformB.position.X;
+		float py = transformB.position.Y;
+		px = fmaxf(px, transformA.position.X - rectA->Width / 2);
+		px = fminf(px, transformA.position.X + rectA->Width / 2);
+		py = fmaxf(py, transformA.position.Y - rectA->Height / 2);
+		py = fminf(py, transformA.position.Y + rectA->Height / 2);
 
-		if (dx > circleB->Radius || dy > circleB->Radius ) return false;
-		if (dx <= 0 || dy <= 0) return true;
+		Vector2f heading = { px - transformB.position.X, py - transformB.position.Y };
+		float distanceSqr = heading.LengthSqr();
 
-		return (dx * dx + dy * dy <= circleB->Radius * circleB->Radius);
+		CollisionManifold manifold;		
+
+		if (distanceSqr >= circleB->Radius * circleB->Radius) manifold.HasCollision = false;
+
+		if (!manifold.HasCollision) return manifold;
+
+		float distance = pow(distanceSqr, 0.5);
+		manifold.Normal = heading.Normalize(distance);
+		manifold.Depth = (circleB->Radius - distance) / 2;
+
+		return manifold;
 	}
 
-	bool SAT(const TransformComponent& transformA, const PolygonColliderComponent* polyA, const TransformComponent& transformB, const PolygonColliderComponent* polyB)
+	CollisionManifold SAT(const TransformComponent& transformA, const std::vector<Vector2f>& verticesA, const TransformComponent& transformB, const std::vector<Vector2f>& verticesB)
 	{
-		return false;
+		int j = verticesA.size() - 1;
+		for (int i = 0; i < verticesA.size(); i++)
+		{
+			Vector2f edge = verticesA[j] - verticesA[i];
+			Vector2f axis = Vector2f(-edge.Y, edge.X);
+
+			float minA, maxA;
+			float minB, maxB;
+
+			ProjectVertices(verticesA, axis, minA, maxA);
+			ProjectVertices(verticesB, axis, minB, maxB);
+
+			if (minA >= maxB || minB >= maxA) return CollisionManifold();
+
+			j = i;
+		}
+
+		j = verticesB.size() - 1;
+		for (int i = 0; i < verticesB.size(); i++)
+		{
+			Vector2f edge = verticesB[j] - verticesB[i];
+			Vector2f axis = Vector2f(-edge.Y, edge.X);
+
+			float minA, maxA;
+			float minB, maxB;
+
+			ProjectVertices(verticesA, axis, minA, maxA);
+			ProjectVertices(verticesB, axis, minB, maxB);
+
+			if (minA >= maxB || minB >= maxA) return CollisionManifold();
+
+			j = i;
+		}
+
+		CollisionManifold manifold;
+
+		manifold.HasCollision = true;
+
+		return manifold;
 	}
 
-	bool SATCircle(const TransformComponent& transformA, const PolygonColliderComponent* polyA, const TransformComponent& transformB, const CircleColliderComponent* circleB)
+	CollisionManifold SATCircle(const TransformComponent& transformA, const std::vector<Vector2f>& verticesA, const TransformComponent& transformB, const CircleColliderComponent* circleB)
 	{
-		return false;
+		return CollisionManifold();
 	}
-	
-	ClosestPoint GetLineSegmentClosestToPoint(Vector2f A, Vector2f B, Vector2f P)
+
+	void ProjectVertices(const std::vector<Vector2f>& vertices, const Vector2f& axis, float& min, float& max)
 	{
-		Vector2f AB = B - A;
-		Vector2f AP = P - A;
+		min = vertices[0] * axis;
+		max = min;
 
-		float projection = AP * AB;
-		float ABLengthSqr = AB.LengthSqr();
-		float D = projection / ABLengthSqr;
+		for (int i = 1; i < vertices.size(); i++)
+		{
+			float proj = vertices[i] * axis;
 
-		ClosestPoint closestPoint;
-
-		if (D <= 0) closestPoint.Point = A;
-		else if (D >= 1) closestPoint.Point = B;
-		else closestPoint.Point = A + AB * D;
-			 
-		closestPoint.Distance = (P - closestPoint.Point).Magnitude();
-
-		return closestPoint;
+			if (proj < min) min = proj;
+			if (proj > max) max = proj;
+		}
 	}
 
 	void RotateVertices(const float rotation, std::vector<Vector2f>& vertices)
@@ -265,14 +208,12 @@ namespace ME
 		// Seperate bodies
 		// A
 
-		Vector2f directionA = (collision.TransformA.position - collision.Manifold.A).Normalize();
-		Vector2f transformationA = directionA * collision.Manifold.Depth;
+		Vector2f transformationA = collision.Manifold.Normal * collision.Manifold.Depth;
 		collision.TransformA.position += transformationA;
 
 		// B
 
-		Vector2f directionB = (collision.TransformB.position - collision.Manifold.B).Normalize();
-		Vector2f transformationB = directionB * collision.Manifold.Depth;
+		Vector2f transformationB = -collision.Manifold.Normal * collision.Manifold.Depth;
 		collision.TransformB.position += transformationB;
 
 		// Apply Impulse

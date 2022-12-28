@@ -3,7 +3,7 @@
 #include "ComponentRef.h"
 #include "../User/Texture.h"
 #include "../Helper/RGBA.h"
-#include "../Rendering/Polygon.h"
+#include "../Helper/Polygon.h"
 
 namespace ME
 {

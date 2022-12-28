@@ -17,7 +17,7 @@ namespace ME
 		m_Vertices(vertices)
 	{}
 
-	unsigned int Polygon::GetWidth()
+	unsigned int Polygon::GetWidth() const
 	{
 		// Return 0 if vertices size is 2 or less
 		if (m_Vertices.size() <= 2) return 0;
@@ -34,7 +34,7 @@ namespace ME
 		return xMax - xMin;
 	}
 
-	unsigned int Polygon::GetHeight()
+	unsigned int Polygon::GetHeight() const
 	{
 		// Return 0 if vertices size is 2 or less
 		if (m_Vertices.size() <= 2) return 0;
@@ -51,7 +51,7 @@ namespace ME
 		return yMax - yMin;
 	}
 
-	int Polygon::GetMinX()
+	int Polygon::GetMinX() const
 	{
 		// Return 0 if vertices size is 2 or less
 		if (m_Vertices.size() <= 2) return 0;
@@ -66,7 +66,7 @@ namespace ME
 		return minX;
 	}
 
-	int Polygon::GetMinY()
+	int Polygon::GetMinY() const
 	{
 		// Return 0 if vertices size is 2 or less
 		if (m_Vertices.size() <= 2) return 0;
@@ -81,9 +81,42 @@ namespace ME
 		return minY;
 	}
 
-	std::vector<Vector2f> Polygon::GetFilled()
+	int Polygon::GetMaxX() const
+	{
+		if (m_Vertices.size() <= 2) return 0;
+
+		int maxX = m_Vertices[0].X;
+
+		for (int i = 1; i < m_Vertices.size(); i++)
+		{
+			if (m_Vertices[i].X > maxX) maxX = m_Vertices[i].X;
+		}
+
+		return maxX;
+	}
+
+	int Polygon::GetMaxY() const
+	{
+		if (m_Vertices.size() <= 2) return 0;
+
+		int maxY = m_Vertices[0].Y;
+
+		for (int i = 1; i < m_Vertices.size(); i++)
+		{
+			if (m_Vertices[i].Y > maxY) maxY = m_Vertices[i].Y;
+		}
+
+		return maxY;
+	}
+
+	std::vector<Vector2f> Polygon::GetFilled() const
 	{
 		return Scanline(m_Vertices, GetWidth(), GetHeight());
+	}
+
+	std::vector<Vector2f> Polygon::GetVertices() const
+	{
+		return m_Vertices;
 	}
 	
 }

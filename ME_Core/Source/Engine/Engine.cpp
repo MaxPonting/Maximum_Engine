@@ -326,6 +326,7 @@ namespace ME
 			polygonRenderer = polygonRenderers->operator[](i);
 
 			TransformComponent transform = *m_ECS.GetComponent<TransformComponent>(polygonRenderer.GetEntityID());
+			transform.position += polygonRenderer.GetOffset();
 			
 			Vector2i size = Vector2i(polygonRenderer.GetPolygon().GetWidth(), polygonRenderer.GetPolygon().GetHeight());
 			m_Renderer.Enqueue({

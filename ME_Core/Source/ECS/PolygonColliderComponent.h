@@ -4,6 +4,7 @@
 
 #include "ColliderComponent.h"
 #include "../Helper/Vector2f.h"
+#include "../Helper/Polygon.h"
 
 namespace ME
 {
@@ -19,8 +20,9 @@ namespace ME
 		CollisionManifold CheckCollision(const TransformComponent& transform, const PolygonColliderComponent* polygon, const TransformComponent& colliderTransform) const override;
 
 		std::vector<Vector2f> GetVertices(const TransformComponent& transform) const;
+		std::vector<Vector2f> GetRawVertices(const float rotation) const;
 
-		std::vector<Vector2f> Vertices;
+		Polygon Polygon;
 
 	};
 }

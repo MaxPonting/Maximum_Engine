@@ -2,19 +2,20 @@
 
 namespace ME
 {
-	void PolygonCollider::SetVertices(std::vector<Vector2f> vertices)
+	void PolygonCollider::SetPolygon(Polygon polygon)
 	{
 		if (p_ECS == nullptr) return;
 		PolygonColliderComponent* collider = p_ECS->GetComponent<PolygonColliderComponent>(m_EntityID);
 		if (collider == nullptr) return;
-		collider->Vertices = vertices;
+		collider->Polygon = polygon;
 	}
 
-	std::vector<Vector2f> PolygonCollider::GetVertices()
+	Polygon PolygonCollider::GetPolygon()
 	{
 		if (p_ECS == nullptr) return std::vector<Vector2f>();
 		PolygonColliderComponent* collider = p_ECS->GetComponent<PolygonColliderComponent>(m_EntityID);
 		if (collider == nullptr) return std::vector<Vector2f>();
-		return collider->Vertices;
+		return collider->Polygon;
 	}
+	
 }

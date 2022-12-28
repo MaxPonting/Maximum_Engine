@@ -33,7 +33,7 @@ namespace ME
 		}
 
 		template<class C>
-		bool AddComponent()
+		bool HasComponent()
 		{
 			return GetEntity().HasComponent<C>();
 		}

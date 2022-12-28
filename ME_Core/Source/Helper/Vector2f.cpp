@@ -84,4 +84,10 @@ namespace ME
 		return Vector2f(X * 1 / magnitude, Y * 1 / magnitude);
 	}
 
+	Vector2f Vector2f::Normalize(float magnitude)
+	{
+		if (magnitude == 0) return Vector2f(0, 0);
+		return Vector2f(X * 1 / magnitude, Y * 1 / magnitude);
+	}
+
 }

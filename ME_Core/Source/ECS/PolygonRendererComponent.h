@@ -2,7 +2,7 @@
 
 #include "Component.h"
 #include "../Rendering/TextureContainer.h"
-#include "../Rendering/Polygon.h"
+#include "../Helper/Polygon.h"
 
 namespace ME
 {
@@ -18,6 +18,7 @@ namespace ME
 	
 		Polygon GetPolygon();
 		SDL_Texture* GetSDLTexture();
+		Vector2i GetOffset();
 		
 		RGBA colour;
 		int layer;
@@ -27,6 +28,7 @@ namespace ME
 		Polygon m_Polygon;
 		bool m_NewTextureNeeded;
 		SDL_Texture* p_SDLTexture;
+		Vector2i m_Offset;
 
 	};
 
