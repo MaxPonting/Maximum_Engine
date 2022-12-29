@@ -42,7 +42,7 @@ namespace ME
 		if (transformA.rotation.getDeg() == transformB.rotation.getDeg())
 			manifold = AxisAlignedRectangleRectangleCollision(transformA, rectA, transformB, rectB);
 		else
-			manifold = CollisionManifold();
+			manifold = SAT(transformA, rectA->GetVertices(transformA), transformB, rectB->GetVertices(transformB));
 
 		return manifold;
 	}
@@ -55,7 +55,7 @@ namespace ME
 		if (transformA.rotation.getDeg() == 0)
 			manifold = AxisAlignedCircleRectangleCollision(transformA, rectA, transformB, circleB);
 		else
-			manifold = CollisionManifold();
+			manifold = SATCircle(transformA, rectA->GetVertices(transformA), transformB, circleB);
 		
 		return manifold;
 	}
@@ -122,12 +122,12 @@ namespace ME
 
 		CollisionManifold manifold;		
 
-		if (distanceSqr >= circleB->Radius * circleB->Radius) manifold.HasCollision = false;
+		if (distanceSqr < circleB->Radius * circleB->Radius) manifold.HasCollision = true;
 
 		if (!manifold.HasCollision) return manifold;
 
 		float distance = pow(distanceSqr, 0.5);
-		manifold.Normal = heading.Normalize(distance);
+		manifold.Normal = -heading.Normalize(distance);
 		manifold.Depth = (circleB->Radius - distance) / 2;
 
 		return manifold;
@@ -209,7 +209,80 @@ namespace ME
 
 	CollisionManifold SATCircle(const TransformComponent& transformA, const std::vector<Vector2f>& verticesA, const TransformComponent& transformB, const CircleColliderComponent* circleB)
 	{
-		return CollisionManifold();
+		//
+		// Needs Fixed!!!
+		// Can cause error on corners
+		// Unknown reason		
+		//
+
+		Vector2f normal;
+		float depth = 0;
+
+		for (int i = 0; i < verticesA.size(); i++)
+		{
+			Vector2f edge = verticesA[(i + 1) % verticesA.size()] - verticesA[i];
+			Vector2f axis = Vector2f(-edge.Y, edge.X).Normalize();
+
+			float minA, maxA;
+			float minB, maxB;
+
+			ProjectVertices(verticesA, axis, minA, maxA);
+			ProjectCircle(transformB.position, circleB->Radius, axis, minB, maxB);
+
+			if (minA >= maxB || minB >= maxA) return CollisionManifold();
+
+			float axisDepth = fminf(maxB - minA, maxA - minB);
+
+			if (depth == 0)
+			{
+				depth = axisDepth;
+				normal = axis;
+			}
+			else if (axisDepth < depth)
+			{
+				depth = axisDepth;
+				normal = axis;
+			}
+		}
+
+		Vector2f closestPoint = verticesA[0];
+		float minDistance = (verticesA[0] - transformB.position).Magnitude();
+
+		for (int i = 1; i < verticesA.size(); i++)
+		{
+			float distance = (verticesA[i] - transformB.position).Magnitude();
+			if (distance < minDistance)
+			{
+				minDistance = distance;
+				closestPoint = verticesA[i];
+			}
+		}
+
+		Vector2f axis = closestPoint - transformB.position;
+
+		float minA, maxA;
+		float minB, maxB;
+
+		ProjectVertices(verticesA, axis, minA, maxA);
+		ProjectCircle(transformB.position, circleB->Radius, axis, minB, maxB);
+
+		if (minA >= maxB || minB >= maxA) return CollisionManifold();
+
+		float axisDepth = fminf(maxB - minA, maxA - minB);
+
+		if (axisDepth < depth)
+		{
+			depth = axisDepth;
+			normal = axis;
+		}
+
+		CollisionManifold manifold;
+		manifold.HasCollision = true;
+		manifold.Depth = depth;
+		manifold.Normal = normal;
+
+		return manifold;
+
 	}
 
 	void ProjectVertices(const std::vector<Vector2f>& vertices, const Vector2f& axis, float& min, float& max)
@@ -224,6 +297,25 @@ namespace ME
 			if (proj < min) min = proj;
 			if (proj > max) max = proj;
 		}
+	}
+
+	void ProjectCircle(const Vector2f& center, const float& radius, const Vector2f& axis, float& min, float& max)
+	{
+		Vector2f heading = axis * radius;
+
+		Vector2f A = center + heading;
+		Vector2f B = center - heading;
+
+		min = A * axis;
+		max = B * axis;
+
+		if (min > max)
+		{
+			float temp = min;
+			min = max;
+			max = temp;
+		}
+
 	}
 
 	Vector2f FindArithmeticMean(const std::vector<Vector2f>& vertices)
@@ -244,6 +336,9 @@ namespace ME
 	{
 		for (int i = 0; i < vertices.size(); i++)
 		{
+			//
+			// FIXXXX
+			//
 			Vector2f rotatedVector;
 			rotatedVector.X = vertices[i].X * cos(rotation) - sin(rotation) * vertices[i].Y;
 			rotatedVector.Y = vertices[i].X * sin(rotation) + cos(rotation) * vertices[i].Y;
@@ -265,8 +360,54 @@ namespace ME
 		Vector2f transformationB = -collision.Manifold.Normal * collision.Manifold.Depth;
 		collision.TransformB.position += transformationB;
 
+		bool isImpulse = true;
+
+		if (collision.RigidbodyA != nullptr)
+		{
+			if (collision.RigidbodyA->IsStatic == true)
+			{
+				collision.TransformA.position -= transformationA;
+				collision.TransformB.position += transformationB;
+			}
+		}
+		else isImpulse = false;
+
+		if (collision.RigidbodyB != nullptr)
+		{
+			if (collision.RigidbodyB->IsStatic == true)
+			{
+				collision.TransformB.position -= transformationB;
+				collision.TransformA.position += transformationA;
+			}
+		}
+		else isImpulse = false;
+
+		if (!isImpulse) return;
+
 		// Apply Impulse
 
+		Vector2f relativeVelocity = collision.RigidbodyA->Velocity - collision.RigidbodyB->Velocity;
+
+		float e = fminf(collision.RigidbodyA->GetRestitution(), collision.RigidbodyB->GetRestitution());
+
+		float impulseMagnitude = -(1 + e) * (relativeVelocity * collision.Manifold.Normal) / 
+			(1 / collision.RigidbodyA->Mass + 1 / collision.RigidbodyB->Mass);
+
+		Vector2f impulse = { collision.Manifold.Normal.X * impulseMagnitude, collision.Manifold.Normal.Y * impulseMagnitude };
+
+		collision.RigidbodyA->Velocity += impulse;
+		collision.RigidbodyB->Velocity -= impulse;
+
+		if (collision.RigidbodyA->IsStatic)
+		{
+			collision.RigidbodyA->Velocity -= impulse;
+			collision.RigidbodyB->Velocity -= impulse;
+		}
+		else if (collision.RigidbodyB->IsStatic)
+		{
+			collision.RigidbodyA->Velocity += impulse;
+			collision.RigidbodyB->Velocity += impulse;
+		}
 
 	}
 }

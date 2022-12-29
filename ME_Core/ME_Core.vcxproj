@@ -67,7 +67,6 @@
     <ClInclude Include="Source\User\Time.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\ECS_User\Collider.cpp" />
     <ClCompile Include="Source\ECS_User\PolygonCollider.cpp" />
     <ClCompile Include="Source\ECS\PolygonColliderComponent.cpp" />
     <ClCompile Include="Source\ECS_User\RectangleCollider.cpp" />

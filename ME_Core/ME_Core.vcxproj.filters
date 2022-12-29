@@ -314,8 +314,5 @@
     <ClCompile Include="Source\ECS_User\PolygonCollider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\ECS_User\Collider.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

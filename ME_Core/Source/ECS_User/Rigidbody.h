@@ -12,13 +12,17 @@ namespace ME
 		Rigidbody();
 		Rigidbody(unsigned int id, ECS* ecs);
 
+		void SetStatic(const bool isStatic);
 		void AddForce(const Vector2f force);
 		void AddTorque(const float torque);
 		void SetMass(const float mass);
 		void SetGravityScale(const float scale);
+		void SetRestitution(const float res);
 
+		bool GetStatic();
 		float GetMass();
 		float GetGravityScale();
+		float GetRestitution();
 	};
 }
 

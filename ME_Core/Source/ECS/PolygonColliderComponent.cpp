@@ -28,12 +28,12 @@ namespace ME
 	{
 		std::vector<Vector2f> vertices = Polygon.GetVertices();
 
+		RotateVertices(transform.rotation.getDeg(), vertices);
+
 		for (int i = 0; i < vertices.size(); i++)
 		{
 			vertices[i] += transform.position;
 		}
-		
-		RotateVertices(transform.rotation.getDeg(), vertices);
 
 		return vertices;
 	}

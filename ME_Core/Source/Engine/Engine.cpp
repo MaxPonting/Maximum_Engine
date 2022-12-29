@@ -249,7 +249,7 @@ namespace ME
 				for (ScriptComponent* s : scriptsB) s->OnCollision(Collider(b->GetEntityID(), &m_ECS));
 			
 				RigidbodyComponent* bodyA = m_ECS.GetComponent<RigidbodyComponent>(a->GetEntityID());
-				RigidbodyComponent* bodyB = m_ECS.GetComponent<RigidbodyComponent>(a->GetEntityID());
+				RigidbodyComponent* bodyB = m_ECS.GetComponent<RigidbodyComponent>(b->GetEntityID());
 
 				Collision collision = { manifold, transformA, transformB, bodyA, bodyB };
 

@@ -8,6 +8,14 @@ ME::Rigidbody::Rigidbody(unsigned int id, ECS* ecs) :
 	ComponentRef(id, ecs)
 {}
 
+void ME::Rigidbody::SetStatic(const bool isStatic)
+{
+	if (p_ECS == nullptr) return;
+	RigidbodyComponent* body = p_ECS->GetComponent<RigidbodyComponent>(m_EntityID);
+	if (body == nullptr) return;
+	body->IsStatic = isStatic;
+}
+
 void ME::Rigidbody::AddForce(const Vector2f force)
 {
 	if (p_ECS == nullptr) return;
@@ -40,6 +48,22 @@ void ME::Rigidbody::SetGravityScale(const float scale)
 	body->GravityScale = scale;
 }
 
+void ME::Rigidbody::SetRestitution(const float res)
+{
+	if (p_ECS == nullptr) return;
+	RigidbodyComponent* body = p_ECS->GetComponent<RigidbodyComponent>(m_EntityID);
+	if (body == nullptr) return;
+	body->SetRestitution(res);
+}
+
+bool ME::Rigidbody::GetStatic()
+{
+	if (p_ECS == nullptr) return false;
+	RigidbodyComponent* body = p_ECS->GetComponent<RigidbodyComponent>(m_EntityID);
+	if (body == nullptr) return false;
+	return body->IsStatic;
+}
+
 float ME::Rigidbody::GetMass()
 {
 	if (p_ECS == nullptr) return 0;
@@ -54,4 +78,12 @@ float ME::Rigidbody::GetGravityScale()
 	RigidbodyComponent* body = p_ECS->GetComponent<RigidbodyComponent>(m_EntityID);
 	if (body == nullptr) return 0;
 	return body->GravityScale;
+}
+
+float ME::Rigidbody::GetRestitution()
+{
+	if (p_ECS == nullptr) return 0;
+	RigidbodyComponent* body = p_ECS->GetComponent<RigidbodyComponent>(m_EntityID);
+	if (body == nullptr) return 0;
+	return body->GetRestitution();
 }

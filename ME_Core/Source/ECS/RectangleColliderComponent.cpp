@@ -30,12 +30,12 @@ namespace ME
 			{ -Width / 2,  Height / 2 }
 		};
 
+		RotateVertices(transform.rotation.getDeg(), vertices);
+
 		for (int i = 0; i < vertices.size(); i++)
 		{
 			vertices[i] += transform.position;
-		}
-
-		RotateVertices(transform.rotation.getDeg(), vertices);
+		}	
 
 		return vertices;
 	}

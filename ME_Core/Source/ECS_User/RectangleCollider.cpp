@@ -18,6 +18,7 @@ namespace ME
 		collider->Height = height;
 	}
 
+
 	float RectangleCollider::GetWidth()
 	{
 		if (p_ECS == nullptr) return 0;
@@ -33,4 +34,5 @@ namespace ME
 		if (collider == nullptr) return 0;
 		return collider->Height;
 	}
+
 }

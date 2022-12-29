@@ -26,6 +26,7 @@ namespace ME
 	CollisionManifold SATCircle(const TransformComponent& transformA, const std::vector<Vector2f>& verticesA, const TransformComponent& transformB, const CircleColliderComponent* circleB);
 
 	void ProjectVertices(const std::vector<Vector2f>& vertices, const Vector2f& axis, float& min, float& max);
+	void ProjectCircle(const Vector2f& center, const float& radius, const Vector2f& axis, float& min, float& max);
 
 	Vector2f FindArithmeticMean(const std::vector<Vector2f>& vertices);
 

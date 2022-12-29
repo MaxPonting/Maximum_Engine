@@ -17,6 +17,4 @@ namespace ME
 		if (collider == nullptr) return 0;
 		return collider->Radius;
 	}
-
-
 }

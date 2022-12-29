@@ -17,5 +17,5 @@ namespace ME
 		if (collider == nullptr) return std::vector<Vector2f>();
 		return collider->Polygon;
 	}
-	
+
 }
