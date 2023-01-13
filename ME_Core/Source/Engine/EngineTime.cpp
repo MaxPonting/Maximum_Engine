@@ -35,6 +35,8 @@ namespace ME
 		if (deltaMilliSeconds != 0) { m_Fps = 1000 / deltaMilliSeconds; }
 		else { m_Fps = 10000; }
 
+		m_TimeSinceStart += m_DeltaTime / 1000;
+
 		m_CurrentDeltaTime = 0;
 
 		//Log::PrintToLog(ME_Debug, "FPS(" + std::to_string(m_Fps) + ")");
@@ -74,6 +76,11 @@ namespace ME
 	int EngineTime::GetFps() const
 	{
 		return m_Fps;
+	}
+
+	float EngineTime::GetTimeSinceStart() const
+	{
+		return m_TimeSinceStart;
 	}
 
 	float EngineTime::GetDeltaTime() const

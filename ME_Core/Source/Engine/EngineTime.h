@@ -22,6 +22,7 @@ namespace ME
 
 		/* GETTERS */
 		int GetFps() const;
+		float GetTimeSinceStart() const;
 		float GetDeltaTime() const;
 		float GetDeltaTimeInSeconds() const;
 		float GetMiscTime() const;
@@ -37,6 +38,7 @@ namespace ME
 		/* PRIVATE MEMBERS */
 		std::chrono::time_point<std::chrono::high_resolution_clock> m_LastTickTime;	
 		int m_Fps;
+		float m_TimeSinceStart;
 		float m_DeltaTime;
 		float m_CurrentDeltaTime;
 		float m_MiscTime;

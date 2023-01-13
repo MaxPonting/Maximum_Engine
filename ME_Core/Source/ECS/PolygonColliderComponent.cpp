@@ -28,7 +28,7 @@ namespace ME
 	{
 		std::vector<Vector2f> vertices = Polygon.GetVertices();
 
-		RotateVertices(transform.rotation.getDeg(), vertices);
+		RotateVertices(transform.rotation.getRad(), vertices);
 
 		for (int i = 0; i < vertices.size(); i++)
 		{

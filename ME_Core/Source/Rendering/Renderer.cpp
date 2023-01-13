@@ -216,6 +216,10 @@ namespace ME
 		rect.x -= changeX / 2;
 		rect.y -= changeY / 2;
 
+		//
+		// ADD CAMERA ROTATION!!!
+		//
+
 		return rect;
 	}
 

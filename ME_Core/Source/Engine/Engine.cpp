@@ -8,6 +8,7 @@
 #include "../ECS_User/Collider.h"
 #include "../Physics/CollisionAlgo.h"
 
+
 namespace ME
 {
 	//
@@ -69,6 +70,11 @@ namespace ME
 		Run();
 	}
 
+	void Engine::End()
+	{
+		m_State = State::Init;
+	}
+
 	//
 	// Returns a new entity that can contain components.
 	//
@@ -105,6 +111,28 @@ namespace ME
 	{
 		if (m_State != State::Init) return Font();
 		return Font(m_Fonts.Add(filePath)->GetID());
+	}
+
+	//
+	// Prints a log to the console with a timestamp in hh:mm:ss format
+	//
+	void Engine::DebugLog(const char* log)
+	{
+		int timeInSeconds = m_Time.GetTimeSinceStart() + 0.5;
+
+		int hours = timeInSeconds / 3600;
+		int minutes = timeInSeconds / 60 - hours * 60;
+		int seconds = timeInSeconds - minutes * 60;
+
+		std::string hh = std::to_string(hours);
+		std::string mm = std::to_string(minutes);
+		std::string ss = std::to_string(seconds);
+
+		if (hh.length() == 1) hh = "0" + hh;
+		if (mm.length() == 1) mm = "0" + mm;
+		if (ss.length() == 1) ss = "0" + ss;
+
+		std::cout << "[ME][Debug][" << hh << ":" << mm << ":" << ss << "][" << log << "]\n";
 	}
 
 	Time Engine::GetTime()

@@ -30,7 +30,7 @@ namespace ME
 			{ -Width / 2,  Height / 2 }
 		};
 
-		RotateVertices(transform.rotation.getDeg(), vertices);
+		RotateVertices(transform.rotation.getRad(), vertices);
 
 		for (int i = 0; i < vertices.size(); i++)
 		{

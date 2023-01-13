@@ -28,6 +28,7 @@ class CameraController : public ME::ScriptComponent
 		}
 		if (ME::Engine::GetKey(ME_KEYCODE_D))
 		{
+			ME::Engine::DebugLog("Moved Left");
 			transform.SetPosition({ transform.GetPosition().X + moveSpeed * ME::Engine::GetTime().DeltaTime, transform.GetPosition().Y });
 		}
 		if (ME::Engine::GetKey(ME_KEYCODE_A))
@@ -74,6 +75,11 @@ class Controller : public ME::ScriptComponent
 
 	void Update()
 	{
+		// Quit
+		if (ME::Engine::GetKey(SDL_SCANCODE_ESCAPE))
+		{
+			ME::Engine::End();
+		}
 		// Movement
 		if (ME::Engine::GetKey(ME_KEYCODE_W))
 		{
@@ -94,6 +100,7 @@ class Controller : public ME::ScriptComponent
 
 		if (ME::Engine::GetKey(ME_KEYCODE_LEFT))
 		{
+			
 			transform.SetRotation(transform.GetRotation() - rotationSpeed * ME::Engine::GetTime().DeltaTime);
 		}
 		if (ME::Engine::GetKey(ME_KEYCODE_RIGHT))
@@ -117,7 +124,8 @@ int main(int argc, char* args[])
 {
 	ME::Engine::Init("Sandbox", 1920, 1080);
 
-	//ME::Engine::GetMainCamera().GetEntity().AddScript<CameraController>();
+	ME::Engine::GetMainCamera().GetEntity().AddScript<CameraController>();
+	ME::Engine::GetMainCamera().GetComponent<ME::Transform>().SetPosition({ 0, 0 });
 
 	ME::SpriteRenderer renderer = ME::Engine::AddEntity().AddComponent<ME::SpriteRenderer>();
 	renderer.SetColour({ 0, 120, 255, 255 });
@@ -125,6 +133,7 @@ int main(int argc, char* args[])
 	collider.SetWidth(1400); collider.SetHeight(100);
 	renderer.GetComponent<ME::Transform>().SetScale({ 1400, 100 });
 	renderer.GetComponent<ME::Transform>().SetPosition({ 0, -450});
+	renderer.GetComponent<ME::Transform>().SetRotation(0);
 	renderer.AddComponent<ME::Rigidbody>().SetStatic(true);
 
 	ME::SpriteRenderer renderer2 = ME::Engine::AddEntity().AddComponent<ME::SpriteRenderer>();
@@ -132,6 +141,7 @@ int main(int argc, char* args[])
 	collider2.SetWidth(100); collider2.SetHeight(100);
 	renderer2.GetComponent<ME::Transform>().SetScale({ 100, 100 });
 	renderer2.GetComponent<ME::Transform>().SetPosition({ -140, -30 });
+	renderer2.GetComponent<ME::Transform>().SetRotation(30);
 	renderer2.AddComponent<ME::Rigidbody>().SetGravityScale(30);
 
 	ME::SpriteRenderer renderer3 = ME::Engine::AddEntity().AddComponent<ME::SpriteRenderer>();
@@ -140,33 +150,41 @@ int main(int argc, char* args[])
 	renderer3.GetComponent<ME::Transform>().SetScale({ 100, 100 });
 	renderer3.GetComponent<ME::Transform>().SetPosition({ -300, -200 });
 	renderer3.AddComponent<ME::Rigidbody>().SetGravityScale(30);
-
+	
 	ME::CircleRenderer circle = ME::Engine::AddEntity().AddComponent<ME::CircleRenderer>();
 	circle.SetRadius(50);
 	circle.AddComponent<ME::CircleCollider>().SetRadius(50);
-	circle.AddScript<Controller>();
 	circle.AddComponent<ME::Rigidbody>().SetGravityScale(30);
 
 	ME::CircleRenderer circle2 = ME::Engine::AddEntity().AddComponent<ME::CircleRenderer>();
 	circle2.SetRadius(50);
 	circle2.AddComponent<ME::CircleCollider>().SetRadius(50);
-	circle2.AddScript<Controller>();
 	circle2.AddComponent<ME::Rigidbody>().SetGravityScale(30);
 	circle2.GetComponent<ME::Transform>().SetPosition({ 10, 300 });
 
 	ME::CircleRenderer circle3 = ME::Engine::AddEntity().AddComponent<ME::CircleRenderer>();
 	circle3.SetRadius(50);
 	circle3.AddComponent<ME::CircleCollider>().SetRadius(50);
-	circle3.AddScript<Controller>();
 	circle3.AddComponent<ME::Rigidbody>().SetGravityScale(30);
 	circle3.GetComponent<ME::Transform>().SetPosition({ -40, 450 });
 
 	ME::CircleRenderer circle4 = ME::Engine::AddEntity().AddComponent<ME::CircleRenderer>();
 	circle4.SetRadius(50);
 	circle4.AddComponent<ME::CircleCollider>().SetRadius(50);
-	circle4.AddScript<Controller>();
 	circle4.AddComponent<ME::Rigidbody>().SetGravityScale(30);
 	circle4.GetComponent<ME::Transform>().SetPosition({ -100, 180 });
+
+	ME::CircleRenderer circle5 = ME::Engine::AddEntity().AddComponent<ME::CircleRenderer>();
+	circle5.SetRadius(50);
+	circle5.AddComponent<ME::CircleCollider>().SetRadius(50);
+	circle5.AddComponent<ME::Rigidbody>().SetGravityScale(30);
+	circle5.GetComponent<ME::Transform>().SetPosition({ 200, 100 });
+
+	ME::CircleRenderer circle6 = ME::Engine::AddEntity().AddComponent<ME::CircleRenderer>();
+	circle6.SetRadius(50);
+	circle6.AddComponent<ME::CircleCollider>().SetRadius(50);
+	circle6.AddComponent<ME::Rigidbody>().SetGravityScale(30);
+	circle6.GetComponent<ME::Transform>().SetPosition({ -200, 400 });
 	
 	ME::Engine::Start();
 

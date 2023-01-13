@@ -39,7 +39,7 @@ namespace ME
 		// Check for collision
 		CollisionManifold manifold;
 
-		if (transformA.rotation.getDeg() == transformB.rotation.getDeg())
+		if (transformA.rotation.getDeg() == 0 && transformB.rotation.getDeg() == 0)
 			manifold = AxisAlignedRectangleRectangleCollision(transformA, rectA, transformB, rectB);
 		else
 			manifold = SAT(transformA, rectA->GetVertices(transformA), transformB, rectB->GetVertices(transformB));
@@ -336,12 +336,9 @@ namespace ME
 	{
 		for (int i = 0; i < vertices.size(); i++)
 		{
-			//
-			// FIXXXX
-			//
 			Vector2f rotatedVector;
-			rotatedVector.X = vertices[i].X * cos(rotation) - sin(rotation) * vertices[i].Y;
-			rotatedVector.Y = vertices[i].X * sin(rotation) + cos(rotation) * vertices[i].Y;
+			rotatedVector.X = vertices[i].X * cosf(rotation) - sinf(rotation) * vertices[i].Y;
+			rotatedVector.Y = -(vertices[i].X * sinf(rotation) + cosf(rotation) * vertices[i].Y);
 			vertices[i] = rotatedVector;
 		}
 	}

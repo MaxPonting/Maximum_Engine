@@ -51,6 +51,11 @@ namespace ME
 		static void Start();
 
 		//
+		// End Game
+		//
+		static void End();
+
+		//
 		// Add/Destroy Entities
 		//
 		static Entity AddEntity();
@@ -61,6 +66,11 @@ namespace ME
 		//
 		static Texture AddTexture(const char* filePath);
 		static Font AddFont(const char* filePath);
+
+		//
+		// Debug Log
+		//
+		static void DebugLog(const char* log);
 		
 		//
 		// Getters

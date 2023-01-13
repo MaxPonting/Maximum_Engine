@@ -12,7 +12,7 @@ namespace ME
 		Velocity(Vector2f()),
 		Torque(0),
 		RotationalVelocity(0),
-		m_Restitution(1)
+		m_Restitution(0.8f)
 	{}
 
 	RigidbodyComponent::RigidbodyComponent(unsigned int entityID) :
@@ -24,7 +24,7 @@ namespace ME
 		Velocity(Vector2f()),
 		Torque(0),
 		RotationalVelocity(0),
-		m_Restitution(1)
+		m_Restitution(0.8f)
 	{}
 
 	void RigidbodyComponent::AddForce(Vector2f force)
