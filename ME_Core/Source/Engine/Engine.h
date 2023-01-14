@@ -56,6 +56,16 @@ namespace ME
 		static void End();
 
 		//
+		// Activate Debug
+		//
+		static void ActivateDebug(const char* fontFilePath);
+
+		//
+		// Disable Debug
+		//
+		static void DisableDebug();
+
+		//
 		// Add/Destroy Entities
 		//
 		static Entity AddEntity();

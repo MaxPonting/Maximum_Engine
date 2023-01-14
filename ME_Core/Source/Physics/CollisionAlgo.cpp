@@ -338,7 +338,7 @@ namespace ME
 		{
 			Vector2f rotatedVector;
 			rotatedVector.X = vertices[i].X * cosf(rotation) - sinf(rotation) * vertices[i].Y;
-			rotatedVector.Y = -(vertices[i].X * sinf(rotation) + cosf(rotation) * vertices[i].Y);
+			rotatedVector.Y = vertices[i].X * sinf(rotation) + cosf(rotation) * vertices[i].Y;
 			vertices[i] = rotatedVector;
 		}
 	}

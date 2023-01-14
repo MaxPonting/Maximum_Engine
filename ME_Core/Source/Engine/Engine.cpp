@@ -40,7 +40,7 @@ namespace ME
 		m_Renderer = Renderer(m_Window);
 		m_Textures = TextureContainer(100, m_Renderer);
 		m_Fonts = FontContainer(10);
-		m_Debug = Debug(&m_Renderer);
+		//m_Debug = Debug(&m_Renderer);
 
 		m_State = State::Init;
 
@@ -73,6 +73,16 @@ namespace ME
 	void Engine::End()
 	{
 		m_State = State::Init;
+	}
+
+	void Engine::ActivateDebug(const char* fontFilePath)
+	{
+
+	}
+
+	void Engine::DisableDebug()
+	{
+
 	}
 
 	//
@@ -198,7 +208,7 @@ namespace ME
 
 		m_Input.Update();
 
-		m_Debug.Update(m_Time);
+		//m_Debug.Update(m_Time);
 
 		m_Time.UpdateSubFrame(EngineTime::SubFrameType::Misc);
 	}
@@ -393,7 +403,7 @@ namespace ME
 
 		m_Renderer.RenderQueue(m_Window, *m_ECS.GetComponent<TransformComponent>(m_MainCamera.GetEntityID()));
 
-		m_Debug.Render();
+		//m_Debug.Render();
 
 		m_Renderer.Present(m_Window);
 

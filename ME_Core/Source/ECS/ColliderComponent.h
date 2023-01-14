@@ -21,7 +21,6 @@ namespace ME
 		virtual CollisionManifold CheckCollision(const TransformComponent& transform, const CircleColliderComponent* circle, const TransformComponent& colliderTransform) const = 0;
 		virtual CollisionManifold CheckCollision(const TransformComponent& transform, const RectangleColliderComponent* rectangle, const TransformComponent& colliderTransform) const = 0;
 		virtual CollisionManifold CheckCollision(const TransformComponent& transform, const PolygonColliderComponent* polygon, const TransformComponent& colliderTransform) const = 0;
-
 	};
 }
 

@@ -122,7 +122,7 @@ namespace ME
 			object.sprite.GetTexture(),
 			NULL,
 			&rect,
-			object.transform.rotation.getDeg() - mainCamera.rotation.getDeg(),
+			-(object.transform.rotation.getDeg() - mainCamera.rotation.getDeg()),
 			NULL,
 			SDL_FLIP_NONE
 		));

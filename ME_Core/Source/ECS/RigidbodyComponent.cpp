@@ -12,7 +12,7 @@ namespace ME
 		Velocity(Vector2f()),
 		Torque(0),
 		RotationalVelocity(0),
-		m_Restitution(0.8f)
+		m_Restitution(1)
 	{}
 
 	RigidbodyComponent::RigidbodyComponent(unsigned int entityID) :
@@ -24,7 +24,7 @@ namespace ME
 		Velocity(Vector2f()),
 		Torque(0),
 		RotationalVelocity(0),
-		m_Restitution(0.8f)
+		m_Restitution(1)
 	{}
 
 	void RigidbodyComponent::AddForce(Vector2f force)
@@ -62,17 +62,17 @@ namespace ME
 
 	void RigidbodyComponent::ApplyGravity(float deltaTime)
 	{
-		Force += GRAVITY * Mass * GravityScale;
+		Force += GRAVITY * Mass * GravityScale * deltaTime;
 	}
 
 	void RigidbodyComponent::ApplyForce(float deltaTime)
 	{
-		Velocity += Force / Mass * deltaTime;
+		Velocity += Force / Mass;
 	}
 
 	void RigidbodyComponent::ApplyTorque(float deltaTime)
 	{
-		RotationalVelocity += Torque / Mass * deltaTime;
+		RotationalVelocity += Torque / Mass;
 	}
 
 	void RigidbodyComponent::Step(TransformComponent& transform, float deltaTime)
