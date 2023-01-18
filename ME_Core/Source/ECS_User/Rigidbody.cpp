@@ -32,6 +32,14 @@ void ME::Rigidbody::AddTorque(const float torque)
 	body->AddTorque(torque);
 }
 
+void ME::Rigidbody::SetVelocity(const Vector2f velocity)
+{
+	if (p_ECS == nullptr) return;
+	RigidbodyComponent* body = p_ECS->GetComponent<RigidbodyComponent>(m_EntityID);
+	if (body == nullptr) return;
+	body->Velocity = velocity;
+}
+
 void ME::Rigidbody::SetMass(const float mass)
 {
 	if (p_ECS == nullptr) return;
@@ -70,6 +78,14 @@ float ME::Rigidbody::GetMass()
 	RigidbodyComponent* body = p_ECS->GetComponent<RigidbodyComponent>(m_EntityID);
 	if (body == nullptr) return 0;
 	return body->Mass;
+}
+
+ME::Vector2f ME::Rigidbody::GetVelocity()
+{
+	if (p_ECS == nullptr) return Vector2f();
+	RigidbodyComponent* body = p_ECS->GetComponent<RigidbodyComponent>(m_EntityID);
+	if (body == nullptr) return Vector2f();
+	return body->Velocity;
 }
 
 float ME::Rigidbody::GetGravityScale()

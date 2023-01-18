@@ -44,6 +44,30 @@ namespace ME
 			return GetEntity().DestroyComponent<C>();
 		}
 
+		template<class C>
+		C* AddScript()
+		{
+			return GetEntity().AddScript<C>();
+		}
+
+		template <class C>
+		C* GetScript()
+		{
+			return GetEntity().GetScript<C>();
+		}
+
+		template <class C>
+		bool HasScript()
+		{
+			return GetEntity().HasScript<C>();
+		}
+
+		template <class C>
+		void DestroyScript()
+		{
+			GetEntity().DestroyScript<C>();
+		}
+
 		Entity GetEntity();
 				
 	private:

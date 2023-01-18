@@ -95,6 +95,11 @@ namespace ME
 		rect.h = object.sprite.size.Y * object.transform.scale.Y;
 
 		//
+		// Check if rect is inside camera
+		//
+		if (!IsRectInsideCamera(rect, mainCamera)) return;
+
+		//
 		// Set relative to main camera
 		//
 		rect = GetRectRelativeToCamera(mainCamera, rect);
@@ -223,7 +228,19 @@ namespace ME
 		return rect;
 	}
 
-	
+	//
+	// Checks if a rect is inside a camera
+	//
+	bool Renderer::IsRectInsideCamera(const SDL_FRect& rect, const TransformComponent& camera)
+	{
+		Vector2f cameraSize = { m_RendererSize.X * camera.scale.X, m_RendererSize.Y * camera.scale.Y };
+
+		if (abs(rect.x - camera.position.X) > rect.w + cameraSize.X) return false;
+		if (abs(rect.y - camera.position.Y) > rect.h + cameraSize.Y) return false;
+
+		return true;
+	}
+
 	//
 	// Destroys the SDL Renderer
 	//

@@ -281,10 +281,10 @@ namespace ME
 				if (!manifold.HasCollision) continue;
 
 				std::vector<ScriptComponent*> scriptsA = m_ECS.GetScriptsOf(a->GetEntityID());		
-				for (ScriptComponent* s : scriptsA) s->OnCollision(Collider(a->GetEntityID(), &m_ECS));
+				for (ScriptComponent* s : scriptsA) s->OnCollision(Collider(b->GetEntityID(), &m_ECS));
 
 				std::vector<ScriptComponent*> scriptsB = m_ECS.GetScriptsOf(b->GetEntityID());
-				for (ScriptComponent* s : scriptsB) s->OnCollision(Collider(b->GetEntityID(), &m_ECS));
+				for (ScriptComponent* s : scriptsB) s->OnCollision(Collider(a->GetEntityID(), &m_ECS));
 			
 				RigidbodyComponent* bodyA = m_ECS.GetComponent<RigidbodyComponent>(a->GetEntityID());
 				RigidbodyComponent* bodyB = m_ECS.GetComponent<RigidbodyComponent>(b->GetEntityID());

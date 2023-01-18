@@ -15,12 +15,14 @@ namespace ME
 		void SetStatic(const bool isStatic);
 		void AddForce(const Vector2f force);
 		void AddTorque(const float torque);
+		void SetVelocity(const Vector2f velocity);
 		void SetMass(const float mass);
 		void SetGravityScale(const float scale);
 		void SetRestitution(const float res);
 
 		bool GetStatic();
 		float GetMass();
+		Vector2f GetVelocity();
 		float GetGravityScale();
 		float GetRestitution();
 	};

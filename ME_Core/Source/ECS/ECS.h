@@ -365,9 +365,9 @@ namespace ME
 
 			for (int i = 0; i < m_Scripts.size(); i++)
 			{
-				if (CheckScriptID(m_Scripts[i], entityID))
+				if (CheckScriptID(*m_Scripts[i], entityID))
 				{
-					if (static_cast<C>(m_Scripts[i]))
+					if (static_cast<C*>(m_Scripts[i]))
 					{
 						return true;
 					}
@@ -388,9 +388,9 @@ namespace ME
 
 			for (int i = 0; i < m_Scripts.size(); i++)
 			{
-				if (CheckScriptID(m_Scripts[i], entityID))
+				if (CheckScriptID(*m_Scripts[i], entityID))
 				{
-					if (static_cast<C>(m_Scripts[i]))
+					if (static_cast<C*>(m_Scripts[i]))
 					{
 						delete m_Scripts[i];
 						m_Scripts.erase(m_Scripts.begin() + i);

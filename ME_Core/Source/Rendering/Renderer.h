@@ -53,7 +53,7 @@ namespace ME
 		void RenderObject(const Window window, const ObjectToRender object, const TransformComponent mainCamera);
 		void SetRendererSize();
 		SDL_FRect GetRectRelativeToCamera(const TransformComponent mainCamera, SDL_FRect rect);
-
+		bool IsRectInsideCamera(const SDL_FRect& rect, const TransformComponent& camera);
 
 		SDL_Renderer* p_Renderer;
 		SDL_RendererInfo m_Info;
