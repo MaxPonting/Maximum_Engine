@@ -90,7 +90,7 @@ namespace ME
 	//
 	Entity Engine::AddEntity()
 	{
-		if (m_State != State::Init) return Entity();
+		if (m_State == State::Null) return Entity();
 		return Entity(&m_ECS, m_ECS.AddEntity());
 	}
 

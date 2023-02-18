@@ -330,11 +330,11 @@ namespace ME
 
 			for (int i = 0; i < m_Scripts.size(); i++)
 			{
-				if(CheckScriptID(m_Scripts[i], entityID))
+				if(CheckScriptID(*m_Scripts[i], entityID))
 				{
-					if (static_cast<C>(m_Scripts[i]))
+					if (static_cast<C*>(m_Scripts[i]))
 					{
-						return m_Scripts[i];
+						return (C*)m_Scripts[i];
 					}
 				}
 			}
