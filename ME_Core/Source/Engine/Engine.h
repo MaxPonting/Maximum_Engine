@@ -90,6 +90,13 @@ namespace ME
 		static bool GetKey(const unsigned char code);
 		static bool GetKeyUp(const unsigned char code);
 		static bool GetKeyDown(const unsigned char code);
+		static bool GetMouse(const unsigned char code);
+		static bool GetMouseUp(const unsigned char code);		
+		static bool GetMouseDown(const unsigned char code);
+		static float GetMouseWheel();
+		static Vector2f GetWorldMousePosition();
+		static Vector2f GetScreenMousePosition();
+		
 				
 	private:
 

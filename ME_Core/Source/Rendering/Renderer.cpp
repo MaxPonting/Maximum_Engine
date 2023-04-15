@@ -23,7 +23,7 @@ namespace ME
 	{		
 		//SDL_SetHint(SDL_HINT_RENDER_DRIVER, "opengl");
 		SDLCall(SDL_SetHint(SDL_HINT_RENDER_BATCHING, "1"));
-		SDLCall(p_Renderer = SDL_CreateRenderer(window.GetWindow(), -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC));
+		SDLCall(p_Renderer = SDL_CreateRenderer(window.GetWindow(), -1, SDL_RENDERER_ACCELERATED /*| SDL_RENDERER_PRESENTVSYNC*/));
 		SDLCall(SDL_RenderSetLogicalSize(p_Renderer, window.GetSize().X, window.GetSize().Y));
 		SDLCall(SDL_GetRendererInfo(p_Renderer, &m_Info));
 	}
@@ -240,6 +240,25 @@ namespace ME
 
 		return true;
 	}
+
+	Vector2f Renderer::GetWindowPointRelativeToCamera(const TransformComponent mainCamera, Vector2f point)
+	{
+		//point = { 0, 0 };
+
+		point.Y = -point.Y;
+
+		point.X *= mainCamera.scale.X;
+		point.Y *= mainCamera.scale.Y;
+
+		point.X += mainCamera.position.X;
+		point.Y += mainCamera.position.Y;
+
+		point.X -= m_RendererSize.X / 2 * mainCamera.scale.X;
+		point.Y += m_RendererSize.Y / 2 * mainCamera.scale.Y;
+
+		return point;
+	}
+	
 
 	//
 	// Destroys the SDL Renderer

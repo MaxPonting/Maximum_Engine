@@ -1,6 +1,6 @@
 #pragma once
 
-//Include to use ME
+// Include to use ME
 
 #include "../Engine/Engine.h"
 

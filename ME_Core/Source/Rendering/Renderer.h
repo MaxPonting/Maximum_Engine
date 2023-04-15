@@ -46,6 +46,8 @@ namespace ME
 		SDL_Texture* CreateTextureFromSurface(SDL_Surface* surface) const;
 		SDL_Texture* CreateTextureFromFilePath(const char* filePath) const;
 
+		Vector2f GetWindowPointRelativeToCamera(const TransformComponent mainCamera, Vector2f point);
+
 		SDL_RendererInfo GetInfo();
 
 	private:
@@ -54,12 +56,11 @@ namespace ME
 		void SetRendererSize();
 		SDL_FRect GetRectRelativeToCamera(const TransformComponent mainCamera, SDL_FRect rect);
 		bool IsRectInsideCamera(const SDL_FRect& rect, const TransformComponent& camera);
-
+		
 		SDL_Renderer* p_Renderer;
 		SDL_RendererInfo m_Info;
 		Vector2i m_RendererSize;
 		std::vector<ObjectToRender> m_ObjectsToRender;
-
 	};
 }
 

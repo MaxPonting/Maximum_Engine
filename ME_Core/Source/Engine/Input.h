@@ -4,6 +4,7 @@
 
 #include <SDL.h>
 
+#include "../Helper/Vector2i.h"
 //
 // Maximum number of keys
 //
@@ -22,17 +23,34 @@ namespace ME
 
 		Input() = default;
 
+		void UpdateMouse();
 		void Update();
+		void MouseDown(Uint8 index);
+		void MouseUp(Uint8 index);
+		void MouseWheel(float value);
 
 		bool GetKey(unsigned char code);
 		bool GetKeyUp(unsigned char code);
 		bool GetKeyDown(unsigned char code);
+
+		bool GetMouse(unsigned char index);
+		bool GetMouseUp(unsigned char index);
+		bool GetMouseDown(unsigned char index);
+
+		Vector2i GetMousePosition();
+
+		float GetMouseWheel();
 
 	private:
 
 		std::bitset<MAX_KEYS> m_Keyboard;
 		std::bitset<MAX_KEYS> m_KeyboardUp;
 		std::bitset<MAX_KEYS> m_KeyboardDown;
+		std::bitset<3> m_Mouse;
+		std::bitset<3> m_MouseUp;
+		std::bitset<3> m_MouseDown;
+		Vector2i mousePosition;
+		float mouseWheel;
 	};
 }
 

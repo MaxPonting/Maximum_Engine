@@ -8,7 +8,6 @@
 #include "../ECS_User/Collider.h"
 #include "../Physics/CollisionAlgo.h"
 
-
 namespace ME
 {
 	//
@@ -40,7 +39,7 @@ namespace ME
 		m_Renderer = Renderer(m_Window);
 		m_Textures = TextureContainer(100, m_Renderer);
 		m_Fonts = FontContainer(10);
-		//m_Debug = Debug(&m_Renderer);
+		m_Debug = Debug(&m_Renderer);
 
 		m_State = State::Init;
 
@@ -170,6 +169,40 @@ namespace ME
 		return m_Input.GetKeyDown(code);
 	}
 
+	bool Engine::GetMouse(const unsigned char code)
+	{
+		return m_Input.GetMouse(code);
+	}
+
+	bool Engine::GetMouseUp(const unsigned char code)
+	{
+		return m_Input.GetMouseUp(code);
+	}
+
+	bool Engine::GetMouseDown(const unsigned char code)
+	{
+		return m_Input.GetMouseDown(code);
+	}
+
+	float Engine::GetMouseWheel()
+	{
+		return m_Input.GetMouseWheel();
+	}
+
+	Vector2f Engine::GetWorldMousePosition()
+	{
+		Vector2f pos = m_Input.GetMousePosition();
+		
+		pos = m_Renderer.GetWindowPointRelativeToCamera(*m_ECS.GetComponent<TransformComponent>(m_MainCamera.GetEntityID()), pos);
+
+		return pos;
+	}
+
+	Vector2f Engine::GetScreenMousePosition()
+	{
+		return m_Input.GetMousePosition();		
+	}
+
 	//
 	// Call to start the game loop.
 	// Updates components and renders textures every frame.
@@ -198,17 +231,33 @@ namespace ME
 	//
 	void Engine::UpdateEvents()
 	{
+		m_Input.UpdateMouse();
+
 		while (SDL_PollEvent(&m_Event))
 		{
 			if (m_Event.type == SDL_QUIT)
 			{
 				m_State = State::Init;
 			}
+			else if (m_Event.type == SDL_MOUSEBUTTONDOWN)
+			{
+				m_Input.MouseDown(m_Event.button.button);
+			}
+			else if (m_Event.type == SDL_MOUSEBUTTONUP)
+			{
+				m_Input.MouseUp(m_Event.button.button);
+			}
+			else if (m_Event.type == SDL_MOUSEWHEEL)
+			{
+				m_Input.MouseWheel(m_Event.wheel.preciseY);
+			}
 		}
+
+		
 
 		m_Input.Update();
 
-		//m_Debug.Update(m_Time);
+		m_Debug.Update(m_Time);
 
 		m_Time.UpdateSubFrame(EngineTime::SubFrameType::Misc);
 	}
@@ -403,7 +452,7 @@ namespace ME
 
 		m_Renderer.RenderQueue(m_Window, *m_ECS.GetComponent<TransformComponent>(m_MainCamera.GetEntityID()));
 
-		//m_Debug.Render();
+		m_Debug.Render();
 
 		m_Renderer.Present(m_Window);
 
