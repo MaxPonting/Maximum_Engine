@@ -24,6 +24,8 @@ namespace ME
 		m_Texts[4] = DebugText("Physics:", Vector2i(0, FONT_SIZE * 4), p_Font, *renderer);
 		m_Texts[5] = DebugText("Scripts:", Vector2i(0, FONT_SIZE * 5), p_Font, *renderer);
 		m_Texts[6] = DebugText("Misc:", Vector2i(0, FONT_SIZE * 6), p_Font, *renderer);
+		m_Texts[7] = DebugText("Avg FPS:", Vector2i(0, FONT_SIZE * 7), p_Font, *renderer);
+		m_Texts[8] = DebugText("Avg Frame:", Vector2i(0, FONT_SIZE * 8), p_Font, *renderer);
 	}
 	
 	void Debug::Update(const EngineTime& time)
@@ -38,6 +40,8 @@ namespace ME
 			m_Texts[4].SetText(*p_Renderer, "Physics: " + std::to_string(time.GetPhysicsTime()).substr(0, 5) + "ms");
 			m_Texts[5].SetText(*p_Renderer, "Scripts: " + std::to_string(time.GetScriptTime()).substr(0, 5) + "ms");
 			m_Texts[6].SetText(*p_Renderer, "Misc: " + std::to_string(time.GetMiscTime()).substr(0, 5) + "ms");
+			m_Texts[7].SetText(*p_Renderer, "Avg FPS:" + std::to_string(time.GetAvgFps()));
+			m_Texts[8].SetText(*p_Renderer, "Avg Frame:" + std::to_string(time.GetAvgDeltaTime()).substr(0, 5) + "ms");
 
 			m_Timer -= UPDATE_TIME_MILLISECONDS;
 		}

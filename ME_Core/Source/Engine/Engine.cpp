@@ -146,7 +146,7 @@ namespace ME
 
 	Time Engine::GetTime()
 	{
-		return Time(m_Time.GetDeltaTimeInSeconds());
+		return Time( m_Time.GetDeltaTimeInSeconds(), m_Time.GetAvgDeltaTime(), m_Time.GetAvgFps() );
 	}
 
 	Camera Engine::GetMainCamera()

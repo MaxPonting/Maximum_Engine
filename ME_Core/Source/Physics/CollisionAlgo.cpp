@@ -135,12 +135,6 @@ namespace ME
 
 	CollisionManifold SAT(const TransformComponent& transformA, const std::vector<Vector2f>& verticesA, const TransformComponent& transformB, const std::vector<Vector2f>& verticesB)
 	{
-		//
-		// Needs Fixed!!!
-		// Can cause error on corners
-		// Unknown reason		
-		//
-		
 		Vector2f normal;
 		float depth = 0;
 
@@ -209,8 +203,6 @@ namespace ME
 
 	CollisionManifold SATCircle(const TransformComponent& transformA, const std::vector<Vector2f>& verticesA, const TransformComponent& transformB, const CircleColliderComponent* circleB)
 	{
-		
-
 		Vector2f normal;
 		float depth = 0;
 

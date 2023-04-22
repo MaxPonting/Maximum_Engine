@@ -46,6 +46,9 @@ namespace ME
 		{
 			static_assert(std::is_base_of<ComponentRef, C>::value, "C must inherit from ComponentRef!");
 
+			if (p_ECS == nullptr)
+				return C();
+
 			if (std::is_same<Transform, C>::value)
 			p_ECS->AddComponent<TransformComponent>(m_ID);
 		
@@ -86,6 +89,9 @@ namespace ME
 		C GetComponent()
 		{
 			static_assert(std::is_base_of<ComponentRef, C>::value, "C must be a component!");
+
+			if (p_ECS == nullptr)
+				return C();
 
 			bool has;
 
@@ -131,6 +137,9 @@ namespace ME
 		{
 			static_assert(std::is_base_of<ComponentRef, C>::value, "C must be a component!");
 
+			if (p_ECS == nullptr)
+				return false;
+
 			if (std::is_same<Transform, C>::value)
 			return p_ECS->HasComponent<TransformComponent>(m_ID);
 			
@@ -172,6 +181,9 @@ namespace ME
 		{
 			static_assert(std::is_base_of<ComponentRef, C>::value, "C must be a component!");
 
+			if (p_ECS == nullptr)
+				return;
+
 			if (std::is_same<Transform, C>::value)
 			p_ECS->DestroyComponent<TransformComponent>(m_ID);
 			
@@ -211,6 +223,9 @@ namespace ME
 		{
 			static_assert(std::is_base_of<ScriptComponent, C>::value, "C must be a script!");
 
+			if (p_ECS == nullptr)
+				return nullptr;
+
 			return p_ECS->AddScript<C>(m_ID);
 		}
 
@@ -221,6 +236,9 @@ namespace ME
 		C* GetScript()
 		{
 			static_assert(std::is_base_of<ScriptComponent, C>::value, "C must be a script!");
+
+			if (p_ECS == nullptr)
+				return nullptr;
 
 			return p_ECS->GetScript<C>(m_ID);
 		}
@@ -233,6 +251,9 @@ namespace ME
 		{
 			static_assert(std::is_base_of<ScriptComponent, C>::value, "C must be a script!");
 
+			if (p_ECS == nullptr)
+				return false;
+
 			return p_ECS->HasScript<C>(m_ID);
 		}
 
@@ -243,6 +264,9 @@ namespace ME
 		void DestroyScript()
 		{
 			static_assert(std::is_base_of<ScriptComponent, C>::value, "C must be a script!");
+
+			if (p_ECS == nullptr)
+				return;
 
 			return p_ECS->DestroyScript<C>(m_ID);
 		}

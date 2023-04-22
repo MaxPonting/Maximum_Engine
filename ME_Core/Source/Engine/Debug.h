@@ -7,7 +7,7 @@
 #include "EngineTime.h"
 #include "../Helper/RGBA.h"
 
-#define NUM_DEBUG_TEXTS 7
+#define NUM_DEBUG_TEXTS 9
 #define UPDATE_TIME_MILLISECONDS 100
 #define TEXT_COLOUR ME::RGBA(0, 255, 0, 255)
 #define FONT_SIZE 18

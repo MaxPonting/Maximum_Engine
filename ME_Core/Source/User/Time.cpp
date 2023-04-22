@@ -2,7 +2,7 @@
 
 namespace ME
 {
-	Time::Time(const float deltaTime) :
-		DeltaTime(deltaTime)
+	Time::Time(const float deltaTime, const float avgDeltaTime, const int avgFps) :
+		DeltaTime(deltaTime), AvgDeltaTime(avgDeltaTime), AvgFps(avgFps)
 	{}
 }
