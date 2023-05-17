@@ -23,7 +23,7 @@ namespace ME
 	{		
 		//SDL_SetHint(SDL_HINT_RENDER_DRIVER, "opengl");
 		SDLCall(SDL_SetHint(SDL_HINT_RENDER_BATCHING, "1"));
-		SDLCall(p_Renderer = SDL_CreateRenderer(window.GetWindow(), -1, SDL_RENDERER_ACCELERATED /*| SDL_RENDERER_PRESENTVSYNC*/));
+		SDLCall(p_Renderer = SDL_CreateRenderer(window.GetWindow(), -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC));
 		SDLCall(SDL_RenderSetLogicalSize(p_Renderer, window.GetSize().X, window.GetSize().Y));
 		SDLCall(SDL_GetRendererInfo(p_Renderer, &m_Info));
 	}
