@@ -17,15 +17,15 @@ namespace ME
 	{
 		SDLCall(p_Font = TTF_OpenFont("../Assets/Fonts/clear-sans.regular.ttf", FONT_SIZE));
 
-		m_Texts[1] = DebugText("Driver: " + std::string(renderer->GetInfo().name), Vector2i(), p_Font, *renderer);
-		m_Texts[0] = DebugText("FPS:", Vector2i(0, FONT_SIZE), p_Font, *renderer);	
-		m_Texts[2] = DebugText("Frame:", Vector2i(0, FONT_SIZE * 2), p_Font, *renderer);
-		m_Texts[3] = DebugText("Render:", Vector2i(0, FONT_SIZE * 3), p_Font, *renderer);
-		m_Texts[4] = DebugText("Physics:", Vector2i(0, FONT_SIZE * 4), p_Font, *renderer);
-		m_Texts[5] = DebugText("Scripts:", Vector2i(0, FONT_SIZE * 5), p_Font, *renderer);
-		m_Texts[6] = DebugText("Misc:", Vector2i(0, FONT_SIZE * 6), p_Font, *renderer);
-		m_Texts[7] = DebugText("Avg FPS:", Vector2i(0, FONT_SIZE * 7), p_Font, *renderer);
-		m_Texts[8] = DebugText("Avg Frame:", Vector2i(0, FONT_SIZE * 8), p_Font, *renderer);
+		m_Texts[1] = DebugText("Driver: " + std::string(renderer->GetInfo().name), Vector2i(10, 0), p_Font, *renderer);
+		m_Texts[0] = DebugText("FPS:", Vector2i(10, FONT_SIZE), p_Font, *renderer);	
+		m_Texts[2] = DebugText("Frame:", Vector2i(10, FONT_SIZE * 2), p_Font, *renderer);
+		m_Texts[3] = DebugText("Render:", Vector2i(10, FONT_SIZE * 3), p_Font, *renderer);
+		m_Texts[4] = DebugText("Physics:", Vector2i(10, FONT_SIZE * 4), p_Font, *renderer);
+		m_Texts[5] = DebugText("Scripts:", Vector2i(10, FONT_SIZE * 5), p_Font, *renderer);
+		m_Texts[6] = DebugText("Misc:", Vector2i(10, FONT_SIZE * 6), p_Font, *renderer);
+		m_Texts[7] = DebugText("Avg FPS:", Vector2i(10, FONT_SIZE * 7), p_Font, *renderer);
+		m_Texts[8] = DebugText("Avg Frame:", Vector2i(10, FONT_SIZE * 8), p_Font, *renderer);
 	}
 	
 	void Debug::Update(const EngineTime& time)

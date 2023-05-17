@@ -29,7 +29,7 @@ namespace ME
 	*/
 	void EngineTime::Update()
 	{		
-		long delta = GetTimeSinceLastFrame();
+		unsigned long delta = GetTimeSinceLastFrame();
 
 		double_t deltaMilliSeconds = delta * 0.001;
 		m_DeltaTime = deltaMilliSeconds;

@@ -65,7 +65,7 @@ namespace ME
 		// Check for collision
 		Vector2f heading = transformB.position - transformA.position;
 		float distance = pow(heading.X * heading.X + heading.Y * heading.Y, 0.5);
-		bool collision = distance <= circleA->Radius + circleB->Radius;
+		bool collision = distance < circleA->Radius + circleB->Radius;
 
 		CollisionManifold manifold;
 		manifold.HasCollision = collision;
@@ -127,7 +127,7 @@ namespace ME
 		if (!manifold.HasCollision) return manifold;
 
 		float distance = pow(distanceSqr, 0.5);
-		manifold.Normal = -heading.Normalize(distance);
+		manifold.Normal = heading.Normalize(distance);
 		manifold.Depth = (circleB->Radius - distance) / 2;
 
 		return manifold;
@@ -196,7 +196,7 @@ namespace ME
 
 		manifold.HasCollision = true;
 		manifold.Depth = depth;
-		manifold.Normal = normal;
+		manifold.Normal = normal.Normalize();
 		
 		return manifold;
 	}
@@ -267,7 +267,7 @@ namespace ME
 		CollisionManifold manifold;
 		manifold.HasCollision = true;
 		manifold.Depth = depth;
-		manifold.Normal = normal;
+		manifold.Normal = normal.Normalize();
 
 		return manifold;
 
